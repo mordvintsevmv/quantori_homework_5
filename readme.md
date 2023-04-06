@@ -91,13 +91,6 @@ I.e. if you have an input inside a list, and list rerenders, text in input will 
 
 Make a solution that will preserve state of children components.
 
-# How to complete the homework
-
-1. Clone this to your local computer, checkout master branch
-2. Checkout master branch in your repository for assignments. Create `HW5` folder there and copy all content of this repo to `HW5` folder. Commit your changes.
-3. Checkout a new branch `HW5` in your repository, start doing the assignment. Later you will create a PR from `HW5` to master and this PR will contain only the code you have added to the assignment code.
-4. Describe which extensions you have implemented in the PR description.
-
 ---
 
 ## <a name="contacts">Contacts</a>
