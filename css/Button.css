@@ -1,0 +1,30 @@
+.button{
+    height: 52px;
+    width: fit-content;
+
+    padding: 16px 32px;
+
+    border-radius: 12px;
+
+    background: rgba(60, 134, 244, 0.15);
+
+    color: #0053CF;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.button:hover{
+    background: rgba(60, 134, 244, 0.35);
+}
+
+.button:active{
+    background: #3C86F4;
+    color: #FFFFFF;
+}
+
+.button:disabled{
+    background: #D3D3D3;
+    color: #FFFFFF;
+}
