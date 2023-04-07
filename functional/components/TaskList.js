@@ -16,7 +16,7 @@ const TaskList = ({title, items, deleteItem, checkItem}) => {
 
     // Title
     const list_title = document.createElement('div')
-    list_title.classList.add('list_wrapper__title')
+    list_title.classList.add('list-wrapper__title')
     list_title.innerText = title
 
     // Items - array of li
@@ -27,12 +27,15 @@ const TaskList = ({title, items, deleteItem, checkItem}) => {
     });
 
     // Items - ul
+    const ul_wrapper = document.createElement('div')
+    ul_wrapper.classList.add('list-wrapper__items')
+
     const ul = document.createElement("ul");
-    ul.classList.add('list_wrapper__items')
 
     // Appending
     ul.append(...listItems);
-    list_wrapper.append(list_title, ul)
+    ul_wrapper.append(ul)
+    list_wrapper.append(list_title, ul_wrapper)
 
     return list_wrapper;
 }

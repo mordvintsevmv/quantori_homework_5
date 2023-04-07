@@ -1,8 +1,9 @@
 .list-wrapper{
+    position: relative;
     margin-bottom: 40px;
 }
 
-.list_wrapper__title{
+.list-wrapper__title{
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
@@ -11,8 +12,10 @@
     color: #000000;
 
     margin-bottom: 24px;
+
+
 }
 
-.list_wrapper__items{
-
+.list-wrapper__items{
+    margin: 12px;
 }
