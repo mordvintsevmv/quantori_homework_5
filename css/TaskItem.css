@@ -1,0 +1,80 @@
+.task-item{
+    position: relative;
+
+    height: 67px;
+    width: 479px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.task-item__checkbox{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    cursor: pointer;
+    will-change: transform;
+}
+
+.task-item__checkbox :hover{
+    filter: invert(0.3);
+    will-change: transform;
+
+}
+
+.task-item__info{
+
+}
+
+.task-item__title{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.task-item__bottom{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-item__tag{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+
+
+}
+
+.task-item__date{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #838383;
+}
+
+.task-item__delete{
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.task-item__delete :hover{
+    filter: brightness(0) invert(0) invert(42%) sepia(69%) saturate(900%) hue-rotate(186deg) brightness(99%) contrast(94%);
+    opacity: 0.6;
+    will-change: transform;
+}
+
+.task-item__delete :active{
+    filter: brightness(0) invert(0) invert(17%) sepia(84%) saturate(2353%) hue-rotate(205deg) brightness(121%) contrast(113%);
+    will-change: transform;
+
+}

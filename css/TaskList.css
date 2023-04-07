@@ -1,0 +1,18 @@
+.list-wrapper{
+    margin-bottom: 40px;
+}
+
+.list_wrapper__title{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 33px;
+
+    color: #000000;
+
+    margin-bottom: 24px;
+}
+
+.list_wrapper__items{
+
+}
