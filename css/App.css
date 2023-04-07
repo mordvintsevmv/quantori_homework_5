@@ -6,6 +6,9 @@
     padding: 44px 164px;
 }
 
+.app-wrapper--isModal{
+}
+
 .app-wrapper__header{
     margin-bottom: 42px;
 }
@@ -31,4 +34,8 @@
     justify-content: left;
 
     margin-bottom: 42px;
+}
+
+.app-wrapper__search{
+    width: 750px;
 }

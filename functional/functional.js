@@ -1,7 +1,8 @@
 import TaskList from "./components/TaskList.js";
-import SearchField from "./components/SearchField.js";
+import Input from "./components/Input.js";
 import Header from "./components/Header.js";
 import Button from "./components/Button.js";
+import Modal from "./components/Modal.js";
 
 (function () {
     let state = undefined;
@@ -23,30 +24,62 @@ import Button from "./components/Button.js";
         return [state, setValue];
     }
 
+    const save_items = () => {
+        localStorage.setItem('items', JSON.stringify(state.items))
+    }
+
+    const load_items = () => {
+        return JSON.parse(localStorage.getItem('items'))
+    }
+
 
     /**
      * App container
      * @returns {HTMLDivElement} - The app container
      */
     function App() {
-        const [items, setItems] = useState(
-            [{id: 0, checked: false, title: 'First Task', tag: 'other', date: new Date()}]);
+
+        const test_items = load_items() || [
+            {id: 0, checked: false, title: 'First Task', tag: 'home', date: new Date()},
+            {id: 1, checked: true, title: 'Second Task', tag: 'health', date: new Date()},
+            {id: 2, checked: false, title: 'Third Task', tag: 'work', date: new Date()},
+            {id: 3, checked: true, title: 'Fourth Task', tag: 'other', date: new Date()},
+            {id: 4, checked: false, title: 'Fifth Task', tag: 'health', date: new Date()},
+            {id: 5, checked: true, title: 'Six Task', tag: 'home', date: new Date()},
+        ]
+
+        const [state, setState] = useState({
+            items: test_items,
+            last_id: test_items.length,
+            isModal: false
+        })
 
         function addItem() {
-            setItems([...items, {id: items.length+1, checked: false, title: items.length+1 + ' Task', tag: 'other', date: new Date()}]);
+            const title = document.getElementById('add-task-input').value
+            setState({...state, items: [...state.items, {id: state.last_id++, checked: false, title: title, tag: 'other', date: new  Date()}]})
+            save_items()
         }
 
         const deleteItem = (id) => {
-            setItems([...items.filter(item => item.id !== id)])
+            setState({...state, items: [...state.items.filter(item => item.id !== id)]})
+            save_items()
+        }
+
+        const openModal = () => {
+            setState({...state, isModal: true})
+        }
+
+        const closeModal = () => {
+            setState({...state, isModal: false})
         }
 
         const checkItem = (id) => {
-            const item_index = items.findIndex(item => item.id === id)
+            const item_index = state.items.findIndex(item => item.id === id)
 
-            const new_items = [...items]
+            const new_items = [...state.items]
             new_items[item_index] = {...new_items[item_index], checked: !new_items[item_index].checked}
 
-            setItems(new_items)
+            setState({...state, items: new_items})
         }
 
         // App wrapper
@@ -54,8 +87,8 @@ import Button from "./components/Button.js";
         app_wrapper.classList.add('app-wrapper')
 
         // Filtering items by checked/unchecked
-        const in_work_items = items.filter(item => item.checked === false)
-        const finished_items = items.filter(item => item.checked === true)
+        const in_work_items = state.items.filter(item => item.checked === false)
+        const finished_items = state.items.filter(item => item.checked === true)
 
         // Creating Components
         const header = Header()
@@ -67,15 +100,27 @@ import Button from "./components/Button.js";
         in_work_task_list.classList.add('app-wrapper__list', 'app-wrapper__list-in-work')
         finished_task_list.classList.add('app-wrapper__list', 'app-wrapper__list-finished')
 
-        const search = SearchField();
-        const button = Button({text: "+ New Item", onClick: addItem});
+        const search = Input({placeholder: 'Search Task'});
+        search.classList.add('app-wrapper__search')
+
+        const button = Button({text: "+ New Item", onClick: openModal});
 
         // Controls
         const controls = document.createElement('div')
         controls.classList.add('app-wrapper__controls')
         controls.append(search, button)
 
+        // Modal
+        const modal = Modal({closeModal: closeModal, addTask: addItem})
+        modal.classList.add('app-wrapper__modal')
+
         app_wrapper.append(header, controls, in_work_task_list, finished_task_list);
+
+        if (state.isModal){
+            app_wrapper.append(modal)
+            app_wrapper.classList.add('app-wrapper--isModal')
+        }
+
         return app_wrapper;
     }
 
