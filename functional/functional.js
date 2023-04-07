@@ -1,3 +1,8 @@
+import TaskList from "./components/TaskList.js";
+import SearchField from "./components/SearchField.js";
+import Header from "./components/Header.js";
+import Button from "./components/Button.js";
+
 (function () {
     let state = undefined;
 
@@ -18,48 +23,46 @@
         return [state, setValue];
     }
 
-    /**
-     * Functional component for the list
-     * @param items {string[]}
-     * @returns {HTMLElement} - List element
-     */
-    function List({items}) {
-        const listItems = items.map((item) => `<li>${item}</li>`).join("");
-        const ul = document.createElement("ul");
-        ul.innerHTML = listItems;
-        return ul;
-    }
-
-    /**
-     * Button component
-     * @param text {string}
-     * @param onClick {function}
-     * @returns {HTMLButtonElement} - Button element
-     */
-    function Button({text, onClick}) {
-        const button = document.createElement("button");
-        button.innerHTML = text;
-        button.onclick = onClick;
-        return button;
-    }
-
 
     /**
      * App container
      * @returns {HTMLDivElement} - The app container
      */
     function App() {
-        const [items, setItems] = useState(["Item 1", "Item 2", "Item 3"]);
+        const [items, setItems] = useState(
+            [{id: 0, checked: false, title: 'First Task', tag: 'other', date: new Date()}]);
 
         function addItem() {
-            setItems([...items, `Item ${items.length + 1}`]);
+            setItems([...items, {id: items.length+1, checked: false, title: items.length+1 + ' Task', tag: 'other', date: new Date()}]);
         }
 
-        const div = document.createElement("div");
-        const list = List({items});
-        const button = Button({text: "Add item", onClick: addItem});
-        div.append(list, button);
-        return div;
+        const deleteItem = (id) => {
+            setItems([...items.filter(item => item.id !== id)])
+        }
+
+        const checkItem = (id) => {
+            const item_index = items.findIndex(item => item.id === id)
+
+            const new_items = [...items]
+            new_items[item_index] = {...new_items[item_index], checked: !new_items[item_index].checked}
+
+            setItems(new_items)
+        }
+
+        const app_wrapper = document.createElement("div");
+        app_wrapper.classList.add('app-wrapper')
+
+        const in_work_items = items.filter(item => item.checked === false)
+        const finished_items = items.filter(item => item.checked === true)
+
+        const header = Header()
+        const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
+        const finished_task_list = TaskList({title: 'Completed Tasks', items: finished_items, deleteItem, checkItem});
+        const search = SearchField();
+        const button = Button({text: "+ New Item", onClick: addItem});
+
+        app_wrapper.append(header, search, button, in_work_task_list, finished_task_list);
+        return app_wrapper;
     }
 
     /**
@@ -67,8 +70,8 @@
      * On change whole app is re-rendered.
      */
     function renderApp() {
-        const appContainer = document.getElementById("functional-example");
-        appContainer.innerHTML = "";
+        const appContainer = document.getElementById("root");
+        appContainer.innerHTML = '';
         appContainer.append(App());
     }
 
