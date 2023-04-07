@@ -23,7 +23,6 @@
 .task-item__checkbox :hover{
     filter: invert(0.3);
     will-change: transform;
-
 }
 
 .task-item__info{

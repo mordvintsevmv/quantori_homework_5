@@ -49,19 +49,33 @@ import Button from "./components/Button.js";
             setItems(new_items)
         }
 
+        // App wrapper
         const app_wrapper = document.createElement("div");
         app_wrapper.classList.add('app-wrapper')
 
+        // Filtering items by checked/unchecked
         const in_work_items = items.filter(item => item.checked === false)
         const finished_items = items.filter(item => item.checked === true)
 
+        // Creating Components
         const header = Header()
+        header.classList.add('app-wrapper__header')
+
         const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
         const finished_task_list = TaskList({title: 'Completed Tasks', items: finished_items, deleteItem, checkItem});
+
+        in_work_task_list.classList.add('app-wrapper__list', 'app-wrapper__list-in-work')
+        finished_task_list.classList.add('app-wrapper__list', 'app-wrapper__list-finished')
+
         const search = SearchField();
         const button = Button({text: "+ New Item", onClick: addItem});
 
-        app_wrapper.append(header, search, button, in_work_task_list, finished_task_list);
+        // Controls
+        const controls = document.createElement('div')
+        controls.classList.add('app-wrapper__controls')
+        controls.append(search, button)
+
+        app_wrapper.append(header, controls, in_work_task_list, finished_task_list);
         return app_wrapper;
     }
 

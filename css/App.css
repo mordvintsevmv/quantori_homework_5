@@ -1,0 +1,34 @@
+.app-wrapper{
+    margin-bottom: 50px;
+
+    width: 100vw;
+
+    padding: 44px 164px;
+}
+
+.app-wrapper__header{
+    margin-bottom: 42px;
+}
+
+.app-wrapper__list{
+    margin-bottom: 42px;
+}
+
+.app-wrapper__list-in-work{
+
+}
+
+.app-wrapper__list-finished{
+
+}
+
+.app-wrapper__controls{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+
+    align-items: center;
+    justify-content: left;
+
+    margin-bottom: 42px;
+}
