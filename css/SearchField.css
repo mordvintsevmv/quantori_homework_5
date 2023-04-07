@@ -1,0 +1,34 @@
+.search-field{
+    margin: 40px;
+}
+
+.search-field__input{
+
+    width: 750px;
+    height: 52px;
+
+    padding: 16px 21px;
+
+    border: 1px solid #D2D2D2;
+    border-radius: 12px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #1D1D1D;
+
+    background: #F5F5F5;
+}
+
+.search-field__input::placeholder{
+    color: #838383;
+}
+
+.search-field__input:focus{
+    outline: none;
+    border: 1px solid #666;
+    border-radius: 12px;
+}
+
