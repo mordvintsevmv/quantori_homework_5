@@ -1,9 +1,6 @@
-.search-field{
-}
 
-.search-field__input{
+.text-input{
 
-    width: 750px;
     height: 52px;
 
     padding: 16px 21px;
@@ -21,11 +18,11 @@
     background: #F5F5F5;
 }
 
-.search-field__input::placeholder{
+.text-input::placeholder{
     color: #838383;
 }
 
-.search-field__input:focus{
+.text-input:focus{
     outline: none;
     border: 1px solid #666;
     border-radius: 12px;
