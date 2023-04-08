@@ -36,7 +36,7 @@ const TaskItem = ({id, checked, title, tag, date}, deleteItem, checkItem) => {
     ){
         day_text = 'Yesterday'
     } else {
-        day_text = `${day_array[date.getDate()]}, ${date} ${month_array[date.getMonth()]}`
+        day_text = `${day_array[parsed_date.getDay()]}, ${parsed_date.getDate()} ${month_array[parsed_date.getMonth()]}`
     }
 
     // Item wrapper
