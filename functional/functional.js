@@ -117,7 +117,7 @@ import Modal from "./components/Modal.js";
         search.onkeyup = event => {
             console.log(event.target?.value)
 
-            const in_work_items = state.items.filter(item => (item.checked === false) && (item.title.toLowerCase().includes(event.target?.value.toLowerCase() || '')))
+            const in_work_items = state.items.filter(item => (item.checked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(event.target?.value.toLowerCase().replace(/\s+/g, '') || '')))
             const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
             in_work_task_list.id = 'in-work-tasks'
 
