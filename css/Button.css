@@ -27,6 +27,7 @@
 .button:disabled{
     background: #D3D3D3;
     color: #FFFFFF;
+    cursor: default;
 }
 
 .button--isTransparent{
