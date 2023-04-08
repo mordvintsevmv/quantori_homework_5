@@ -110,10 +110,17 @@ const Modal = ({closeModal, addTask}) => {
 
     other_label.append(other_tag, other_div)
 
-    //
+    // Appending Form
     tag_form.append(health_label, work_label, home_label, other_label)
 
-    options.append(tag_form)
+    // Date Input
+    const date_input = document.createElement('input')
+    date_input.type = 'date'
+    date_input.classList.add('modal__date')
+    date_input.id = 'date-input'
+    date_input.valueAsDate = new Date();
+
+    options.append(tag_form, date_input)
 
     // Button Wrapper
     const button_wrapper = document.createElement('div')
