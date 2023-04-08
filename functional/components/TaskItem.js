@@ -81,6 +81,8 @@ const TaskItem = ({id, checked, title, tag, date}, deleteItem, checkItem) => {
             task_item_tag.classList.add("task-tag--green")
         } else if (tag === 'health') {
             task_item_tag.classList.add("task-tag--blue")
+        } else if (tag === 'work') {
+            task_item_tag.classList.add("task-tag--purple")
         } else {
             task_item_tag.classList.add("task-tag--orange")
         }
