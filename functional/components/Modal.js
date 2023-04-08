@@ -27,6 +27,13 @@ const Modal = ({closeModal, addTask}) => {
     const modal_input = Input({placeholder: 'Task Title'})
     modal_input.classList.add('modal__input')
     modal_input.id = 'add-task-input'
+    modal_input.onkeyup = (event) => {
+        if (event.target?.value && event.target?.value !== ''){
+            document.getElementById('add-task-button').disabled = false
+        } else{
+            document.getElementById('add-task-button').disabled = true
+        }
+    }
 
     // Add Button
     const add_button = Button({
@@ -34,9 +41,11 @@ const Modal = ({closeModal, addTask}) => {
         }
     })
     add_button.classList.add('modal__add-button')
+    add_button.id = 'add-task-button'
     add_button.onclick = () => {
         addTask()
     }
+    add_button.disabled = true
 
     // Cancel Button
     const cancel_button = Button({
