@@ -28,15 +28,92 @@ const Modal = ({closeModal, addTask}) => {
     modal_input.id = 'add-task-input'
 
     // Add Button
-    const add_button = Button({text: 'Add Task', onClick: ()=>{}})
+    const add_button = Button({
+        text: 'Add Task', onClick: () => {
+        }
+    })
     add_button.classList.add('modal__add-button')
-    add_button.onclick = () => {addTask()}
+    add_button.onclick = () => {
+        addTask()
+    }
 
     // Cancel Button
-    const cancel_button = Button({text: 'Cancel', isTransparent: true, onClick: ()=>{}})
+    const cancel_button = Button({
+        text: 'Cancel', isTransparent: true, onClick: () => {
+        }
+    })
     cancel_button.classList.add('modal__cancel-button')
     cancel_button.onclick = () => closeModal()
 
+    // Options Wrapper
+    const options = document.createElement('div')
+    options.classList.add('modal__options')
+
+// Tag Options
+    const tag_form = document.createElement('form')
+    tag_form.classList.add('modal__tag-list')
+
+    // Home Tag
+    const home_label = document.createElement('label')
+
+    const home_tag = document.createElement('input')
+    home_tag.type = 'radio'
+    home_tag.name = 'tag'
+    home_tag.value = 'home'
+
+    const home_div = document.createElement('div')
+    home_div.classList.add('task-tag', "task-tag--green", 'modal__tag')
+    home_div.innerText = 'home'
+
+    home_label.append(home_tag, home_div)
+
+    // Health Tag
+    const health_label = document.createElement('label')
+
+    const health_tag = document.createElement('input')
+    health_tag.type = 'radio'
+    health_tag.name = 'tag'
+    health_tag.value = 'health'
+
+    const health_div = document.createElement('div')
+    health_div.classList.add('task-tag', "task-tag--blue", 'modal__tag')
+    health_div.innerText = 'health'
+
+    health_label.append(health_tag, health_div)
+
+    // Work Tag
+    const work_label = document.createElement('label')
+
+    const work_tag = document.createElement('input')
+    work_tag.type = 'radio'
+    work_tag.name = 'tag'
+    work_tag.value = 'work'
+
+    const work_div = document.createElement('div')
+    work_div.classList.add('task-tag', "task-tag--purple", 'modal__tag')
+    work_div.innerText = 'work'
+
+    work_label.append(work_tag, work_div)
+
+    // Other Tag
+    const other_label = document.createElement('label')
+
+    const other_tag = document.createElement('input')
+    other_tag.type = 'radio'
+    other_tag.name = 'tag'
+    other_tag.value = 'other'
+    other_tag.defaultChecked = true
+
+    const other_div = document.createElement('div')
+    other_div.classList.add('task-tag', "task-tag--orange", 'modal__tag')
+    other_div.innerText = 'other'
+
+    other_label.append(other_tag, other_div)
+
+    //
+    tag_form.append(health_label, work_label, home_label, other_label)
+
+    options.append(tag_form)
 
     // Button Wrapper
     const button_wrapper = document.createElement('div')
@@ -44,7 +121,7 @@ const Modal = ({closeModal, addTask}) => {
 
     button_wrapper.append(cancel_button, add_button)
 
-    modal.append(modal_title, modal_input, button_wrapper)
+    modal.append(modal_title, modal_input, options, button_wrapper)
     overlay.append(modal)
 
     return overlay

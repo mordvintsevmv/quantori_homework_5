@@ -60,3 +60,46 @@
 .modal__add-button{
     width: 228px;
 }
+
+.modal__options{
+    margin-top: 29px;
+}
+
+.modal__tag-list{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.modal__tag{
+    display: inline;
+}
+
+.modal__tag:active{
+
+}
+
+label {
+    cursor: pointer;
+}
+
+.modal__options input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked~ .task-tag--green {
+    border: 1px solid #639462;
+}
+
+input[type="radio"]:checked~ .task-tag--blue {
+    border: 1px solid #0053CF;
+}
+
+input[type="radio"]:checked~ .task-tag--purple {
+    border: 1px solid #9747FF;
+}
+
+input[type="radio"]:checked~ .task-tag--orange {
+    border: 1px solid #EA8C00;
+}
+
