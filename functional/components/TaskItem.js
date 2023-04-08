@@ -1,7 +1,13 @@
+import TaskTag from "./TaskTag.js";
+
+
+const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
 /**
  * Task Item component
  * @param id {number}
- * @param checked {boolean}
+ * @param isChecked {boolean}
  * @param title {string}
  * @param tag {string}
  * @param date {string}
@@ -9,11 +15,9 @@
  * @param checkItem {function}
  * @returns {HTMLDivElement} - HTML code for TaskItem element
  */
-const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
 
-const TaskItem = ({id, checked, title, tag, date}, deleteItem, checkItem) => {
-
+    // Creating text for date
     const today = new Date();
 
     let day_text;
@@ -47,7 +51,7 @@ const TaskItem = ({id, checked, title, tag, date}, deleteItem, checkItem) => {
     const checkbox_wrapper = document.createElement('div')
     checkbox_wrapper.classList.add('task-item__checkbox')
     const task_item_checkbox = document.createElement('img')
-    if (checked){
+    if (isChecked){
         task_item_checkbox.src = 'img/checkbox-disabled.svg'
         task_item_checkbox.alt = 'Checkbox - uncheck'
     } else{
@@ -72,21 +76,8 @@ const TaskItem = ({id, checked, title, tag, date}, deleteItem, checkItem) => {
     task_item_bottom.classList.add("task-item__bottom")
 
     // Tag
-    const task_item_tag = document.createElement('div')
-    task_item_tag.classList.add("task-task-item__tag", 'task-tag')
-    task_item_tag.innerText = tag
-
-    if (!checked) {
-        if (tag === 'home') {
-            task_item_tag.classList.add("task-tag--green")
-        } else if (tag === 'health') {
-            task_item_tag.classList.add("task-tag--blue")
-        } else if (tag === 'work') {
-            task_item_tag.classList.add("task-tag--purple")
-        } else {
-            task_item_tag.classList.add("task-tag--orange")
-        }
-    }
+    const task_item_tag = TaskTag({name: tag, isColored: !isChecked})
+    task_item_tag.classList.add("task-task-item__tag")
 
     // Date
     const task_item_date = document.createElement('div')
@@ -108,7 +99,7 @@ const TaskItem = ({id, checked, title, tag, date}, deleteItem, checkItem) => {
     task_item_bottom.append(task_item_tag, task_item_date)
     task_item_info.append(task_item_title, task_item_bottom)
 
-    if(checked){
+    if(isChecked){
         task_item.append(checkbox_wrapper, task_item_info)
     } else{
         task_item.append(checkbox_wrapper, task_item_info, delete_wrapper)

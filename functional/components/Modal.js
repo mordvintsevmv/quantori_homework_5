@@ -1,8 +1,9 @@
 import Input from "./Input.js";
 import Button from "./Button.js";
+import TaskTag from "./TaskTag.js";
 
 /**
- * Button component
+ * Modal component
  * @param closeModal {function}
  * @param addTask {function}
  * @returns {HTMLDivElement} - Modal element
@@ -49,7 +50,7 @@ const Modal = ({closeModal, addTask}) => {
     const options = document.createElement('div')
     options.classList.add('modal__options')
 
-// Tag Options
+    // Tag Options
     const tag_form = document.createElement('form')
     tag_form.classList.add('modal__tag-list')
 
@@ -61,9 +62,8 @@ const Modal = ({closeModal, addTask}) => {
     home_tag.name = 'tag'
     home_tag.value = 'home'
 
-    const home_div = document.createElement('div')
-    home_div.classList.add('task-tag', "task-tag--green", 'modal__tag')
-    home_div.innerText = 'home'
+    const home_div = TaskTag({name: 'home'})
+    home_div.classList.add('modal__tag')
 
     home_label.append(home_tag, home_div)
 
@@ -75,9 +75,9 @@ const Modal = ({closeModal, addTask}) => {
     health_tag.name = 'tag'
     health_tag.value = 'health'
 
-    const health_div = document.createElement('div')
-    health_div.classList.add('task-tag', "task-tag--blue", 'modal__tag')
-    health_div.innerText = 'health'
+    const health_div = TaskTag({name: 'health'})
+    health_div.classList.add('modal__tag')
+
 
     health_label.append(health_tag, health_div)
 
@@ -89,9 +89,8 @@ const Modal = ({closeModal, addTask}) => {
     work_tag.name = 'tag'
     work_tag.value = 'work'
 
-    const work_div = document.createElement('div')
-    work_div.classList.add('task-tag', "task-tag--purple", 'modal__tag')
-    work_div.innerText = 'work'
+    const work_div = TaskTag({name: 'work'})
+    work_div.classList.add('modal__tag')
 
     work_label.append(work_tag, work_div)
 
@@ -104,9 +103,8 @@ const Modal = ({closeModal, addTask}) => {
     other_tag.value = 'other'
     other_tag.defaultChecked = true
 
-    const other_div = document.createElement('div')
-    other_div.classList.add('task-tag', "task-tag--orange", 'modal__tag')
-    other_div.innerText = 'other'
+    const other_div = TaskTag({name: 'other'})
+    other_div.classList.add('modal__tag')
 
     other_label.append(other_tag, other_div)
 

@@ -1,7 +1,7 @@
 import TaskItem from "./TaskItem.js";
 
 /**
- * Functional component for the list
+ * Functional component for the Task List
  * @param title {string}
  * @param items {Object[]}
  * @param deleteItem {function}

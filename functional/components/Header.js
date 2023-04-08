@@ -1,3 +1,7 @@
+/**
+ * Header component
+ * @returns {HTMLDivElement} - Header element
+ */
 const Header = () => {
 
     // Header wrapper
