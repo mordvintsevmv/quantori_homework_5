@@ -5,7 +5,30 @@ import Button from "./components/Button.js";
 import Modal from "./components/Modal.js";
 
 (function () {
-    let state = undefined;
+    // let state = undefined;
+
+    const load_items = () => {
+        return JSON.parse(localStorage.getItem('items'))
+    }
+
+    const test_items = load_items() || [
+        {id: 0, checked: false, title: 'First Task', tag: 'home', date: new Date()},
+        {id: 1, checked: true, title: 'Second Task', tag: 'health', date: new Date()},
+        {id: 2, checked: false, title: 'Third Task', tag: 'work', date: new Date()},
+        {id: 3, checked: true, title: 'Fourth Task', tag: 'other', date: new Date()},
+        {id: 4, checked: false, title: 'Fifth Task', tag: 'health', date: new Date()},
+        {id: 5, checked: true, title: 'Six Task', tag: 'home', date: new Date()},
+    ]
+
+    let state = {
+        items: test_items,
+        last_id: test_items.reduce((max, item) => max > item.id ? max : item.id, test_items[0].id),
+        isModal: false
+    }
+
+    const save_items = () => {
+        localStorage.setItem('items', JSON.stringify(state.items))
+    }
 
     /**
      * Global application state
@@ -13,25 +36,17 @@ import Modal from "./components/Modal.js";
      * @param {T} initialValue
      * @returns {[T, function(T): void]}
      */
-    function useState(initialValue) {
+    function useState(initialValue= undefined) {
         state = state || initialValue;
 
         function setValue(newValue) {
             state = newValue;
+            save_items();
             renderApp();
         }
 
         return [state, setValue];
     }
-
-    const save_items = () => {
-        localStorage.setItem('items', JSON.stringify(state.items))
-    }
-
-    const load_items = () => {
-        return JSON.parse(localStorage.getItem('items'))
-    }
-
 
     /**
      * App container
@@ -39,30 +54,16 @@ import Modal from "./components/Modal.js";
      */
     function App() {
 
-        const test_items = load_items() || [
-            {id: 0, checked: false, title: 'First Task', tag: 'home', date: new Date()},
-            {id: 1, checked: true, title: 'Second Task', tag: 'health', date: new Date()},
-            {id: 2, checked: false, title: 'Third Task', tag: 'work', date: new Date()},
-            {id: 3, checked: true, title: 'Fourth Task', tag: 'other', date: new Date()},
-            {id: 4, checked: false, title: 'Fifth Task', tag: 'health', date: new Date()},
-            {id: 5, checked: true, title: 'Six Task', tag: 'home', date: new Date()},
-        ]
-
-        const [state, setState] = useState({
-            items: test_items,
-            last_id: test_items.length,
-            isModal: false
-        })
+        const [state, setState] = useState()
 
         function addItem() {
             const title = document.getElementById('add-task-input').value
-            setState({...state, items: [...state.items, {id: state.last_id++, checked: false, title: title, tag: 'other', date: new  Date()}]})
-            save_items()
+
+            setState({...state, items: [...state.items, {id: ++state.last_id, checked: false, title: title, tag: 'other', date: new  Date()}], isModal: false})
         }
 
         const deleteItem = (id) => {
             setState({...state, items: [...state.items.filter(item => item.id !== id)]})
-            save_items()
         }
 
         const openModal = () => {

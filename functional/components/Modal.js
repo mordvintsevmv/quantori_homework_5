@@ -37,6 +37,7 @@ const Modal = ({closeModal, addTask}) => {
     cancel_button.classList.add('modal__cancel-button')
     cancel_button.onclick = () => closeModal()
 
+
     // Button Wrapper
     const button_wrapper = document.createElement('div')
     button_wrapper.classList.add('modal__buttons')
