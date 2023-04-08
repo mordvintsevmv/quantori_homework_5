@@ -58,8 +58,9 @@ import Modal from "./components/Modal.js";
 
         function addItem() {
             const title = document.getElementById('add-task-input').value
+            const tag = document.querySelector('input[name="tag"]:checked').value;
 
-            setState({...state, items: [...state.items, {id: ++state.last_id, checked: false, title: title, tag: 'other', date: new  Date()}], isModal: false})
+            setState({...state, items: [...state.items, {id: state.last_id + 1, checked: false, title: title, tag: tag, date: new  Date()}], last_id: state.last_id + 1, isModal: false})
         }
 
         const deleteItem = (id) => {
