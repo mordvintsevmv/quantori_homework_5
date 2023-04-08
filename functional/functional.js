@@ -36,7 +36,7 @@ import Modal from "./components/Modal.js";
      * @param {T} initialValue
      * @returns {[T, function(T): void]}
      */
-    function useState(initialValue= undefined) {
+    function useState(initialValue = undefined) {
         state = state || initialValue;
 
         function setValue(newValue) {
@@ -62,7 +62,12 @@ import Modal from "./components/Modal.js";
             const date = new Date(document.getElementById('date-input').value);
 
 
-            setState({...state, items: [...state.items, {id: state.last_id + 1, checked: false, title: title, tag: tag, date: date}], last_id: state.last_id + 1, isModal: false})
+            setState({
+                ...state,
+                items: [...state.items, {id: state.last_id + 1, checked: false, title: title, tag: tag, date: date}],
+                last_id: state.last_id + 1,
+                isModal: false
+            })
         }
 
         const deleteItem = (id) => {
@@ -91,7 +96,7 @@ import Modal from "./components/Modal.js";
         app_wrapper.classList.add('app-wrapper')
 
         // Filtering items by checked/unchecked
-        const in_work_items = state.items.filter(item => item.checked === false)
+        const in_work_items = state.items.filter(item => (item.checked === false))
         const finished_items = state.items.filter(item => item.checked === true)
 
         // Creating Components
@@ -102,10 +107,24 @@ import Modal from "./components/Modal.js";
         const finished_task_list = TaskList({title: 'Completed Tasks', items: finished_items, deleteItem, checkItem});
 
         in_work_task_list.classList.add('app-wrapper__list', 'app-wrapper__list-in-work')
+        in_work_task_list.id = 'in-work-tasks'
+
         finished_task_list.classList.add('app-wrapper__list', 'app-wrapper__list-finished')
 
         const search = Input({placeholder: 'Search Task'});
         search.classList.add('app-wrapper__search')
+        search.id = 'search-input'
+        search.onkeyup = event => {
+            console.log(event.target?.value)
+
+            const in_work_items = state.items.filter(item => (item.checked === false) && (item.title.toLowerCase().includes(event.target?.value.toLowerCase() || '')))
+            const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
+            in_work_task_list.id = 'in-work-tasks'
+
+            console.log(in_work_task_list)
+
+            document.getElementById('in-work-tasks').replaceWith(in_work_task_list)
+        }
 
         const button = Button({text: "+ New Item", onClick: openModal});
 
@@ -120,7 +139,7 @@ import Modal from "./components/Modal.js";
 
         app_wrapper.append(header, controls, in_work_task_list, finished_task_list);
 
-        if (state.isModal){
+        if (state.isModal) {
             app_wrapper.append(modal)
             app_wrapper.classList.add('app-wrapper--isModal')
         }
