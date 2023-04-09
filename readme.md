@@ -4,6 +4,18 @@
 
 ---
 
+**Main Branch:** <a href="https://mordvintsevmv.github.io/quantori_homework_5" target="_blank">Open page</a>
+
+**Description:** *The main branch of the app.*
+
+---
+
+**Functional ToDo Branch:** <a href="https://quantori-hw5-feature-functional.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Functional Components.*
+
+---
+
 ## <a name="content">Content</a>
 
 1. [Task](#Task)
