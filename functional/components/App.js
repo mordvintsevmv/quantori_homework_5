@@ -4,6 +4,7 @@ import Input from "./Input.js";
 import Button from "./Button.js";
 import Modal from "./Modal.js";
 import {useState} from "../functional.js";
+import AddTask from "./AddTask.js";
 
 /**
  * App container
@@ -86,7 +87,7 @@ const App = () => {
     controls.append(search, button)
 
     // Modal
-    const modal = Modal({closeModal: closeModal, addTask: addItem})
+    const modal = Modal({closeModal: closeModal, children: AddTask({closeModal: closeModal, addTask: addItem})})
     modal.classList.add('app-wrapper__modal')
 
     app_wrapper.append(header, controls, in_work_task_list, finished_task_list);

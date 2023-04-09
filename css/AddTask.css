@@ -1,0 +1,94 @@
+.add-task{
+    width: 524px;
+    height: 371px;
+}
+
+.add-task__title{
+    text-align: center;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 33px;
+
+    margin-bottom: 38px;
+}
+
+.add-task__input{
+    width: 465px;
+}
+
+.add-task__buttons{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+
+    bottom: 22px;
+}
+
+.add-task__cancel-button{
+    width: 228px;
+}
+
+.add-task__add-button{
+    width: 228px;
+}
+
+.add-task__options{
+    margin-top: 29px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-task__tag-list{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.add-task__date{
+    padding: 10px 16px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #1D1D1D;
+
+    border: 2px solid rgba(60, 134, 244, 0.6);
+    border-radius: 12px;
+}
+
+.add-task__date:focus{
+    outline: none;
+    border: 2px solid rgba(60, 134, 244, 0.6);
+    border-radius: 12px;
+}
+
+label {
+    cursor: pointer;
+}
+
+.add-task__options input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked~ .task-tag--green {
+    border: 1px solid #639462;
+}
+
+input[type="radio"]:checked~ .task-tag--blue {
+    border: 1px solid #0053CF;
+}
+
+input[type="radio"]:checked~ .task-tag--purple {
+    border: 1px solid #9747FF;
+}
+
+input[type="radio"]:checked~ .task-tag--orange {
+    border: 1px solid #EA8C00;
+}
+
