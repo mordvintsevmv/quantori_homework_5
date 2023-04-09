@@ -26,18 +26,23 @@
     background: url("../img/checkbox-unchecked.svg");
 }
 
-.task-item__checkbox :hover {
+.task-item__checkbox:has(.task-item__checkbox-img--checked):hover {
+    filter: brightness(1.08);
+    will-change: transform;
+}
+
+.task-item__checkbox:has(.task-item__checkbox-img--unchecked):hover {
     filter: invert(0.3);
     will-change: transform;
 }
 
-.task-item__checkbox-img--checked:active {
-    filter: invert(0);
+.task-item__checkbox:has(.task-item__checkbox-img--checked):active {
+    filter: brightness(1.08);
     opacity: 0.4;
     will-change: transform;
 }
 
-.task-item__checkbox-img--unchecked:active {
+.task-item__checkbox:has(.task-item__checkbox-img--unchecked):active {
     filter: invert(0);
     content: url('../img/checkbox-checked.svg');
     will-change: transform;
