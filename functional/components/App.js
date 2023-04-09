@@ -70,6 +70,7 @@ const App = () => {
 
     // Button Component
     const button = Button({text: "+ New Task", onClick: openModal});
+    button.classList.add('app-wrapper__add-button')
 
     // Controls (Search and button)
     const controls = document.createElement('div')

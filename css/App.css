@@ -10,7 +10,6 @@
     margin-bottom: 42px;
 }
 
-
 .app-wrapper__search {
     width: 750px;
 }
@@ -24,10 +23,92 @@
     justify-content: left;
 
     margin-bottom: 42px;
+
 }
 
 .app-wrapper__list {
     margin-bottom: 42px;
 }
 
+.app-wrapper__add-button {
+    min-width: 158px;
+}
 
+@media screen and (max-width: 1200px) {
+    .app-wrapper {
+        margin-bottom: 50px;
+
+        padding: 44px 120px;
+    }
+
+    .app-wrapper__search {
+        width: calc(100vw - 240px - 158px);
+    }
+
+    .app-wrapper__list {
+        margin-bottom: 20px;
+    }
+
+}
+
+
+@media screen and (max-width: 900px) {
+    .app-wrapper {
+        margin-bottom: 25px;
+
+        padding: 40px 60px;
+    }
+
+    .app-wrapper__controls {
+        flex-direction: column;
+        gap: 20px;
+
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 20px;
+    }
+
+    .app-wrapper__add-button {
+        width: calc(100vw - 120px);
+    }
+
+    .app-wrapper__search {
+        width: calc(100vw - 120px);
+    }
+
+    .app-wrapper__list {
+        margin-bottom: 20px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .app-wrapper {
+        margin-bottom: 25px;
+
+        padding: 32px 32px;
+    }
+
+    .app-wrapper__controls {
+        flex-direction: column;
+        gap: 20px;
+
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 20px;
+    }
+
+    .app-wrapper__add-button {
+        width: calc(100vw - 64px);
+    }
+
+    .app-wrapper__search {
+        width: calc(100vw - 64px);
+    }
+
+    .app-wrapper__list {
+        margin-bottom: 20px;
+    }
+}

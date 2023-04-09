@@ -98,3 +98,21 @@
     filter: brightness(0) invert(0) invert(17%) sepia(84%) saturate(2353%) hue-rotate(205deg) brightness(121%) contrast(113%);
     will-change: transform;
 }
+
+@media screen and (max-width: 600px) {
+    .task-item {
+        width: 370px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .task-item {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .task-item {
+        width: 430px;
+    }
+}

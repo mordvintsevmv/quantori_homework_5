@@ -60,6 +60,7 @@
     flex-direction: row;
 
     bottom: 22px;
+
 }
 
 .add-task__cancel-button {
@@ -68,4 +69,77 @@
 
 .add-task__add-button {
     width: 228px;
+}
+
+@media screen and (max-width: 1200px) {
+    .add-task {
+        width: 500px;
+        padding: 24px 32px;
+    }
+
+    .add-task__input {
+        width: 436px;
+    }
+
+    .add-task__cancel-button {
+        width: 190px;
+    }
+
+    .add-task__add-button {
+        width: 190px;
+    }
+
+}
+
+
+@media screen and (max-width: 900px) {
+    .add-task {
+        width: 400px;
+        padding: 24px 16px;
+    }
+
+    .add-task__input {
+        width: 368px;
+    }
+
+    .add-task__options {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .add-task__cancel-button {
+        width: 180px;
+    }
+
+    .add-task__add-button {
+        width: 180px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .add-task {
+        width: 400px;
+        padding: 24px 16px;
+    }
+
+    .add-task__input {
+        width: 368px;
+    }
+
+
+    .add-task__options {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .add-task__cancel-button {
+        width: 180px;
+    }
+
+    .add-task__add-button {
+        width: 180px;
+    }
 }
