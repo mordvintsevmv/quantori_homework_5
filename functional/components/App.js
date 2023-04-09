@@ -52,22 +52,11 @@ const App = () => {
     const app_wrapper = document.createElement("div");
     app_wrapper.classList.add('app-wrapper')
 
-    // Filtering items by checked/unchecked
-    const in_work_items = state.items.filter(item => item.isChecked === false)
-    const finished_items = state.items.filter(item => item.isChecked === true)
-
-    // Creating Components
-    const header = Header()
+    // Header Component
+    const header = Header({title: 'To Do List'})
     header.classList.add('app-wrapper__header')
 
-    const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
-    const finished_task_list = TaskList({title: 'Completed Tasks', items: finished_items, deleteItem, checkItem});
-
-    in_work_task_list.classList.add('app-wrapper__list')
-    in_work_task_list.id = 'in-work-tasks'
-
-    finished_task_list.classList.add('app-wrapper__list')
-
+    // Search Component
     const search = Input({placeholder: 'Search Task'});
     search.classList.add('app-wrapper__search')
     search.id = 'search-input'
@@ -79,14 +68,27 @@ const App = () => {
         document.getElementById('in-work-tasks').replaceWith(in_work_task_list)
     }
 
-    const button = Button({text: "+ New Item", onClick: openModal});
+    // Button Component
+    const button = Button({text: "+ New Task", onClick: openModal});
 
-    // Controls
+    // Controls (Search and button)
     const controls = document.createElement('div')
     controls.classList.add('app-wrapper__controls')
     controls.append(search, button)
 
-    // Modal
+    // Task List Components
+    const in_work_items = state.items.filter(item => item.isChecked === false)
+    const finished_items = state.items.filter(item => item.isChecked === true)
+
+    const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
+    const finished_task_list = TaskList({title: 'Completed Tasks', items: finished_items, deleteItem, checkItem});
+
+    in_work_task_list.classList.add('app-wrapper__list')
+    in_work_task_list.id = 'in-work-tasks'
+
+    finished_task_list.classList.add('app-wrapper__list')
+
+    // Modal Component
     const modal = Modal({closeModal: closeModal, children: AddTask({closeModal: closeModal, addTask: addItem})})
     modal.classList.add('app-wrapper__modal')
 

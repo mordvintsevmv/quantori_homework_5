@@ -50,5 +50,6 @@ function renderApp() {
     appContainer.innerHTML = '';
     appContainer.append(App());
 }
+
 // initial render
 renderApp();

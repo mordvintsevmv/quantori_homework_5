@@ -1,9 +1,9 @@
-.list-wrapper{
+.task-list {
     position: relative;
     margin-bottom: 40px;
 }
 
-.list-wrapper__title{
+.task-list__title {
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
@@ -12,10 +12,8 @@
     color: #000000;
 
     margin-bottom: 24px;
-
-
 }
 
-.list-wrapper__items{
+.task-list__items {
     margin: 12px;
 }

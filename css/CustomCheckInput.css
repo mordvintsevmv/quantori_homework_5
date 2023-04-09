@@ -7,7 +7,7 @@
     display: none;
 }
 
-.custom-check-input:has(.custom-check-input__input:checked){
+.custom-check-input:has(.custom-check-input__input:checked) {
     border: 1px solid;
 }
 

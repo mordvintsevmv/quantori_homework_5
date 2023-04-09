@@ -1,5 +1,4 @@
-
-.text-input{
+.text-input {
 
     height: 52px;
 
@@ -18,11 +17,11 @@
     background: #F5F5F5;
 }
 
-.text-input::placeholder{
+.text-input::placeholder {
     color: #838383;
 }
 
-.text-input:focus{
+.text-input:focus {
     outline: none;
     border: 1px solid #666;
     border-radius: 12px;

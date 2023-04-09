@@ -12,7 +12,7 @@ const Button = ({text, isTransparent = false, onClick}) => {
     button.onclick = onClick;
     button.classList.add('button')
 
-    if (isTransparent){
+    if (isTransparent) {
         button.classList.add('button--isTransparent')
     }
 

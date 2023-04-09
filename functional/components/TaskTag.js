@@ -20,10 +20,8 @@ const TaskTag = ({name, isColored = true}) => {
                 tag_div.classList.add("task-tag--purple")
                 break;
             case 'other':
-                tag_div.classList.add("task-tag--orange")
-                break;
             default:
-                tag_div.classList.add('task-tag')
+                tag_div.classList.add("task-tag--orange")
                 break;
         }
     }

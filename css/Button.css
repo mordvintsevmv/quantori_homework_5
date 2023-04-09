@@ -1,4 +1,7 @@
-.button{
+/*
+Default Button
+*/
+.button {
     height: 52px;
     width: fit-content;
 
@@ -15,36 +18,39 @@
     line-height: 20px;
 }
 
-.button:hover{
+.button:hover {
     background: rgba(60, 134, 244, 0.35);
 }
 
-.button:active{
+.button:active {
     background: #3C86F4;
     color: #FFFFFF;
 }
 
-.button:disabled{
+.button:disabled {
     background: #D3D3D3;
     color: #FFFFFF;
     cursor: default;
 }
 
-.button--isTransparent{
+/*
+Transparent Button
+*/
+.button--isTransparent {
     background: none;
     color: #0053CF;
 }
 
-.button--isTransparent:hover{
+.button--isTransparent:hover {
     background: none;
-    color: rgba(239,63,62, 0.7);
+    color: rgba(239, 63, 62, 0.7);
 }
 
-.button--isTransparent:active{
+.button--isTransparent:active {
     background: none;
     color: #EF3F3E;
 }
 
-.button--isTransparent:disabled{
+.button--isTransparent:disabled {
     color: #D3D3D3;
 }

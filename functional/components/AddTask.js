@@ -1,6 +1,7 @@
 import Input from "./Input.js";
 import Button from "./Button.js";
 import TaskTag from "./TaskTag.js";
+import CustomCheckInput from "./CustomCheckInput.js";
 
 /**
  * Add Task component
@@ -24,34 +25,14 @@ const AddTask = ({closeModal, addTask}) => {
     add_task_input.classList.add('add-task__input')
     add_task_input.id = 'add-task-input'
     add_task_input.onkeyup = (event) => {
-        if (event.target?.value && event.target?.value !== ''){
+        if (event.target?.value && event.target?.value !== '') {
             document.getElementById('add-task-button').disabled = false
-        } else{
+        } else {
             document.getElementById('add-task-button').disabled = true
         }
     }
 
-    // Add Button
-    const add_button = Button({
-        text: 'Add Task', onClick: () => {
-        }
-    })
-    add_button.classList.add('add-task__add-button')
-    add_button.id = 'add-task-button'
-    add_button.onclick = () => {
-        addTask()
-    }
-    add_button.disabled = true
-
-    // Cancel Button
-    const cancel_button = Button({
-        text: 'Cancel', isTransparent: true, onClick: () => {
-        }
-    })
-    cancel_button.classList.add('add-task__cancel-button')
-    cancel_button.onclick = () => closeModal()
-
-    // Options Wrapper
+    // Options Wrapper (Tag and Date)
     const options = document.createElement('div')
     options.classList.add('add-task__options')
 
@@ -59,59 +40,40 @@ const AddTask = ({closeModal, addTask}) => {
     const tag_form = document.createElement('form')
     tag_form.classList.add('add-task__tag-list')
 
-    // Home Tag
-    const home_label = document.createElement('label')
-
-    const home_tag = document.createElement('input')
-    home_tag.type = 'radio'
-    home_tag.name = 'tag'
-    home_tag.value = 'home'
-
-    const home_div = TaskTag({name: 'home'})
-    home_div.classList.add('add-task__tag')
-
-    home_label.append(home_tag, home_div)
-
-    // Health Tag
-    const health_label = document.createElement('label')
-
-    const health_tag = document.createElement('input')
-    health_tag.type = 'radio'
-    health_tag.name = 'tag'
-    health_tag.value = 'health'
-
-    const health_div = TaskTag({name: 'health'})
-    health_div.classList.add('add-task__tag')
+    // Radio - Home Tag
+    const home_label = CustomCheckInput({
+        name: 'tag',
+        value: 'home',
+        children: TaskTag({name: 'home'}),
+        outline: '#639462'
+    })
 
 
-    health_label.append(health_tag, health_div)
+    // Radio - Health Tag
 
-    // Work Tag
-    const work_label = document.createElement('label')
+    const health_label = CustomCheckInput({
+        name: 'tag',
+        value: 'health',
+        children: TaskTag({name: 'health'}),
+        outline: '#0053CF'
+    })
 
-    const work_tag = document.createElement('input')
-    work_tag.type = 'radio'
-    work_tag.name = 'tag'
-    work_tag.value = 'work'
+    // Radio - Work Tag
+    const work_label = CustomCheckInput({
+        name: 'tag',
+        value: 'work',
+        children: TaskTag({name: 'work'}),
+        outline: '#9747FF'
+    })
 
-    const work_div = TaskTag({name: 'work'})
-    work_div.classList.add('add-task__tag')
-
-    work_label.append(work_tag, work_div)
-
-    // Other Tag
-    const other_label = document.createElement('label')
-
-    const other_tag = document.createElement('input')
-    other_tag.type = 'radio'
-    other_tag.name = 'tag'
-    other_tag.value = 'other'
-    other_tag.defaultChecked = true
-
-    const other_div = TaskTag({name: 'other'})
-    other_div.classList.add('add-task__tag')
-
-    other_label.append(other_tag, other_div)
+    // Radio - Other Tag
+    const other_label = CustomCheckInput({
+        name: 'tag',
+        value: 'other',
+        children: TaskTag({name: 'other'}),
+        isDefault: true,
+        outline: '#EA8C00'
+    })
 
     // Appending Form
     tag_form.append(health_label, work_label, home_label, other_label)
@@ -124,6 +86,16 @@ const AddTask = ({closeModal, addTask}) => {
     date_input.valueAsDate = new Date();
 
     options.append(tag_form, date_input)
+
+    // Add Button
+    const add_button = Button({text: 'Add Task', onClick: addTask})
+    add_button.classList.add('add-task__add-button')
+    add_button.id = 'add-task-button'
+    add_button.disabled = true
+
+    // Cancel Button
+    const cancel_button = Button({text: 'Cancel', isTransparent: true, onClick: closeModal})
+    cancel_button.classList.add('add-task__cancel-button')
 
     // Button Wrapper
     const button_wrapper = document.createElement('div')

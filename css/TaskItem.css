@@ -1,4 +1,4 @@
-.task-item{
+.task-item {
     position: relative;
 
     height: 67px;
@@ -8,56 +8,70 @@
     flex-direction: row;
     align-items: center;
     gap: 20px;
+
+    margin-bottom: 12px;
 }
 
-.task-item__checkbox{
+.task-item__checkbox {
     display: flex;
     flex-direction: column;
     gap: 10px;
 
+    width: 21px;
+    height: 21px;
+
     cursor: pointer;
     will-change: transform;
+
+    background: url("../img/checkbox-unchecked.svg");
 }
 
-.task-item__checkbox :hover{
+.task-item__checkbox :hover {
     filter: invert(0.3);
     will-change: transform;
 }
 
-.task-item__checkbox :active{
+.task-item__checkbox-img--checked:active {
+    filter: invert(0);
+    opacity: 0.4;
+    will-change: transform;
+}
+
+.task-item__checkbox-img--unchecked:active {
     filter: invert(0);
     content: url('../img/checkbox-checked.svg');
     will-change: transform;
 }
 
-.task-item__info{
-
+.task-item__info {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
 }
 
-.task-item__title{
+.task-item__title {
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 25px;
+
 }
 
-.task-item__bottom{
+.task-item__bottom {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
 }
 
-.task-item__tag{
+.task-item__tag {
     display: flex;
     align-items: center;
     flex-direction: row;
     gap: 8px;
-
-
 }
 
-.task-item__date{
+.task-item__date {
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -66,19 +80,21 @@
     color: #838383;
 }
 
-.task-item__delete{
+.task-item__delete {
     margin-left: auto;
     cursor: pointer;
+
+    width: 16px;
+    height: 16px;
 }
 
-.task-item__delete :hover{
+.task-item__delete :hover {
     filter: brightness(0) invert(0) invert(42%) sepia(69%) saturate(900%) hue-rotate(186deg) brightness(99%) contrast(94%);
     opacity: 0.6;
     will-change: transform;
 }
 
-.task-item__delete :active{
+.task-item__delete :active {
     filter: brightness(0) invert(0) invert(17%) sepia(84%) saturate(2353%) hue-rotate(205deg) brightness(121%) contrast(113%);
     will-change: transform;
-
 }

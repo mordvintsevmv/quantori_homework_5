@@ -11,16 +11,16 @@ import TaskItem from "./TaskItem.js";
 const TaskList = ({title, items, deleteItem, checkItem}) => {
 
     // Wrapper
-    const list_wrapper = document.createElement('div')
-    list_wrapper.classList.add('list-wrapper')
+    const list = document.createElement('div')
+    list.classList.add('task-list')
 
     // Title
-    const list_title = document.createElement('div')
-    list_title.classList.add('list-wrapper__title')
+    const list_title = document.createElement('h2')
+    list_title.classList.add('task-list__title')
     list_title.innerText = title
 
     // Items - array of li
-    const listItems = items.map((item) => {
+    const list_items = items.map((item) => {
         const li = document.createElement('li')
         li.append(TaskItem(item, deleteItem, checkItem))
         return li
@@ -28,16 +28,15 @@ const TaskList = ({title, items, deleteItem, checkItem}) => {
 
     // Items - ul
     const ul_wrapper = document.createElement('div')
-    ul_wrapper.classList.add('list-wrapper__items')
-
+    ul_wrapper.classList.add('task-list__items')
     const ul = document.createElement("ul");
 
     // Appending
-    ul.append(...listItems);
+    ul.append(...list_items);
     ul_wrapper.append(ul)
-    list_wrapper.append(list_title, ul_wrapper)
+    list.append(list_title, ul_wrapper)
 
-    return list_wrapper;
+    return list;
 }
 
 export default TaskList

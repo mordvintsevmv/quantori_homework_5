@@ -2,7 +2,7 @@
  * Header component
  * @returns {HTMLDivElement} - Header element
  */
-const Header = () => {
+const Header = ({title}) => {
 
     // Header wrapper
     const header_wrapper = document.createElement('div')
@@ -11,7 +11,7 @@ const Header = () => {
     // Header Title
     const header_title = document.createElement('h1')
     header_title.classList.add('header__title')
-    header_title.innerText = 'To Do List'
+    header_title.innerText = title
 
     // Appending
     header_wrapper.append(header_title)

@@ -1,6 +1,5 @@
 import TaskTag from "./TaskTag.js";
 
-
 const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
@@ -10,19 +9,20 @@ const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Frid
  * @param isChecked {boolean}
  * @param title {string}
  * @param tag {string}
- * @param date {string}
+ * @param date {string | Date}
  * @param deleteItem {function}
  * @param checkItem {function}
  * @returns {HTMLDivElement} - HTML code for TaskItem element
  */
 const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
 
+    // Parsing date (for situations when there is string instead of Date)
+    const parsed_date = new Date(Date.parse(date))
+
     // Creating text for date
     const today = new Date();
 
     let day_text;
-
-    const parsed_date = new Date(Date.parse(date))
 
     if (parsed_date.getFullYear() === today.getFullYear()
         && parsed_date.getMonth() === today.getMonth()
@@ -32,12 +32,12 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
     } else if (parsed_date.getFullYear() === today.getFullYear()
         && parsed_date.getMonth() === today.getMonth()
         && parsed_date.getDate() - today.getDate() === 1
-    ){
+    ) {
         day_text = 'Tomorrow'
     } else if (parsed_date.getFullYear() === today.getFullYear()
         && parsed_date.getMonth() === today.getMonth()
         && parsed_date.getDate() - today.getDate() === -1
-    ){
+    ) {
         day_text = 'Yesterday'
     } else {
         day_text = `${day_array[parsed_date.getDay()]}, ${parsed_date.getDate()} ${month_array[parsed_date.getMonth()]}`
@@ -52,12 +52,14 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
     checkbox_button.classList.add('task-item__checkbox')
 
     const checkbox_img = document.createElement('img')
-    if (isChecked){
+    if (isChecked) {
         checkbox_img.src = 'img/checkbox-disabled.svg'
         checkbox_img.alt = 'Checkbox - uncheck'
-    } else{
+        checkbox_img.classList.add('task-item__checkbox-img--checked')
+    } else {
         checkbox_img.src = 'img/checkbox-unchecked.svg'
         checkbox_img.alt = 'Checkbox - check'
+        checkbox_img.classList.add('task-item__checkbox-img--unchecked')
     }
 
     checkbox_button.append(checkbox_img)
@@ -78,32 +80,32 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
 
     // Tag
     const task_item_tag = TaskTag({name: tag, isColored: !isChecked})
-    task_item_tag.classList.add("task-task-item__tag")
+    task_item_tag.classList.add("task-item__tag")
 
-    // Date
+    // Date Text
     const task_item_date = document.createElement('div')
     task_item_date.classList.add("task-item__date")
     task_item_date.innerText = day_text
 
-    // Delete
-    const delete_wrapper = document.createElement('div')
-    delete_wrapper.classList.add("task-item__delete")
-    delete_wrapper.onclick = () => deleteItem(id);
+    // Delete Button
+    const delete_button = document.createElement('button')
+    delete_button.classList.add("task-item__delete")
+    delete_button.onclick = () => deleteItem(id);
 
-    const task_item_delete = document.createElement('img')
-    task_item_delete.src = 'img/delete-new-value.svg'
-    task_item_delete.alt = 'delete'
+    const delete_button_img = document.createElement('img')
+    delete_button_img.src = 'img/delete-new-value.svg'
+    delete_button_img.alt = 'delete'
 
-    delete_wrapper.append(task_item_delete)
 
     // Appending
+    delete_button.append(delete_button_img)
     task_item_bottom.append(task_item_tag, task_item_date)
     task_item_info.append(task_item_title, task_item_bottom)
 
-    if(isChecked){
+    if (isChecked) {
         task_item.append(checkbox_button, task_item_info)
-    } else{
-        task_item.append(checkbox_button, task_item_info, delete_wrapper)
+    } else {
+        task_item.append(checkbox_button, task_item_info, delete_button)
     }
 
     return task_item

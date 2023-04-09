@@ -3,14 +3,14 @@
  * @param placeholder {string}
  * @returns {HTMLInputElement} - Input element
  */
-const Input = ({placeholder}) => {
+const Input = ({placeholder = "Sample Text"}) => {
 
     // Search input
-    const search_field = document.createElement('input')
-    search_field.classList.add('text-input');
-    search_field.placeholder = placeholder
+    const input = document.createElement('input')
+    input.classList.add('text-input');
+    input.placeholder = placeholder
 
-    return search_field
+    return input
 }
 
 export default Input

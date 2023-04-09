@@ -17,7 +17,7 @@ const CustomCheckInput = ({type = 'radio', name, value, outline, isDefault = fal
     const input = document.createElement('input')
     input.name = name
     input.value = value
-    input.type = ['checkbox','radio'].includes(type) ? type : 'radio'
+    input.type = ['checkbox', 'radio'].includes(type) ? type : 'radio'
     input.defaultChecked = isDefault
     input.classList.add('custom-check-input__input')
 
