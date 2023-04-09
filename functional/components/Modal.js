@@ -13,10 +13,16 @@ const Modal = ({closeModal, addTask}) => {
     // Overlay
     const overlay = document.createElement('div')
     overlay.classList.add('overlay')
+    overlay.onclick = (event) => {
+        closeModal()
+    }
 
     // Modal wrapper
     const modal = document.createElement('div')
     modal.classList.add('modal')
+    modal.onclick = (event) => {
+        event.stopPropagation()
+    }
 
     // Title
     const modal_title = document.createElement('h3')

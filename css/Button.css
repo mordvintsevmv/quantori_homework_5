@@ -43,7 +43,6 @@
 .button--isTransparent:active{
     background: none;
     color: #EF3F3E;
-
 }
 
 .button--isTransparent:disabled{

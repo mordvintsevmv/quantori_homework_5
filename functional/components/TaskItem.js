@@ -47,20 +47,21 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
     const task_item = document.createElement('div')
     task_item.classList.add('task-item')
 
-    // Checkbox image
-    const checkbox_wrapper = document.createElement('div')
-    checkbox_wrapper.classList.add('task-item__checkbox')
-    const task_item_checkbox = document.createElement('img')
+    // Checkbox Button
+    const checkbox_button = document.createElement('button')
+    checkbox_button.classList.add('task-item__checkbox')
+
+    const checkbox_img = document.createElement('img')
     if (isChecked){
-        task_item_checkbox.src = 'img/checkbox-disabled.svg'
-        task_item_checkbox.alt = 'Checkbox - uncheck'
+        checkbox_img.src = 'img/checkbox-disabled.svg'
+        checkbox_img.alt = 'Checkbox - uncheck'
     } else{
-        task_item_checkbox.src = 'img/checkbox-unchecked.svg'
-        task_item_checkbox.alt = 'Checkbox - check'
+        checkbox_img.src = 'img/checkbox-unchecked.svg'
+        checkbox_img.alt = 'Checkbox - check'
     }
 
-    checkbox_wrapper.append(task_item_checkbox)
-    checkbox_wrapper.onclick = () => checkItem(id)
+    checkbox_button.append(checkbox_img)
+    checkbox_button.onclick = () => checkItem(id)
 
     // Info wrapper (Title, tag and date)
     const task_item_info = document.createElement('div')
@@ -100,9 +101,9 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
     task_item_info.append(task_item_title, task_item_bottom)
 
     if(isChecked){
-        task_item.append(checkbox_wrapper, task_item_info)
+        task_item.append(checkbox_button, task_item_info)
     } else{
-        task_item.append(checkbox_wrapper, task_item_info, delete_wrapper)
+        task_item.append(checkbox_button, task_item_info, delete_wrapper)
     }
 
     return task_item

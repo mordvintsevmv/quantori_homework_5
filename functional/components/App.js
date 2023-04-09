@@ -18,7 +18,6 @@ const App = () => {
         const tag = document.querySelector('input[name="tag"]:checked').value;
         const date = new Date(document.getElementById('date-input').value);
 
-
         setState({
             ...state,
             items: [...state.items, {id: state.last_id + 1, isChecked: false, title: title, tag: tag, date: date}],
@@ -53,7 +52,7 @@ const App = () => {
     app_wrapper.classList.add('app-wrapper')
 
     // Filtering items by checked/unchecked
-    const in_work_items = state.items.filter(item => (item.isChecked === false))
+    const in_work_items = state.items.filter(item => item.isChecked === false)
     const finished_items = state.items.filter(item => item.isChecked === true)
 
     // Creating Components
@@ -63,22 +62,18 @@ const App = () => {
     const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
     const finished_task_list = TaskList({title: 'Completed Tasks', items: finished_items, deleteItem, checkItem});
 
-    in_work_task_list.classList.add('app-wrapper__list', 'app-wrapper__list-in-work')
+    in_work_task_list.classList.add('app-wrapper__list')
     in_work_task_list.id = 'in-work-tasks'
 
-    finished_task_list.classList.add('app-wrapper__list', 'app-wrapper__list-finished')
+    finished_task_list.classList.add('app-wrapper__list')
 
     const search = Input({placeholder: 'Search Task'});
     search.classList.add('app-wrapper__search')
     search.id = 'search-input'
     search.onkeyup = event => {
-        console.log(event.target?.value)
-
         const in_work_items = state.items.filter(item => (item.isChecked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(event.target?.value.toLowerCase().replace(/\s+/g, '') || '')))
         const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
         in_work_task_list.id = 'in-work-tasks'
-
-        console.log(in_work_task_list)
 
         document.getElementById('in-work-tasks').replaceWith(in_work_task_list)
     }
@@ -98,7 +93,6 @@ const App = () => {
 
     if (state.isModal) {
         app_wrapper.append(modal)
-        app_wrapper.classList.add('app-wrapper--isModal')
     }
 
     return app_wrapper;

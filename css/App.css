@@ -6,23 +6,12 @@
     padding: 44px 164px;
 }
 
-.app-wrapper--isModal{
-}
-
 .app-wrapper__header{
     margin-bottom: 42px;
 }
 
 .app-wrapper__list{
     margin-bottom: 42px;
-}
-
-.app-wrapper__list-in-work{
-
-}
-
-.app-wrapper__list-finished{
-
 }
 
 .app-wrapper__controls{
