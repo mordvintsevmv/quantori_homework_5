@@ -1,6 +1,9 @@
 .add-task{
     width: 524px;
     height: 371px;
+
+    padding: 24px 32px;
+
 }
 
 .add-task__title{
