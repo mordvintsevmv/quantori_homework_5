@@ -39,6 +39,10 @@ const App = () => {
         setState({...state, isModal: false})
     }
 
+    const setValueAddTaskInput = (value) => {
+        setState({...state, add_task_input: value})
+    }
+
     const checkItem = (id) => {
         const item_index = state.items.findIndex(item => item.id === id)
 
@@ -60,12 +64,11 @@ const App = () => {
     const search = Input({placeholder: 'Search Task'});
     search.classList.add('app-wrapper__search')
     search.id = 'search-input'
-    search.onkeyup = event => {
-        const in_work_items = state.items.filter(item => (item.isChecked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(event.target?.value.toLowerCase().replace(/\s+/g, '') || '')))
-        const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
-        in_work_task_list.id = 'in-work-tasks'
 
-        document.getElementById('in-work-tasks').replaceWith(in_work_task_list)
+    search.value = state.search_input
+    search.oninput = event =>{
+        event.preventDefault();
+        setState({...state, search_input: event.target.value})
     }
 
     // Button Component
@@ -78,7 +81,7 @@ const App = () => {
     controls.append(search, button)
 
     // Task List Components
-    const in_work_items = state.items.filter(item => item.isChecked === false)
+    const in_work_items = state.items.filter(item => (item.isChecked === false && item.title.toLowerCase().includes(state.search_input.toLowerCase().replace(/\s/g, ''))))
     const finished_items = state.items.filter(item => item.isChecked === true)
 
     const in_work_task_list = TaskList({title: 'All Tasks', items: in_work_items, deleteItem, checkItem});
@@ -90,7 +93,7 @@ const App = () => {
     finished_task_list.classList.add('app-wrapper__list')
 
     // Modal Component
-    const modal = Modal({closeModal: closeModal, children: AddTask({closeModal: closeModal, addTask: addItem})})
+    const modal = Modal({closeModal: closeModal, children: AddTask({closeModal: closeModal, addTask: addItem, value: state.add_task_input, setValueAddTaskInput: setValueAddTaskInput})})
     modal.classList.add('app-wrapper__modal')
 
     app_wrapper.append(header, controls, in_work_task_list, finished_task_list);

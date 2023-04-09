@@ -20,7 +20,11 @@ const task_items = load_items() || [
 let state = {
     items: task_items,
     last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
-    isModal: false
+    isModal: false,
+    add_task_input: '',
+    add_task_focus: false,
+    search_input: '',
+    search_focus: false
 }
 
 /**
@@ -34,6 +38,12 @@ export const useState = (initialValue = undefined) => {
 
     function setValue(newValue) {
         state = newValue;
+        console.log('ADD TASK')
+        console.log(state.add_task_input)
+        console.log(state.add_task_focus)
+        console.log('SEARCH')
+        console.log(state.search_input)
+        console.log(state.search_focus)
         save_items();
         renderApp();
     }
@@ -49,6 +59,31 @@ function renderApp() {
     const appContainer = document.getElementById("root");
     appContainer.innerHTML = '';
     appContainer.append(App());
+
+    if (state.search_focus){
+        document.getElementById('search-input').focus()
+    } else if(state.add_task_focus){
+        document.getElementById('add-task-input').focus()
+    }
+
+    const root = document.getElementById('root');
+    const search = document.getElementById('search-input');
+    const add = document.getElementById('add-task-input');
+
+
+    root.addEventListener('click', ()=>{
+        state.search_focus = false
+        state.add_task_focus = false
+    })
+    search.addEventListener('click', (event)=>{
+        event.stopPropagation()
+        state.search_focus = true
+    })
+    add.addEventListener('click', (event)=>{
+        event.stopPropagation()
+        state.add_task_focus = true
+    })
+
 }
 
 // initial render

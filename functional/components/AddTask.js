@@ -7,9 +7,11 @@ import CustomCheckInput from "./CustomCheckInput.js";
  * Add Task component
  * @param closeModal {function}
  * @param addTask {function}
+ * @param value {string}
+ * @param setValueAddTaskInput {function}
  * @returns {HTMLDivElement} - Add Task element
  */
-const AddTask = ({closeModal, addTask}) => {
+const AddTask = ({closeModal, addTask, value, setValueAddTaskInput}) => {
 
     // Wrapper
     const add_task = document.createElement('div')
@@ -24,7 +26,13 @@ const AddTask = ({closeModal, addTask}) => {
     const add_task_input = Input({placeholder: 'Task Title'})
     add_task_input.classList.add('add-task__input')
     add_task_input.id = 'add-task-input'
-    add_task_input.onkeyup = (event) => {
+
+    add_task_input.value = value
+    add_task_input.oninput = event =>{
+        event.preventDefault();
+
+        setValueAddTaskInput(event.target.value)
+
         if (event.target?.value && event.target?.value !== '') {
             document.getElementById('add-task-button').disabled = false
         } else {
