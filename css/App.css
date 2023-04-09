@@ -37,12 +37,6 @@
 @media screen and (max-width: 1200px) {
     .app-wrapper {
         margin-bottom: 50px;
-
-        padding: 44px 120px;
-    }
-
-    .app-wrapper__search {
-        width: calc(100vw - 240px - 158px);
     }
 
     .app-wrapper__list {
@@ -65,8 +59,6 @@
 
         align-items: center;
         justify-content: center;
-
-        margin-bottom: 20px;
     }
 
     .app-wrapper__add-button {
@@ -96,8 +88,6 @@
 
         align-items: center;
         justify-content: center;
-
-        margin-bottom: 20px;
     }
 
     .app-wrapper__add-button {
