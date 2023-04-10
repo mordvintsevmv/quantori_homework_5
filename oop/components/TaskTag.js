@@ -10,12 +10,12 @@ class TaskTag extends Component {
      * @param props.isColored {boolean}
      * @returns {HTMLDivElement} - HTML code for TaskTag element
      * */
-    render(props) {
+    render({name, isColored = true}) {
 
         let tag_color = ''
 
-        if (props.isColored) {
-            switch (props.name) {
+        if (isColored) {
+            switch (name) {
                 case 'home':
                     tag_color = ("task-tag--green")
                     break;
@@ -33,8 +33,8 @@ class TaskTag extends Component {
         }
 
         return super.render({
-            children: props.name,
-            className: props.isColored ? ['task-tag', tag_color] : ['task-tag']
+            children: name,
+            className: isColored ? ['task-tag', tag_color] : ['task-tag']
         });
     }
 }

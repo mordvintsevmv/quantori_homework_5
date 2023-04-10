@@ -18,19 +18,30 @@ class Component {
     render(props = {}) {
         this.props = {...props};
 
-        const div = this.element;
-        div.onclick = props.onClick;
+        const component = this.element;
+        component.onclick = props.onClick;
 
         if (props.style) {
-            div.style = props.style;
+            component.style = props.style;
         }
 
         if (props.className) {
-            div.classList.add(...props.className)
+            component.classList.add(...props.className)
         }
-        div.innerHTML = '';
-        div.append(...props.children)
-        return div;
+
+        if (props.id) {
+            component.id = props.id
+        }
+
+        component.innerHTML = '';
+
+        if (props.children && Array.isArray(props.children)){
+            component.append(...props.children)
+        } else if (props.children){
+            component.append(props.children)
+        }
+
+        return component;
     }
 
     update() {
