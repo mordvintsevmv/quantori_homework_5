@@ -17,10 +17,16 @@ class Component {
      */
     render(props = {}) {
         this.props = {...props};
+
         const div = this.element;
         div.onclick = props.onClick;
+
         if (props.style) {
             div.style = props.style;
+        }
+
+        if (props.className) {
+            div.classList.add(...props.className)
         }
         div.innerHTML = '';
         div.append(...props.children)
