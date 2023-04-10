@@ -17,7 +17,7 @@ class Button extends Component {
             onClick: props.onClick,
             children: props.text,
             style: this.state.style,
-            className: ['button']
+            className: props.isTransparent ? ['button', 'button--isTransparent'] : ['button']
         });
     }
 }
