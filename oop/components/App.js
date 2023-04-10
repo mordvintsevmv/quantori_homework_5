@@ -25,47 +25,66 @@ class App extends Component {
         const in_work_items = this.state.items.filter(item => item.isChecked === false)
         const finished_items = this.state.items.filter(item => item.isChecked === true)
 
-        let children = [
-            new Header().render({
-                title: 'To Do List'
-            }),
-            new Input().render({
-                placeholder: 'Search Task'
-            }),
-            new Button().render({
-                text: '+ New Task',
-                onClick: this.openModal}),
+        const header = new Header().render({
+            title: 'To Do List'
+        })
+        header.classList.add('app-wrapper__header')
 
-            new TaskList().render({
-                items: in_work_items,
-                title: 'All Tasks',
-                deleteItem: this.deleteItem,
-                checkItem: this.checkItem
-            }),
-            new TaskList().render({
-                items: finished_items,
-                title: 'Completed Tasks',
-                deleteItem: this.deleteItem,
-                checkItem: this.checkItem
-            })
-        ]
+        const input = new Input().render({
+            placeholder: 'Search Task',
+            id: 'search-input'
+        })
+        input.classList.add('app-wrapper__search')
+
+        const add_button = new Button().render({
+                text: '+ New Task',
+                onClick: this.openModal})
+        add_button.classList.add('app-wrapper__add-button')
+
+        const in_work_list = new TaskList().render({
+            items: in_work_items,
+            title: 'All Tasks',
+            deleteItem: this.deleteItem,
+            checkItem: this.checkItem,
+            id: 'in-work-tasks'
+        })
+        in_work_list.classList.add('app-wrapper__list')
+
+        const finished_list = new TaskList().render({
+            items: finished_items,
+            title: 'Completed Tasks',
+            deleteItem: this.deleteItem,
+            checkItem: this.checkItem
+        })
+        finished_list.classList.add('app-wrapper__list')
+
+        // Controls (Search and button)
+        const controls = document.createElement('div')
+        controls.classList.add('app-wrapper__controls')
+        controls.append(input, add_button)
+
+        let children = [ header, controls, in_work_list, finished_list,]
 
         if (this.state.isModal) {
-            children.push(
-                new Modal().render({
+            const modal = new Modal().render({
+                closeModal: this.closeModal,
+                children: new AddTask().render({
                     closeModal: this.closeModal,
-                    children: new AddTask().render({
-                        closeModal: this.closeModal,
-                        addTask: this.addItem,
-                        value: '',
-                        setValueAddTaskInput: () => {
-                        }
-                    })
-                }))
+                    addTask: this.addItem,
+                    value: '',
+                    setValueAddTaskInput: () => {
+                    }
+                })
+            })
+            modal.classList.add('app-wrapper__modal')
+
+            children.push(modal)
+
         }
 
         return super.render({
-            children: children
+            children: children,
+            className: ['app-wrapper']
         });
     }
 

@@ -8,6 +8,7 @@ class Input extends Component {
      * @override
      * @param props
      * @param props.placeholder {string}
+     * @param props.id {string}
      * @returns {HTMLInputElement} - Input element
      * */
     render(props) {
@@ -17,7 +18,8 @@ class Input extends Component {
         return super.render({
             children: props.placeholder,
             style: this.state.style,
-            className: ['text-input']
+            className: ['text-input'],
+            id: props.id
         });
     }
 }

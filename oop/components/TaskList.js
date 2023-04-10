@@ -10,6 +10,7 @@ class TaskList extends Component {
      * @param props.items {Object[]}
      * @param props.deleteItem {function}
      * @param props.checkItem {function}
+     * @param props.id {string}
      * @returns {HTMLElement} - List element
      * */
     render(props) {
@@ -46,8 +47,8 @@ class TaskList extends Component {
 
         return super.render({
             children: [list_title, ul_wrapper],
-            className: ['task-list']
-
+            className: ['task-list'],
+            id: props.id
         });
     }
 }
