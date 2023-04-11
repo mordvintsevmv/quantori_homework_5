@@ -20,16 +20,14 @@ class AddTask extends Component {
         add_task_title.innerText = 'Add New Task'
 
         // Input
-        const add_task_input = new Input().render({placeholder: 'Task Title'})
+        const add_task_input = new Input().render({
+            placeholder: 'Task Title',
+            id: 'add-task-input'
+        })
         add_task_input.classList.add('add-task__input')
-        add_task_input.id = 'add-task-input'
 
         add_task_input.value = props.value
-        add_task_input.oninput = event =>{
-            event.preventDefault();
-
-            props.setValueAddTaskInput(event.target.value)
-
+        add_task_input.onkeyup = event => {
             if (event.target?.value && event.target?.value !== '') {
                 document.getElementById('add-task-button').disabled = false
             } else {

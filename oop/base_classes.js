@@ -33,7 +33,7 @@ class Component {
             component.id = props.id
         }
 
-        component.innerHTML = '';
+        component.innerHTML = ''
 
         if (props.children && Array.isArray(props.children)){
             component.append(...props.children)

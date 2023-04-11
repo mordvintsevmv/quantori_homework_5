@@ -1,7 +1,9 @@
 class Input extends Component {
     constructor() {
         super();
+        this.state = {value: ''}
         this.element = document.createElement('input');
+        this.element.placeholder = this.props.placeholder
     }
 
     /**
@@ -13,13 +15,19 @@ class Input extends Component {
      * */
     render(props) {
 
-        this.element.placeholder = props.placeholder
+        this.element.placeholder = props.placeholder || this.props.placeholder
+        this.element.value = this.state.value
+
+        this.element.oninput = (event) => {
+            event.preventDefault()
+            this.setState({value: event.target.value})
+        }
 
         return super.render({
-            children: props.placeholder,
             style: this.state.style,
             className: ['text-input'],
-            id: props.id
+            id: props.id,
+            placeholder: props.placeholder
         });
     }
 }

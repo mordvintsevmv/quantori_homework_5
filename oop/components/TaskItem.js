@@ -19,7 +19,6 @@ class TaskItem extends Component {
      * @returns {HTMLDivElement} - HTML code for TaskItem element     */
     render(props) {
 
-
         // Parsing date (for situations when there is string instead of Date)
         const parsed_date = new Date(Date.parse(props.date))
 
