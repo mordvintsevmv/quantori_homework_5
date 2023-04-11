@@ -33,7 +33,7 @@ class TaskTag extends Component {
         }
 
         return super.render({
-            children: name,
+            children: [name],
             className: isColored ? ['task-tag', tag_color] : ['task-tag']
         });
     }

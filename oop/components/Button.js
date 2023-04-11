@@ -15,7 +15,7 @@ class Button extends Component {
     render(props) {
         return super.render({
             onClick: props.onClick,
-            children: props.text,
+            children: [props.text],
             style: this.state.style,
             className: props.isTransparent ? ['button', 'button--isTransparent'] : ['button']
         });

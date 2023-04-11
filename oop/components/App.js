@@ -22,7 +22,8 @@ class App extends Component {
         this.state = {
             items: task_items,
             last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
-            isModal: false
+            isModal: false,
+            search_input: ''
         }
     }
 
@@ -67,7 +68,7 @@ class App extends Component {
         add_button.classList.add('app-wrapper__add-button')
 
         // Item List Components
-        const in_work_items = this.state.items.filter(item => item.isChecked === false)
+        const in_work_items = this.state.items.filter(item => (item.isChecked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(this.state.search_input.toLowerCase().replace(/\s+/g, '') || '')))
         const finished_items = this.state.items.filter(item => item.isChecked === true)
 
         const in_work_list = new TaskList().render({
@@ -155,7 +156,6 @@ class App extends Component {
 
         this.setState({...this.state, items: new_items})
     }
-
 
 
 }
