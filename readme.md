@@ -22,6 +22,19 @@
 
 ---
 
+### Developed:
+
+- [X] ToDo List with Functional Components
+- [X] ToDo List with Class Components
+- [X] Responsive design for all versions
+- [X] Saving Task Items to the localStorage
+- [X] Class Components saves state of children components
+
+**More information about the components and solutions is provided in the documentation.**
+
+---
+
+
 ## <a name="content">Content</a>
 
 1. [Task](#Task)
