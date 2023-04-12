@@ -47,17 +47,7 @@ class App extends Component {
         })
         input.classList.add('app-wrapper__search')
         input.onkeyup = event => {
-            const in_work_items = this.state.items.filter(item => (item.isChecked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(event.target?.value.toLowerCase().replace(/\s+/g, '') || '')))
-            const in_work_task_list = new TaskList().render({
-                items: in_work_items,
-                title: 'All Tasks',
-                deleteItem: this.deleteItem,
-                checkItem: this.checkItem,
-                id: 'in-work-tasks'
-            })
-            in_work_task_list.id = 'in-work-tasks'
-
-            document.getElementById('in-work-tasks').replaceWith(in_work_task_list)
+            this.setState({...this.state, search_input: event.target.value})
         }
 
         // New Item Button Component
