@@ -374,6 +374,13 @@ In my opinion, this approach is closer to what is in React, but it is not optima
 
 ### <a name="solutions-oop-state">Save state of children components (OOP)</a>
 
+To solve this problem, an approach close to React was used:
+- When a component is changed, it is re-rendered
+- When the order of the components is changed, they are re-rendered
+
+Instead of 'resetting' the component and rerendering it with new child, 
+it was decided to compare its children with new children from props and change them if they differ.
+
 ```javascript
 class Component {
 
