@@ -36,14 +36,13 @@
 
 ---
 
-
 ## <a name="content">Content</a>
 
 1. [Task](#Task)
 2. [Project Structure](#structure)
 3. [Technical Solutions](#solutions)
    1. [Task Object](#solutions-taskobject)
-   1. [Storing items in localStorage](#solutions-localstorage)
+   1. [State and localStorage](#solutions-storage)
    1. [Search Task](#solutions-search)
    1. [Save state of children components (OOP)](#solutions-oop-state)
 4. [Components](#components)
@@ -181,17 +180,267 @@ All the tasks were completed:
 
 ### <a name="solutions-taskobject">Task Object</a>
 
+Before starting development, it was necessary to define the structure of the TaskItem object.
+
+Example of an object:
+
+```javascript
+const item = {
+    id: 0, // Unique ID
+    isChecked: true, 
+    title: 'Complete Homework #5', 
+    tag: 'work', 
+    date: new Date()
+}
+```
 ---
 
-### <a name="solutions-localstorage">Storing items in localStorage</a>
+### <a name="solutions-storage">State and localStorage</a>
+
+#### Functional 
+
+In this approach, it was decided to use the global state object, 
+which is defined when the application is first launched:
+
+```javascript
+let state = {
+    items: task_items,
+    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
+    isModal: false
+}
+```
+*functional.js*
+
+
+The **last_id** parameter is calculated by the maximum id of existing objects, 
+so that Items do not have the same id.
+
+The **isModal** parameter is used to determine whether the modal window is currently open.
+
+It was also decided not to load items from localStorage at each rendering of the App Component, 
+but to load them at the first launch (or use sample items if no data in localStorage):
+
+```javascript
+const task_items = load_items() || [
+    {id: 0, isChecked: true, title: 'Complete Homework #5', tag: 'work', date: new Date()},
+]
+```
+*functional.js*
+
+All items are saved whenever the global state changes:
+
+```javascript
+export const useState = (initialValue = undefined) => {
+
+    function setValue(newValue) {
+        state = newValue;
+        save_items(); // saving items in localStorage
+        renderApp();
+    }
+}
+```
+*functional.js*
+
+When rendering an App Component we get a global **state** and a function **setState** to change it using the useState() function.
+
+```javascript
+const App = () => {
+
+    const [state, setState] = useState()
+}
+```
+*App.js*
+
+**Therefore:**
+- When the application is first launched, a global state object is created with tasks from localStorage or sample tasks;
+- All tasks are saved to localStorage every time the global state changes;
+- The global state stores tasks, the state of the modal window, and other data (in different versions).
+
+#### OOP
+
+Everything is the same, except that the class approach allowed implement a state for each object. 
+Therefore, the tasks are stored in the state of the App component and not in global state.
+
+```javascript
+class App extends Component {
+    constructor() {
+        super();
+        this.state = {
+            items: task_items,
+            last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
+            isModal: false,
+            search_input: ''
+        }
+    }
+}
+```
+*App.js*
+
+It also allowed, for example, to store data about the Input value in the state of the Input component, what will be useful in the future when optimizing the application:
+
+```javascript
+class Input extends Component {
+    constructor() {
+        super();
+        this.state = {value: ''}
+    }
+}
+```
+*Input.js*
 
 ---
 
 ### <a name="solutions-search">Search Task</a>
 
+Since every time the state changes, all the App components (and its children) are rendered, 
+it was decided to perform the search not by changing all the global state on every input, but by replacing only the TaskList element by ID on every input.
+
+Therefore, when we press a key, function create a new list of tasks that correspond to the query string 
+(excluding spaces and case) and replaces the already rendered TaskList component with a similar one, but with filtered tasks:
+
+```javascript
+        input.onkeyup = event => {
+            const in_work_items = this.state.items.filter(item => (item.isChecked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(event.target?.value.toLowerCase().replace(/\s+/g, '') || '')))
+            const in_work_task_list = new TaskList().render({
+                items: in_work_items,
+                title: 'All Tasks',
+                deleteItem: this.deleteItem,
+                checkItem: this.checkItem,
+                id: 'in-work-tasks'
+            })
+            in_work_task_list.id = 'in-work-tasks'
+
+            document.getElementById('in-work-tasks').replaceWith(in_work_task_list)
+        }
+```
+*App.js*
+
+This approach works effectively, does not force the entire application to be rendered again, and also does not cause problems with the focus on input.
+
+However, this approach is not entirely correct from the point of view of how the application works in my mind. Therefore, it was decided to make this feature with FLUX architecture in the branch **feature/functional-todo-flux**.
+
+Each time user input something in Input Component, it does not change its value, but saves it to state. 
+After that, the value will get to Input from the state after rerendering App.
+
+```javascript
+    search.value = state.search_input
+    search.oninput = event =>{
+        event.preventDefault();
+        setState({...state, search_input: event.target.value})
+    }
+```
+*App.js*
+
+This way we can get the value of the search query from the global state and render the necessary tasks, rather than replacing them "manually".
+```javascript
+    const in_work_items = state.items.filter(item => (item.isChecked === false && item.title.toLowerCase().includes(state.search_input.toLowerCase().replace(/\s/g, ''))))
+```
+*App.js*
+
+Since the App changes its state (and renders) every time the key is pressed, the focus on Input is lost every time. To solve this problem, it was necessary to change the state and implement additional checks for active Input:
+
+```javascript
+let state = {
+    items: task_items,
+    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
+    isModal: false,
+    add_task_input: '',
+    add_task_focus: false,
+    search_input: '',
+    search_focus: false
+}
+
+function renderApp() {
+   root.addEventListener('click', ()=>{
+      state.search_focus = false
+      state.add_task_focus = false
+   })
+   search.addEventListener('click', (event)=>{
+      event.stopPropagation()
+      state.search_focus = true
+   })
+   add.addEventListener('click', (event)=>{
+      event.stopPropagation()
+      state.add_task_focus = true
+   })
+
+}
+```
+*functional.js*
+
+In my opinion, this approach is closer to what is in React, but it is not optimal in our case, since we have to rerender the application for each key pressing.
+
 ---
 
 ### <a name="solutions-oop-state">Save state of children components (OOP)</a>
+
+```javascript
+class Component {
+
+    [...]
+   
+    render(props) {
+        
+        [...]
+
+       // First render of App - empty component
+       if (component.innerHTML === '') {
+          if (props.children && Array.isArray(props.children)) {
+             component.append(...props.children)
+          } else if (props.children) {
+             component.append(props.children)
+          }
+       }
+       
+       if (props.children) {
+
+            // If there are more incoming components than the initial ones 
+            // (for example, a modal window has opened), 
+            // then it is necessary to insert them without checking at the end.
+            if (props.children.length > component.children.length) {
+                for (let i = 0; i < props.children.length; i++) {
+                    if (i < component.children.length) {
+                        if (!component.children[i].isEqualNode(props.children[i])) {
+                            component.children[i].replaceWith(props.children[i])
+                        }
+                    } else {
+                        component.append(props.children[i])
+                    }
+                }
+            } 
+            
+            // If the incoming components are smaller than the original ones 
+            // (for example, the modal window has closed), 
+            // then it is necessary to remove the latter
+            else if (props.children.length < component.children.length) {
+                for (let i = 0; i < component.children.length; i++) {
+                    if (i < props.children.length) {
+                        if (!component.children[i].isEqualNode(props.children[i])) {
+                            component.children[i].replaceWith(props.children[i])
+                        }
+                    } else {
+                        component.children[i].remove()
+                    }
+                }
+            }
+
+            // If the number of components is the same, 
+            // then it is neccessary to compare them with each other
+            else {
+                for (let i = 0; i < props.children.length; i++) {
+                    if (!component.children[i].isEqualNode(props.children[i])) {
+                        component.children[i].replaceWith(props.children[i])
+                    }
+                }
+            }
+        }
+
+
+        return component;
+    }
+    
+}
+```
 
 ---
 
@@ -214,21 +463,22 @@ A modal window can be used often in an application.
 Therefore, it was decided to create a Component that accepts child HTML element 
 and creates a modal window based on it.
 
-```javascript
-    // Creating Overlay to cover all page with dark background
-    const overlay = document.createElement('div')
-    overlay.classList.add('overlay')
-    overlay.onclick = (event) => {
-        closeModal()
-    }
+```
+javascript
+// Creating Overlay to cover all page with dark background
+const overlay = document.createElement('div')
+overlay.classList.add('overlay')
+overlay.onclick = (event) => {
+    closeModal()
+}
 
-    // Modal Window with child Component
-    const modal = document.createElement('div')
-    modal.classList.add('modal')
-    modal.onclick = (event) => {
-        event.stopPropagation()
-    }
-    modal.append(children)
+// Modal Window with child Component
+const modal = document.createElement('div')
+modal.classList.add('modal')
+modal.onclick = (event) => {
+    event.stopPropagation()
+}
+modal.append(children)
 ```
 
 For example, as a child, we can pass a component "AddTask":
