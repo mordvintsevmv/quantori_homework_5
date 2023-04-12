@@ -23,7 +23,8 @@ const App = () => {
             ...state,
             items: [...state.items, {id: state.last_id + 1, isChecked: false, title: title, tag: tag, date: date}],
             last_id: state.last_id + 1,
-            isModal: false
+            isModal: false,
+            add_task_input: ''
         })
     }
 
