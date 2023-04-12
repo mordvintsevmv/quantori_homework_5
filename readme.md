@@ -470,8 +470,7 @@ A modal window can be used often in an application.
 Therefore, it was decided to create a Component that accepts child HTML element 
 and creates a modal window based on it.
 
-```
-javascript
+```javascript
 // Creating Overlay to cover all page with dark background
 const overlay = document.createElement('div')
 overlay.classList.add('overlay')
