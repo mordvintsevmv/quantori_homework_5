@@ -133,7 +133,7 @@ Make a solution that will preserve state of children components.
 
 ---
 
-## <a name="strucrute">Project Structure</a>
+## <a name="structure">Project Structure</a>
 
 ```
 quantori_homework_5
