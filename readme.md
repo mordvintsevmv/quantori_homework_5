@@ -45,6 +45,7 @@
    1. [State and localStorage](#solutions-storage)
    1. [Search Task](#solutions-search)
    1. [Save state of children components (OOP)](#solutions-oop-state)
+   2. [Responsive Design](#solutions-responsive)
 4. [Components](#components)
 5. [Contacts](#contacts)
 
@@ -374,7 +375,7 @@ In my opinion, this approach is closer to what is in React, but it is not optima
 
 ### <a name="solutions-oop-state">Save state of children components (OOP)</a>
 
-To solve this problem, an approach close to React was used:
+To save state of children components in OOP, an approach close to React was used:
 - When a component is changed, it is re-rendered
 - When the order of the components is changed, they are re-rendered
 
@@ -448,6 +449,18 @@ class Component {
     
 }
 ```
+
+---
+
+### <a name='solutions-responsive'>Responsive Design</a>
+
+Since adaptive design is considered as the standard these days, 
+it was decided to optimize an application for all devices:
+
+![desktop-version](readme-ing/desktop-version.png)
+
+![mobile-version](readme-ing/mobile-version.png)
+
 
 ---
 
