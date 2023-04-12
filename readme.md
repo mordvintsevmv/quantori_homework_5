@@ -40,9 +40,14 @@
 ## <a name="content">Content</a>
 
 1. [Task](#Task)
-2. [Technical Solutions](#solutions)
-3. [Components](#components)
-2. [Contacts](#contacts)
+2. [Project Structure](#structure)
+3. [Technical Solutions](#solutions)
+   1. [Task Object](#solutions-taskobject)
+   1. [Storing items in localStorage](#solutions-localstorage)
+   1. [Search Task](#solutions-search)
+   1. [Save state of children components (OOP)](#solutions-oop-state)
+4. [Components](#components)
+5. [Contacts](#contacts)
 
 ---
 
@@ -164,6 +169,29 @@ quantori_homework_5
 ---
 
 ## <a name="solutions">Technical Solutions</a>
+
+All the tasks were completed:
+- [X] All the necessary functionality has been implemented;
+- [X] The layout is made according to the Figma mockup
+- [X] All Tasks stored in localStorage and loaded on page rendering
+- [X] Both Functional and OOP Component were created
+- [X] Class Components saves state of children components
+
+---
+
+### <a name="solutions-taskobject">Task Object</a>
+
+---
+
+### <a name="solutions-localstorage">Storing items in localStorage</a>
+
+---
+
+### <a name="solutions-search">Search Task</a>
+
+---
+
+### <a name="solutions-oop-state">Save state of children components (OOP)</a>
 
 ---
 
