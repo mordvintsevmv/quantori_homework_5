@@ -38,12 +38,6 @@ export const useState = (initialValue = undefined) => {
 
     function setValue(newValue) {
         state = newValue;
-        console.log('ADD TASK')
-        console.log(state.add_task_input)
-        console.log(state.add_task_focus)
-        console.log('SEARCH')
-        console.log(state.search_input)
-        console.log(state.search_focus)
         save_items();
         renderApp();
     }
