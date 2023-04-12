@@ -56,9 +56,7 @@ const AddTask = ({closeModal, addTask, value, setValueAddTaskInput}) => {
         outline: '#639462'
     })
 
-
     // Radio - Health Tag
-
     const health_label = CustomCheckInput({
         name: 'tag',
         value: 'health',
