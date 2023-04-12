@@ -30,6 +30,8 @@
 - [X] Saving Task Items to the localStorage
 - [X] Class Components saves state of children components
 
+**The application was tested on a variety of devices (iOS, MacOS, Windows, Android) and browsers (Safari, Chrome, Firefox) manually.**
+
 **More information about the components and solutions is provided in the documentation.**
 
 ---
