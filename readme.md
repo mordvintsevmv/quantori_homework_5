@@ -16,6 +16,12 @@
 
 ---
 
+**Functional FLUX ToDo Branch:** <a href="https://quantori-hw5-feature-functional-flux.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Functional Components with FLUX principle.*
+
+---
+
 **OOP ToDo Branch:** <a href="https://quantori-hw5-feature-oop.netlify.app/" target="_blank">Open page</a>
 
 **Description:** *ToDo List using Class Components.*
