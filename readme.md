@@ -38,6 +38,8 @@
 ## <a name="content">Content</a>
 
 1. [Task](#Task)
+2. [Technical Solutions](#solutions)
+3. [Components](#components)
 2. [Contacts](#contacts)
 
 ---
@@ -121,6 +123,145 @@ Current implementation of the class-based components lose state for their childr
 I.e. if you have an input inside a list, and list rerenders, text in input will be lost.
 
 Make a solution that will preserve state of children components.
+
+---
+
+## <a name="strucrute">Project Structure</a>
+
+```
+quantori_homework_5
+│   README.md
+│   404.html    
+│   index.html    
+│   og_image.png
+│   .gitignore
+│
+└─── css - folder for all components style
+│   │   Modal.css
+│   │   Input.css
+│   └─  ...
+│   
+└─── favicon - Favicons
+│   │   favicon.ico
+│   └─  ...
+│
+└─── functional - folder for all files of the Functional Components 
+│   │   components - folder for all Components
+│   └─  functional.js - all base functions for Functional Components
+│
+└─── oop - folder for all files of the Class Components
+│   │   components - folder for all Components
+│   └─  base_classes.js - base class for Class Components
+│
+└─── img - Images folder
+│   │   checkbox-checked.svg
+│   │   delete-new-value.svg
+└   └─  ...
+```
+
+---
+
+## <a name="solutions">Technical Solutions</a>
+
+---
+
+## <a name="components">Components</a>
+
+All components were designed so that they could be reused in the future.
+
+The decision to create a component was made based on the DRY principle - 
+if an element was created manually too often (or may be created during further development), 
+then a function (or class) was created instead, which generated the necessary element.
+
+**The most interesting ones will be reviewed below**
+
+---
+
+### Modal
+
+A modal window can be used often in an application. 
+
+Therefore, it was decided to create a Component that accepts child HTML element 
+and creates a modal window based on it.
+
+```javascript
+    // Creating Overlay to cover all page with dark background
+    const overlay = document.createElement('div')
+    overlay.classList.add('overlay')
+    overlay.onclick = (event) => {
+        closeModal()
+    }
+
+    // Modal Window with child Component
+    const modal = document.createElement('div')
+    modal.classList.add('modal')
+    modal.onclick = (event) => {
+        event.stopPropagation()
+    }
+    modal.append(children)
+```
+
+For example, as a child, we can pass a component "AddTask":
+
+![modal-addtask](readme-ing/modal-addtask.png)
+
+And also we can pass the Tag component there:
+
+![modal-tag](readme-ing/modal-tag.png)
+
+
+This approach will allow you to create modal windows for 
+various situations in the future and not write a lot of repetitive code.
+
+---
+
+### Button
+
+The application uses two types of buttons: 
+with a blue background and with a transparent background. 
+Therefore, it was decided not to create separate components for the buttons, 
+but to add an additional parameter isTransparent (false by default).
+
+```javascript
+const Button = ({text, isTransparent = false, onClick}) => {
+    const button = document.createElement("button");
+
+    if (isTransparent) {
+        button.classList.add('button--isTransparent')
+    }
+}
+```
+
+Example:
+
+![button](readme-ing/button.png)
+
+---
+
+### CustomCheckInput
+
+A lot of code was used to create a Radio Input for the tag, 
+so it was decided to create a separate Сomponent, which return label element.
+
+
+One of the possible improvements for the App - creating the feature to select multiple tags at once. 
+Therefore, when creating this component, you can select the input type: checkbox or radio:
+
+```javascript
+const CustomCheckInput = ({type = 'radio', name, value, outline, isDefault = false, children}) => {
+    
+    const input = document.createElement('input')
+    input.type = ['checkbox', 'radio'].includes(type) ? type : 'radio'
+}
+```
+
+Radio Example:
+
+![radio-input](readme-ing/radio-input.png)
+
+CheckBox Example:
+
+![checkbox-input](readme-ing/checkbox-input.png)
 
 ---
 
