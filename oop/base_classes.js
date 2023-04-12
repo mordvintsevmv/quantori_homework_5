@@ -33,8 +33,11 @@ class Component {
             component.id = props.id
         }
 
-        if (props.children) {
+        if (props.children && component.children.length > 0) {
 
+            // If there are more incoming components than the initial ones
+            // (for example, a modal window has opened),
+            // then it is necessary to insert them without checking at the end.
             if (props.children.length > component.children.length) {
                 for (let i = 0; i < props.children.length; i++) {
                     if (i < component.children.length) {
@@ -46,7 +49,12 @@ class Component {
                     }
 
                 }
-            } else if (props.children.length < component.children.length) {
+            }
+
+                // If the incoming components are smaller than the original ones
+                // (for example, the modal window has closed),
+            // then it is necessary to remove the latter
+            else if (props.children.length < component.children.length) {
                 for (let i = 0; i < component.children.length; i++) {
                     if (i < props.children.length) {
                         if (!component.children[i].isEqualNode(props.children[i])) {
@@ -57,7 +65,11 @@ class Component {
                     }
 
                 }
-            } else {
+            }
+
+            // If the number of components is the same,
+            // then it is necessary to compare them with each other
+            else {
                 for (let i = 0; i < props.children.length; i++) {
                     if (!component.children[i].isEqualNode(props.children[i])) {
                         component.children[i].replaceWith(props.children[i])
@@ -66,6 +78,7 @@ class Component {
             }
         }
 
+        // First render of App - empty component
         if (component.innerHTML === '') {
             if (props.children && Array.isArray(props.children)) {
                 component.append(...props.children)
@@ -73,6 +86,7 @@ class Component {
                 component.append(props.children)
             }
         }
+
 
         return component;
     }

@@ -40,7 +40,7 @@ class App extends Component {
         })
         header.classList.add('app-wrapper__header')
 
-        // Input Component
+        // Search Input Component
         const input = new Input().render({
             placeholder: 'Search Task',
             id: 'search-input'
@@ -56,6 +56,11 @@ class App extends Component {
             onClick: this.openModal
         })
         add_button.classList.add('app-wrapper__add-button')
+
+        // Controls (Search and Button)
+        const controls = document.createElement('div')
+        controls.classList.add('app-wrapper__controls')
+        controls.append(input, add_button)
 
         // Item List Components
         const in_work_items = this.state.items.filter(item => (item.isChecked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(this.state.search_input.toLowerCase().replace(/\s+/g, '') || '')))
@@ -77,11 +82,6 @@ class App extends Component {
             checkItem: this.checkItem
         })
         finished_list.classList.add('app-wrapper__list')
-
-        // Controls (Search and button)
-        const controls = document.createElement('div')
-        controls.classList.add('app-wrapper__controls')
-        controls.append(input, add_button)
 
         let children = [header, controls, in_work_list, finished_list,]
 
@@ -146,8 +146,6 @@ class App extends Component {
 
         this.setState({...this.state, items: new_items})
     }
-
-
 }
 
 document.body.appendChild(new App().render());
