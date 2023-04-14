@@ -19,7 +19,7 @@ const task_items = load_items() || [
 
 let state = {
     items: task_items,
-    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
+    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0]?.id || 0),
     isModal: false
 }
 
