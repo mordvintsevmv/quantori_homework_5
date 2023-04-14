@@ -15,8 +15,10 @@ class Header extends Component {
         title.classList.add('header__title')
         title.innerText = props.title
 
+        const weather_widget = new WeatherWidget().render({})
+
         return super.render({
-            children: title,
+            children: [title, weather_widget],
             style: this.state.style,
             className: ['header']
         });
