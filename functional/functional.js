@@ -55,9 +55,9 @@ function renderApp() {
     appContainer.append(App());
 
     if (state.search_focus){
-        document.getElementById('search-input').focus()
+        document.getElementById('search-input')?.focus()
     } else if(state.add_task_focus){
-        document.getElementById('add-task-input').focus()
+        document.getElementById('add-task-input')?.focus()
     }
 
     const root = document.getElementById('root');
@@ -65,15 +65,15 @@ function renderApp() {
     const add = document.getElementById('add-task-input');
 
 
-    root.addEventListener('click', ()=>{
+    root?.addEventListener('click', ()=>{
         state.search_focus = false
         state.add_task_focus = false
     })
-    search.addEventListener('click', (event)=>{
+    search?.addEventListener('click', (event)=>{
         event.stopPropagation()
         state.search_focus = true
     })
-    add.addEventListener('click', (event)=>{
+    add?.addEventListener('click', (event)=>{
         event.stopPropagation()
         state.add_task_focus = true
     })
