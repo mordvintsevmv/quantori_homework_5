@@ -15,6 +15,31 @@ const task_items = load_items() || [
     {id: 5, isChecked: true, title: 'Complete Homework #4', tag: 'work', date: new Date(2023, 3, 2)},
 ]
 
+const isTodayTasksShown = () => {
+    const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
+    const today = new Date()
+
+    const parsed_date = new Date(Date.parse(shown_date))
+
+    if (shown_date) {
+
+        if (parsed_date.getFullYear() === today.getFullYear()
+            && parsed_date.getMonth() === today.getMonth()
+            && parsed_date.getDate() === today.getDate()
+        ) {
+            return true
+        } else{
+            return false
+        }
+    } else{
+        return false
+    }
+}
+
+const setTodayShown = () => {
+    localStorage.setItem('TodayTaskLastShown', JSON.stringify(new Date()))
+}
+
 
 class App extends Component {
     constructor() {
@@ -83,11 +108,27 @@ class App extends Component {
         })
         finished_list.classList.add('app-wrapper__list')
 
-        let children = [header, controls, in_work_list, finished_list,]
+
+        let children = [header, controls, in_work_list, finished_list]
+
+        if (!isTodayTasksShown()){
+            const today_modal = new Modal().render({
+                closeModal: () => {this.closeModal(); setTodayShown()},
+                children: new TodayTasks().render({
+                    closeModal: this.closeModal,
+                    setTodayShown: setTodayShown,
+                    tasks: this.state.items
+                })
+            })
+
+            today_modal.classList.add('app-wrapper__modal')
+
+            children.push(today_modal)
+        }
 
         // Modal Component
         if (this.state.isModal) {
-            const modal = new Modal().render({
+            const add_modal = new Modal().render({
                 closeModal: this.closeModal,
                 children: new AddTask().render({
                     closeModal: this.closeModal,
@@ -95,6 +136,7 @@ class App extends Component {
                     value: '',
                 })
             })
+
             modal.classList.add('app-wrapper__modal')
 
             children.push(modal)

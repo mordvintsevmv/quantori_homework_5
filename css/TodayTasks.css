@@ -1,0 +1,45 @@
+.today-tasks{
+    position: relative;
+
+    width: 524px;
+    min-height: 350px;
+    max-height: 500px;
+
+    padding: 24px 30px;
+}
+
+.today-tasks__title{
+    text-align: center;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 33px;
+
+    margin-bottom: 15px;
+}
+
+.today-tasks__text{
+    margin-bottom: 9px;
+}
+
+.today-tasks__list{
+    margin-left: 24px;
+
+    max-height: 300px;
+    overflow: scroll;
+    margin-bottom: 72px;
+}
+
+.today-tasks__task{
+    margin-bottom: 9px;
+    width: 364px;
+}
+
+
+.today-tasks__ok-button{
+    position: absolute;
+    bottom: 24px;
+
+    width: calc(524px - 60px);
+}
