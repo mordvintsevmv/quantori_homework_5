@@ -72,11 +72,14 @@ function renderApp() {
     search?.addEventListener('click', (event)=>{
         event.stopPropagation()
         state.search_focus = true
+        state.add_task_focus = false
     })
     add?.addEventListener('click', (event)=>{
         event.stopPropagation()
+        state.search_focus = false
         state.add_task_focus = true
     })
+
 
 }
 

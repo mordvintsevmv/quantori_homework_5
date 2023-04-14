@@ -41,7 +41,7 @@ const App = () => {
     }
 
     const setValueAddTaskInput = (value) => {
-        setState({...state, add_task_input: value})
+        setState({...state, add_task_input: value, add_task_focus: true})
     }
 
     const checkItem = (id) => {
@@ -101,6 +101,7 @@ const App = () => {
 
     if (state.isModal) {
         app_wrapper.append(modal)
+        console.log(state.add_task_focus)
     }
 
     return app_wrapper;

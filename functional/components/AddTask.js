@@ -97,7 +97,7 @@ const AddTask = ({closeModal, addTask, value, setValueAddTaskInput}) => {
     const add_button = Button({text: 'Add Task', onClick: addTask})
     add_button.classList.add('add-task__add-button')
     add_button.id = 'add-task-button'
-    add_button.disabled = true
+    add_button.disabled = value === ''
 
     // Cancel Button
     const cancel_button = Button({text: 'Cancel', isTransparent: true, onClick: closeModal})
