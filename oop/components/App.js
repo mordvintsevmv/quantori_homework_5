@@ -137,9 +137,9 @@ class App extends Component {
                 })
             })
 
-            modal.classList.add('app-wrapper__modal')
+            add_modal.classList.add('app-wrapper__modal')
 
-            children.push(modal)
+            children.push(add_modal)
         }
 
         return super.render({
