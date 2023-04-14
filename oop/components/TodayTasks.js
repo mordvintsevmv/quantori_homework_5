@@ -47,7 +47,6 @@ class TodayTasks extends Component {
             li.classList.add('today-tasks__task')
             return li
         })
-        console.log(today_list)
 
         today_ul.append(...today_list)
         today_task_wrapper.append(today_ul)
