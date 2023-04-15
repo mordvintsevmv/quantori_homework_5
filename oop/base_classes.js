@@ -3,11 +3,15 @@ class Component {
         this.state = {};
         this.props = {};
         this.element = document.createElement('div');
+        this.ComponentDidMount()
     }
 
     setState(state) {
         this.state = {...this.state, ...state};
         this.update();
+    }
+
+    ComponentDidMount(){
     }
 
     /**
