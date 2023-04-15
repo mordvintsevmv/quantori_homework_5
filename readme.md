@@ -4,6 +4,16 @@
 
 ---
 
+### Homework 5
+
+### Developed:
+
+- [X] ToDo List with Functional Components
+- [X] ToDo List with Class Components
+- [X] Responsive design for all versions
+- [X] Saving Task Items to the localStorage
+- [X] Class Components saves state of children components
+
 **Main Branch:** <a href="https://mordvintsevmv.github.io/quantori_homework_5" target="_blank">Open page</a>
 
 **Description:** *The main branch of the app.*
@@ -28,13 +38,18 @@
 
 ---
 
+### Homework 6
+
 ### Developed:
 
-- [X] ToDo List with Functional Components
-- [X] ToDo List with Class Components
-- [X] Responsive design for all versions
-- [X] Saving Task Items to the localStorage
-- [X] Class Components saves state of children components
+- [X] Weather Widget
+- [X] Fetching Data from
+
+**(HW6) OOP ToDo Branch:** <a href="https://quantori-hw6-feature-oop.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Class Components. *
+
+---
 
 **The application was tested on a variety of devices (iOS, MacOS, Windows, Android) and browsers (Safari, Chrome, Firefox) manually.**
 
