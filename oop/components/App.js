@@ -1,19 +1,32 @@
-const load_items = () => {
-    return JSON.parse(localStorage.getItem('items'))
+const load_items = async () => {
+    return await localDB('items')
 }
 
-const save_items = (items) => {
-    localStorage.setItem('items', JSON.stringify(items))
+const post_item = async (item) => {
+    return await localDB('items', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(item)
+    })
 }
 
-const task_items = load_items() || [
-    {id: 0, isChecked: true, title: 'Complete Homework #5', tag: 'work', date: new Date()},
-    {id: 1, isChecked: false, title: 'Celebrate my birthday', tag: 'home', date: new Date(2023, 11, 13)},
-    {id: 2, isChecked: false, title: 'Buy new eyeglasses', tag: 'health', date: new Date(2023, 3, 13)},
-    {id: 3, isChecked: true, title: 'Watch "Manhattan" by Woody Allen ', tag: 'other', date: new Date(2023, 1, 25)},
-    {id: 4, isChecked: false, title: 'Come up with a new joke', tag: 'other', date: new Date()},
-    {id: 5, isChecked: true, title: 'Complete Homework #4', tag: 'work', date: new Date(2023, 3, 2)},
-]
+const delete_item = async (id) => {
+    return await localDB('items/' + id, {
+        method: 'DELETE'
+    })
+}
+
+const change_item = async (id, item) => {
+    return await localDB('items/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(item)
+    })
+}
 
 const isTodayTasksShown = () => {
     const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
@@ -28,10 +41,10 @@ const isTodayTasksShown = () => {
             && parsed_date.getDate() === today.getDate()
         ) {
             return true
-        } else{
+        } else {
             return false
         }
-    } else{
+    } else {
         return false
     }
 }
@@ -40,22 +53,32 @@ const setTodayShown = () => {
     localStorage.setItem('TodayTaskLastShown', JSON.stringify(new Date()))
 }
 
-
 class App extends Component {
     constructor() {
         super();
         this.state = {
-            items: task_items,
-            last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0]?.id || 0),
+            items: [],
+            last_id: 0,
             isModal: false,
             search_input: ''
         }
     }
 
     setState(state) {
-        save_items(state.items)
         super.setState(state);
     }
+
+    ComponentDidMount() {
+        load_items().then(items => {
+            this.setState({
+                    ...this.state,
+                    items: items,
+                    last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                }
+            )
+        })
+    }
+
 
     render(props) {
 
@@ -111,9 +134,12 @@ class App extends Component {
 
         let children = [header, controls, in_work_list, finished_list]
 
-        if (!isTodayTasksShown()){
+        if (!isTodayTasksShown()) {
             const today_modal = new Modal().render({
-                closeModal: () => {this.closeModal(); setTodayShown()},
+                closeModal: () => {
+                    this.closeModal();
+                    setTodayShown()
+                },
                 children: new TodayTasks().render({
                     closeModal: this.closeModal,
                     setTodayShown: setTodayShown,
@@ -154,22 +180,28 @@ class App extends Component {
         const tag = document.querySelector('input[name="tag"]:checked').value;
         const date = new Date(document.getElementById('date-input').value);
 
-        this.setState({
-            ...this.state,
-            items: [...this.state.items, {
-                id: this.state.last_id + 1,
-                isChecked: false,
-                title: title,
-                tag: tag,
-                date: date
-            }],
-            last_id: this.state.last_id + 1,
-            isModal: false
+        post_item({
+            id: this.state.last_id + 1,
+            isChecked: false,
+            title: title,
+            tag: tag,
+            date: date
         })
+            .then(item => this.setState({
+                ...this.state,
+                items: [...this.state.items, item],
+                last_id: item.id,
+                isModal: false
+            }))
+            .catch(error => console.error(error))
     }
 
+
     deleteItem = (id) => {
-        this.setState({...this.state, items: [...this.state.items.filter(item => item.id !== id)]})
+        delete_item(id).then(r => {
+            this.setState({...this.state, items: [...this.state.items.filter(item => item.id !== id)]})
+        })
+
     }
 
     openModal = () => {
@@ -181,12 +213,16 @@ class App extends Component {
     }
 
     checkItem = (id) => {
+
         const item_index = this.state.items.findIndex(item => item.id === id)
 
-        const new_items = [...this.state.items]
-        new_items[item_index] = {...new_items[item_index], isChecked: !new_items[item_index].isChecked}
+        change_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked}).then(item => {
+            const new_items = [...this.state.items]
+            new_items[item_index] = item
 
-        this.setState({...this.state, items: new_items})
+            this.setState({...this.state, items: new_items})
+        })
+
     }
 }
 
