@@ -1,9 +1,9 @@
 const load_items = async () => {
-    return await localDB('items')
+    return await itemsAPI('items')
 }
 
 const post_item = async (item) => {
-    return await localDB('items', {
+    return await itemsAPI('items', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -13,13 +13,13 @@ const post_item = async (item) => {
 }
 
 const delete_item = async (id) => {
-    return await localDB('items/' + id, {
+    return await itemsAPI('items/' + id, {
         method: 'DELETE'
     })
 }
 
 const change_item = async (id, item) => {
-    return await localDB('items/' + id, {
+    return await itemsAPI('items/' + id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -52,6 +52,26 @@ const isTodayTasksShown = () => {
 const setTodayShown = () => {
     localStorage.setItem('TodayTaskLastShown', JSON.stringify(new Date()))
 }
+
+fakeDB('items', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(    {
+        "id": 9,
+        "isChecked": false,
+        "title": "Complete Homework #9",
+        "tag": "work",
+        "date": "2023-04-28T00:00:00.000Z"
+    })
+}).then((r) => {
+    fakeDB('items').then(console.log)
+console.log(r)
+})
+
+console.log()
+
 
 class App extends Component {
     constructor() {
