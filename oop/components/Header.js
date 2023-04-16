@@ -1,6 +1,7 @@
 class Header extends Component {
     constructor() {
         super();
+        this.widget = new WeatherWidget()
     }
 
     /**
@@ -15,7 +16,7 @@ class Header extends Component {
         title.classList.add('header__title')
         title.innerText = props.title
 
-        const weather_widget = new WeatherWidget().render({})
+        const weather_widget = this.widget.render({})
 
         return super.render({
             children: [title, weather_widget],

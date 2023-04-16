@@ -1,33 +1,3 @@
-const load_items = async () => {
-    return await itemsAPI('items')
-}
-
-const post_item = async (item) => {
-    return await itemsAPI('items', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(item)
-    })
-}
-
-const delete_item = async (id) => {
-    return await itemsAPI('items/' + id, {
-        method: 'DELETE'
-    })
-}
-
-const put_item = async (id, item) => {
-    return await itemsAPI('items/' + id, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(item)
-    })
-}
-
 const isTodayTasksShown = () => {
     const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
     const today = new Date()
@@ -62,6 +32,7 @@ class App extends Component {
             isModal: false,
             search_input: ''
         }
+        this.header = new Header()
     }
 
     setState(state) {
@@ -83,7 +54,7 @@ class App extends Component {
     render(props) {
 
         // Header component
-        const header = new Header().render({
+        const header = this.header.render({
             title: 'To Do List'
         })
         header.classList.add('app-wrapper__header')
