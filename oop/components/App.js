@@ -18,7 +18,7 @@ const delete_item = async (id) => {
     })
 }
 
-const change_item = async (id, item) => {
+const put_item = async (id, item) => {
     return await itemsAPI('items/' + id, {
         method: 'PUT',
         headers: {
@@ -52,26 +52,6 @@ const isTodayTasksShown = () => {
 const setTodayShown = () => {
     localStorage.setItem('TodayTaskLastShown', JSON.stringify(new Date()))
 }
-
-fakeDB('items', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(    {
-        "id": 9,
-        "isChecked": false,
-        "title": "Complete Homework #9",
-        "tag": "work",
-        "date": "2023-04-28T00:00:00.000Z"
-    })
-}).then((r) => {
-    fakeDB('items').then(console.log)
-console.log(r)
-})
-
-console.log()
-
 
 class App extends Component {
     constructor() {
@@ -207,21 +187,47 @@ class App extends Component {
             tag: tag,
             date: date
         })
-            .then(item => this.setState({
-                ...this.state,
-                items: [...this.state.items, item],
-                last_id: item.id,
-                isModal: false
+            .then(() =>
+                load_items().then(items => {
+                this.setState({
+                        ...this.state,
+                        items: items,
+                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                        isModal: false
+                    }
+                )
             }))
             .catch(error => console.error(error))
     }
 
 
     deleteItem = (id) => {
-        delete_item(id).then(r => {
-            this.setState({...this.state, items: [...this.state.items.filter(item => item.id !== id)]})
+        delete_item(id).then(() => {
+            load_items().then(items => {
+                this.setState({
+                        ...this.state,
+                        items: items,
+                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                    }
+                )
+            })
         })
+    }
 
+    checkItem = (id) => {
+
+        const item_index = this.state.items.findIndex(item => item.id === id)
+
+        put_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked})
+            .then(() =>
+                load_items().then(items => {
+                    this.setState({
+                            ...this.state,
+                            items: items,
+                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                        }
+                    )
+                }))
     }
 
     openModal = () => {
@@ -232,18 +238,7 @@ class App extends Component {
         this.setState({...this.state, isModal: false})
     }
 
-    checkItem = (id) => {
 
-        const item_index = this.state.items.findIndex(item => item.id === id)
-
-        change_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked}).then(item => {
-            const new_items = [...this.state.items]
-            new_items[item_index] = item
-
-            this.setState({...this.state, items: new_items})
-        })
-
-    }
 }
 
 document.body.appendChild(new App().render());
