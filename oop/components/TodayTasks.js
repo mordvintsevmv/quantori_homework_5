@@ -48,6 +48,12 @@ class TodayTasks extends Component {
             return li
         })
 
+        if (today_list.length === 0){
+            today_text.innerText = 'You have no tasks for today! '
+        } else{
+            today_text.innerText = 'You have the next planned tasks for today: '
+        }
+
         today_ul.append(...today_list)
         today_task_wrapper.append(today_ul)
 
