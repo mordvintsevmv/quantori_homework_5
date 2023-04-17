@@ -1,10 +1,10 @@
-# Quantori Homework #5
-
-### Git, DOM, OOP
+# Quantori Homework #5-6
 
 ---
 
 ### Homework 5
+
+### Git, DOM, OOP
 
 ### Developed:
 
@@ -40,6 +40,8 @@
 
 ### Homework 6
 
+### Promises, Event Loop
+
 ### Developed:
 
 - [X] Weather Widget
@@ -47,7 +49,7 @@
 
 **(HW6) OOP ToDo Branch:** <a href="https://quantori-hw6-feature-oop.netlify.app/" target="_blank">Open page</a>
 
-**Description:** *ToDo List using Class Components. *
+**Description:** *ToDo List using Class Components.*
 
 ---
 
