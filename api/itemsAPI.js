@@ -1,13 +1,15 @@
 // Localhost server
+import {dataFetch} from "./api.js";
+
 const localDB = dataFetch('http://localhost:3004')
 
 // JSON bin server
 const jsonbinAPI = dataFetch('https://api.jsonbin.io/v3/b')
 
-let load_items
-let post_item
-let delete_item
-let put_item
+export let load_items
+export let post_item
+export let delete_item
+export let put_item
 
 if (window.location.host.includes('localhost')){
     load_items = async () => {

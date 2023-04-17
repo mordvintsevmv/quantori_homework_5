@@ -5,6 +5,32 @@ import Button from "./Button.js";
 import Modal from "./Modal.js";
 import {useState} from "../functional.js";
 import AddTask from "./AddTask.js";
+import {delete_item, load_items, post_item, put_item} from "../../api/itemsAPI.js";
+
+const isTodayTasksShown = () => {
+    const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
+    const today = new Date()
+
+    const parsed_date = new Date(Date.parse(shown_date))
+
+    if (shown_date) {
+
+        if (parsed_date.getFullYear() === today.getFullYear()
+            && parsed_date.getMonth() === today.getMonth()
+            && parsed_date.getDate() === today.getDate()
+        ) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+
+const setTodayShown = () => {
+    localStorage.setItem('TodayTaskLastShown', JSON.stringify(new Date()))
+}
 
 /**
  * App container
@@ -14,21 +40,61 @@ const App = () => {
 
     const [state, setState] = useState()
 
-    function addItem() {
+    const addItem = async () => {
+
         const title = document.getElementById('add-task-input').value
         const tag = document.querySelector('input[name="tag"]:checked').value;
         const date = new Date(document.getElementById('date-input').value);
 
-        setState({
-            ...state,
-            items: [...state.items, {id: state.last_id + 1, isChecked: false, title: title, tag: tag, date: date}],
-            last_id: state.last_id + 1,
-            isModal: false
+        await post_item({
+            id: state.last_id + 1,
+            isChecked: false,
+            title: title,
+            tag: tag,
+            date: date
+        })
+            .then(() =>
+                load_items().then(items => {
+                    setState({
+                            ...state,
+                            items: items,
+                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                            isModal: false
+                        }
+                    )
+                }))
+            .catch(error => console.error(error))
+    }
+
+
+    const deleteItem = async (id) => {
+        await delete_item(id).then(() => {
+            load_items().then(items => {
+                setState({
+                        ...state,
+                        items: items,
+                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                    }
+                )
+            })
         })
     }
 
-    const deleteItem = (id) => {
-        setState({...state, items: [...state.items.filter(item => item.id !== id)]})
+    const checkItem = async (id) => {
+
+        const item_index = state.items.findIndex(item => item.id === id)
+
+        await put_item(id, {...state.items[item_index], isChecked: !state.items[item_index].isChecked})
+            .then(() => {
+                load_items().then(items => {
+                    setState({
+                            ...state,
+                            items: items,
+                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                        }
+                    )
+                })
+            })
     }
 
     const openModal = () => {
@@ -39,14 +105,6 @@ const App = () => {
         setState({...state, isModal: false})
     }
 
-    const checkItem = (id) => {
-        const item_index = state.items.findIndex(item => item.id === id)
-
-        const new_items = [...state.items]
-        new_items[item_index] = {...new_items[item_index], isChecked: !new_items[item_index].isChecked}
-
-        setState({...state, items: new_items})
-    }
 
     // App wrapper
     const app_wrapper = document.createElement("div");

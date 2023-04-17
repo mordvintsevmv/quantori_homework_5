@@ -1,27 +1,20 @@
 import App from "./components/App.js";
-
-const load_items = () => {
-    return JSON.parse(localStorage.getItem('items'))
-}
-
-const save_items = () => {
-    localStorage.setItem('items', JSON.stringify(state.items))
-}
-
-const task_items = load_items() || [
-    {id: 0, isChecked: true, title: 'Complete Homework #5', tag: 'work', date: new Date()},
-    {id: 1, isChecked: false, title: 'Celebrate my birthday', tag: 'home', date: new Date(2023, 11, 13)},
-    {id: 2, isChecked: false, title: 'Buy new eyeglasses', tag: 'health', date: new Date(2023, 3, 13)},
-    {id: 3, isChecked: true, title: 'Watch "Manhattan" by Woody Allen ', tag: 'other', date: new Date(2023, 1, 25)},
-    {id: 4, isChecked: false, title: 'Come up with a new joke', tag: 'other', date: new Date()},
-    {id: 5, isChecked: true, title: 'Complete Homework #4', tag: 'work', date: new Date(2023, 3, 2)},
-]
+import {load_items} from "../api/itemsAPI.js";
 
 let state = {
-    items: task_items,
-    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0]?.id || 0),
+    items: [],
+    last_id: 0,
     isModal: false
 }
+
+load_items().then((items) => {
+    state = {
+        items: items,
+        last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
+        isModal: false
+    }
+    renderApp()
+})
 
 /**
  * Global application state
@@ -34,7 +27,6 @@ export const useState = (initialValue = undefined) => {
 
     function setValue(newValue) {
         state = newValue;
-        save_items();
         renderApp();
     }
 
@@ -51,5 +43,4 @@ function renderApp() {
     appContainer.append(App());
 }
 
-// initial render
-renderApp();
+
