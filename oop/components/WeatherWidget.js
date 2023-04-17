@@ -5,7 +5,7 @@ class WeatherWidget extends Component {
         this.element = document.createElement('div');
     }
 
-    ComponentDidMount() {
+    ComponentDidCreate() {
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(

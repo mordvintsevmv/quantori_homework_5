@@ -3,7 +3,7 @@ class Component {
         this.state = {};
         this.props = {};
         this.element = document.createElement('div');
-        this.ComponentDidMount()
+        this.ComponentDidCreate()
     }
 
     setState(state) {
@@ -11,7 +11,7 @@ class Component {
         this.update();
     }
 
-    ComponentDidMount(){
+    ComponentDidCreate(){
     }
 
     /**

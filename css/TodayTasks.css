@@ -26,7 +26,7 @@
 .today-tasks__list{
     margin-left: 24px;
 
-    max-height: 300px;
+    max-height: 285px;
     overflow: scroll;
     margin-bottom: 72px;
 }
@@ -36,10 +36,57 @@
     width: 364px;
 }
 
-
 .today-tasks__ok-button{
     position: absolute;
     bottom: 24px;
 
     width: calc(524px - 60px);
+}
+
+@media screen and (max-width: 1200px) {
+    .today-tasks {
+        width: 500px;
+        padding: 24px 30px;
+    }
+
+    .today-tasks__ok-button{
+        width: calc(500px - 60px);
+    }
+
+    .today-tasks__task{
+        width: 340px;
+    }
+}
+
+
+@media screen and (max-width: 900px) {
+    .today-tasks {
+        width: 400px;
+        padding: 24px 16px;
+    }
+
+    .today-tasks__ok-button{
+        width: calc(400px - 32px);
+    }
+
+    .today-tasks__task{
+        width: 300px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .today-tasks {
+        width: min(400px, calc(100vw - 32px));
+        padding: 24px 16px;
+    }
+
+    .today-tasks__ok-button{
+        width: calc(100% - 32px);
+    }
+
+    .today-tasks__task{
+        margin-bottom: 15px;
+        width: calc(100% - 64px);
+    }
 }

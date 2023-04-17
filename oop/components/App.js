@@ -39,7 +39,7 @@ class App extends Component {
         super.setState(state);
     }
 
-    ComponentDidMount() {
+    ComponentDidCreate() {
         load_items().then(items => {
             this.setState({
                     ...this.state,
@@ -114,7 +114,7 @@ class App extends Component {
                 children: new TodayTasks().render({
                     closeModal: this.closeModal,
                     setTodayShown: setTodayShown,
-                    tasks: this.state.items
+                    items: this.state.items
                 })
             })
 
