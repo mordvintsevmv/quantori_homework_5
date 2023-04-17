@@ -53,6 +53,12 @@
 
 ---
 
+**(HW6) Functional ToDo Branch:** <a href="https://quantori-hw6-feature-functional.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Functional Components.*
+
+---
+
 **The application was tested on a variety of devices (iOS, MacOS, Windows, Android) and browsers (Safari, Chrome, Firefox) manually.**
 
 **More information about the components and solutions is provided in the documentation.**
