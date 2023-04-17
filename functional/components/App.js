@@ -6,6 +6,7 @@ import Modal from "./Modal.js";
 import {useState} from "../functional.js";
 import AddTask from "./AddTask.js";
 import {delete_item, load_items, post_item, put_item} from "../../api/itemsAPI.js";
+import {TodayTasks} from "./TodayTasks.js";
 
 const isTodayTasksShown = () => {
     const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
@@ -155,6 +156,20 @@ const App = () => {
 
     if (state.isModal) {
         app_wrapper.append(modal)
+    }
+
+    if (!isTodayTasksShown()){
+        const today_tasks = TodayTasks({closeModal: closeModal, setTodayShown: setTodayShown, items: state.items})
+
+        const today_modal = Modal({closeModal: () => {
+                closeModal();
+                setTodayShown()
+            }, children: today_tasks}
+        )
+
+        today_modal.classList.add('app-wrapper__modal')
+
+        app_wrapper.append(today_modal)
     }
 
     return app_wrapper;
