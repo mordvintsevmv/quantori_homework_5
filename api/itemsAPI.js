@@ -1,7 +1,7 @@
 // Localhost server
 const localDB = dataFetch('http://localhost:3004')
 
-// Fake server
+// JSON bin server
 const jsonbinAPI = dataFetch('https://api.jsonbin.io/v3/b')
 
 let load_items
@@ -40,6 +40,18 @@ if (window.location.host.includes('localhost')){
         })
     }
 } else{
+
+    const warning_text = document.createElement('p')
+    warning_text.innerText = "Using JSONbin API to store tasks. \n It may take time to fetch data."
+    warning_text.style.opacity = "0.3"
+    warning_text.style.fontSize = "12px";
+    warning_text.style.position = "fixed";
+    warning_text.style.bottom = "5px";
+    warning_text.style.right = "5px";
+    warning_text.style.textAlign = "right"
+
+    document.body.append(warning_text)
+
     load_items = async () => {
         const response = await jsonbinAPI('643d4670ace6f33a220cf2db', {
             method: 'GET',
