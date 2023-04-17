@@ -1,4 +1,8 @@
 .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .header__title {
@@ -8,4 +12,10 @@
     line-height: 36px;
 
     color: #1D1D1D;
+}
+
+@media screen and (max-width: 600px){
+    .header {
+        flex-direction: column;
+    }
 }

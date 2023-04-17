@@ -1,3 +1,5 @@
+import {WeatherWidget} from "./WeatherWidget.js";
+
 /**
  * Header component
  * @returns {HTMLDivElement} - Header element
@@ -13,8 +15,11 @@ const Header = ({title}) => {
     header_title.classList.add('header__title')
     header_title.innerText = title
 
+    // Weather Widget
+    const weather_widget = WeatherWidget()
+
     // Appending
-    header_wrapper.append(header_title)
+    header_wrapper.append(header_title, weather_widget)
 
     return header_wrapper
 }
