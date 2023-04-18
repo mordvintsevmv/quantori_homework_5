@@ -12,17 +12,46 @@ let state = {
     weather: {city: '', temp_c: '', weather_icon: '', weather_text: ''}
 }
 
+
+// Fetching weather
+const InitialWeather = async () => {
+
+    let location = 'Tbilisi'
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                location = position.coords.latitude + ',' + position.coords.longitude
+            })
+    }
+
+    return await getWeather(location).then(response => {
+            return {
+                city: response.location.name,
+                temp_c: response.current.temp_c + "°",
+                weather_icon: response.current.condition.icon,
+                weather_text: response.current.condition.text
+            }
+        }
+    )
+}
+
+
 /**
- * Initial fetching tasks from server
+ * Initial fetching tasks and weather from server
  */
 const InitialLoad = async () => {
-    try{
+
+    try {
+        // Checking if localhost is available
         await fetch('http://localhost:3004/items')
-    } catch (e){
+    } catch (e) {
         console.error(e)
+        // Switching to JSONbin if localhost is unavailable
         change_API_path()
     }
 
+    // Loading tasks from server
     await load_items().then((items) => {
         state = {
             ...state,
@@ -30,58 +59,13 @@ const InitialLoad = async () => {
             last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0)
         }
     })
-}
 
-
-/**
- * Fetching weather data.
- */
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            getWeather(position.coords.latitude + ',' + position.coords.longitude).then(response => {
-                    state = {
-                        ...state,
-                        weather: {
-                            city: response.location.name,
-                            temp_c: response.current.temp_c + "°",
-                            weather_icon: response.current.condition.icon,
-                            weather_text: response.current.condition.text
-                        }
-                    }
-                    renderApp()
-                }
-            )
-        },
-        (error) => {
-            console.error(error)
-            getWeather("Tbilisi").then(response => {
-                    state = {
-                        ...state,
-                        weather: {
-                            city: response.location.name,
-                            temp_c: response.current.temp_c + "°",
-                            weather_icon: response.current.condition.icon,
-                            weather_text: response.current.condition.text
-                        }
-                    }
-                    renderApp()
-                }
-            )
-        }
-    )
-} else {
-    getWeather("Tbilisi").then(response => {
+    // Setting weather
+    await InitialWeather().then((weather) => {
         state = {
             ...state,
-            weather: {
-                city: response.location.name,
-                temp_c: response.current.temp_c + "°",
-                weather_icon: response.current.condition.icon,
-                weather_text: response.current.condition.text
-            }
+            weather: weather
         }
-        renderApp()
     })
 }
 
@@ -112,5 +96,6 @@ function renderApp() {
     appContainer.append(App());
 }
 
+// Fetching tasks and weather, then rendering App
 InitialLoad().then(() => renderApp())
 
