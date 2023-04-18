@@ -39,6 +39,7 @@ const setTodayShown = () => {
  */
 const App = () => {
 
+
     const [state, setState] = useState()
 
     const addItem = async () => {
@@ -54,8 +55,8 @@ const App = () => {
             tag: tag,
             date: date
         })
-            .then(() =>
-                load_items().then(items => {
+            .then(async () =>
+                await load_items().then(items => {
                     setState({
                             ...state,
                             items: items,
@@ -69,8 +70,8 @@ const App = () => {
 
 
     const deleteItem = async (id) => {
-        await delete_item(id).then(() => {
-            load_items().then(items => {
+        await delete_item(id).then(async () => {
+            await load_items().then(items => {
                 setState({
                         ...state,
                         items: items,
@@ -86,8 +87,8 @@ const App = () => {
         const item_index = state.items.findIndex(item => item.id === id)
 
         await update_item(id, {...state.items[item_index], isChecked: !state.items[item_index].isChecked})
-            .then(() => {
-                load_items().then(items => {
+            .then(async () => {
+                await load_items().then(items => {
                     setState({
                             ...state,
                             items: items,
@@ -105,7 +106,6 @@ const App = () => {
     const closeModal = () => {
         setState({...state, isModal: false})
     }
-
 
     // App wrapper
     const app_wrapper = document.createElement("div");
@@ -158,7 +158,7 @@ const App = () => {
         app_wrapper.append(modal)
     }
 
-    if (!isTodayTasksShown()) {
+    if (!isTodayTasksShown() && !state.isModal) {
         const today_tasks = TodayTasks({closeModal: closeModal, setTodayShown: setTodayShown, items: state.items})
 
         const today_modal = Modal({

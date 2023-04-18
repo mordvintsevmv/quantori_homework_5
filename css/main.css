@@ -9,18 +9,18 @@ ul {
 }
 
 
-.skeleton{
+.skeleton {
     background: #F1F2F3;
     animation: skeleton-loading 1s linear infinite alternate;
 }
 
-.skeleton-text{
+.skeleton-text {
     height: 24px;
     width: 46px;
     border-radius: 12px;
 }
 
-.skeleton-img{
+.skeleton-img {
     border-radius: 50%;
 }
 
