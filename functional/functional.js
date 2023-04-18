@@ -16,14 +16,16 @@ let state = {
 // Fetching weather
 const InitialWeather = async () => {
 
-    let location = 'Tbilisi'
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                location = position.coords.latitude + ',' + position.coords.longitude
-            })
+    const getCurrentPosition = async () => {
+        return new Promise((resolve) => {
+            navigator.geolocation.getCurrentPosition(
+                position => resolve(position.coords.latitude + ',' + position.coords.longitude),
+                () => resolve('Tbilisi')
+            )
+        })
     }
+
+    const location = await getCurrentPosition()
 
     return await getWeather(location).then(response => {
             return {
