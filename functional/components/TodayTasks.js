@@ -27,6 +27,7 @@ export const TodayTasks = ({closeModal, setTodayShown, items}) => {
             if (parsed_date.getFullYear() === today.getFullYear()
                 && parsed_date.getMonth() === today.getMonth()
                 && parsed_date.getDate() === today.getDate()
+                && !task.isChecked
             ) {
                 return true
             }
