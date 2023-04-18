@@ -6,43 +6,37 @@ const localDB = dataFetch('http://localhost:3004')
 // JSON bin server
 const jsonbinAPI = dataFetch('https://api.jsonbin.io/v3/b')
 
-export let load_items
-export let post_item
-export let delete_item
-export let update_item
+export let load_items = async () => {
+    return await localDB('items')
+}
 
-if (window.location.host.includes('localhost')){
-    load_items = async () => {
-        return await localDB('items')
-    }
+export let post_item = async (item) => {
+    return await localDB('items', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(item)
+    })
+}
 
-    post_item = async (item) => {
-        return await localDB('items', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item)
-        })
-    }
+export let delete_item = async (id) => {
+    return await localDB('items/' + id, {
+        method: 'DELETE'
+    })
+}
 
-    delete_item = async (id) => {
-        return await localDB('items/' + id, {
-            method: 'DELETE'
-        })
-    }
+export let update_item = async (id, item) => {
+    return await localDB('items/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(item)
+    })
+}
 
-    update_item = async (id, item) => {
-        return await localDB('items/' + id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item)
-        })
-    }
-} else{
-
+export const change_API_path = () => {
     const warning_text = document.createElement('p')
     warning_text.innerText = "Using JSONbin API to store tasks. \n It may take time to fetch data."
     warning_text.style.opacity = "0.3"
@@ -111,4 +105,6 @@ if (window.location.host.includes('localhost')){
         })
     }
 }
+
+
 

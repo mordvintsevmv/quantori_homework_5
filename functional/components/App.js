@@ -59,7 +59,7 @@ const App = () => {
                     setState({
                             ...state,
                             items: items,
-                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
                             isModal: false
                         }
                     )
@@ -74,7 +74,7 @@ const App = () => {
                 setState({
                         ...state,
                         items: items,
-                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
                     }
                 )
             })
@@ -91,7 +91,7 @@ const App = () => {
                     setState({
                             ...state,
                             items: items,
-                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
                         }
                     )
                 })

@@ -1,5 +1,5 @@
 import App from "./components/App.js";
-import {load_items} from "../api/itemsAPI.js";
+import {change_API_path, load_items} from "../api/itemsAPI.js";
 import {getWeather} from "../api/weatherAPI.js";
 
 /**
@@ -13,16 +13,25 @@ let state = {
 }
 
 /**
- * Fetching tasks from server
+ * Initial fetching tasks from server
  */
-load_items().then((items) => {
-    state = {
-        ...state,
-        items: items,
-        last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0)
+const InitialLoad = async () => {
+    try{
+        await fetch('http://localhost:3004/items')
+    } catch (e){
+        console.error(e)
+        change_API_path()
     }
-    renderApp()
-})
+
+    await load_items().then((items) => {
+        state = {
+            ...state,
+            items: items,
+            last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0)
+        }
+    })
+}
+
 
 /**
  * Fetching weather data.
@@ -102,4 +111,6 @@ function renderApp() {
     appContainer.innerHTML = '';
     appContainer.append(App());
 }
+
+InitialLoad().then(() => renderApp())
 
