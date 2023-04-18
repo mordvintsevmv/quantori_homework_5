@@ -4,12 +4,37 @@ const localDB = dataFetch('http://localhost:3004')
 // JSON bin server
 const jsonbinAPI = dataFetch('https://api.jsonbin.io/v3/b')
 
-let load_items
-let post_item
-let delete_item
-let put_item
+let load_items = async () => {
+    return await localDB('items')
+}
 
-if (window.location.hostname.includes('netlify.app')){
+let post_item = async (item) => {
+    return await localDB('items', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(item)
+    })
+}
+
+let delete_item = async (id) => {
+    return await localDB('items/' + id, {
+        method: 'DELETE'
+    })
+}
+
+let update_item = async (id, item) => {
+    return await localDB('items/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(item)
+    })
+}
+
+const change_API_path = () => {
     const warning_text = document.createElement('p')
     warning_text.innerText = "Using JSONbin API to store tasks. \n It may take time to fetch data."
     warning_text.style.opacity = "0.3"
@@ -62,7 +87,7 @@ if (window.location.hostname.includes('netlify.app')){
         })
     }
 
-    put_item = async (id, item) => {
+    update_item = async (id, item) => {
 
         let items = await load_items()
 
@@ -75,38 +100,6 @@ if (window.location.hostname.includes('netlify.app')){
                 'X-Master-Key' : '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             },
             body: JSON.stringify({items:[...items]})
-        })
-    }
-
-} else{
-
-    load_items = async () => {
-        return await localDB('items')
-    }
-
-    post_item = async (item) => {
-        return await localDB('items', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item)
-        })
-    }
-
-    delete_item = async (id) => {
-        return await localDB('items/' + id, {
-            method: 'DELETE'
-        })
-    }
-
-    put_item = async (id, item) => {
-        return await localDB('items/' + id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item)
         })
     }
 }

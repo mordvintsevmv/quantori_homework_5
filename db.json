@@ -2,35 +2,35 @@
   "items": [
     {
       "id": 1,
-      "isChecked": false,
+      "isChecked": true,
       "title": "Celebrate my birthday",
       "tag": "home",
       "date": "2023-12-12T20:00:00.000Z"
     },
     {
       "id": 2,
-      "isChecked": false,
+      "isChecked": true,
       "title": "Buy new eyeglasses",
       "tag": "health",
       "date": "2023-04-12T20:00:00.000Z"
     },
     {
       "id": 3,
-      "isChecked": true,
+      "isChecked": false,
       "title": "Watch \"Manhattan\" by Woody Allen ",
       "tag": "other",
       "date": "2023-02-24T20:00:00.000Z"
     },
     {
       "id": 4,
-      "isChecked": true,
+      "isChecked": false,
       "title": "Come up with a new joke",
       "tag": "other",
       "date": "2023-04-11T13:53:34.574Z"
     },
     {
       "id": 5,
-      "isChecked": true,
+      "isChecked": false,
       "title": "Complete Homework #4",
       "tag": "work",
       "date": "2023-04-01T20:00:00.000Z"
@@ -44,7 +44,7 @@
     },
     {
       "id": 8,
-      "isChecked": false,
+      "isChecked": true,
       "title": "Complete Homework #6",
       "tag": "work",
       "date": "2023-04-19T00:00:00.000Z"

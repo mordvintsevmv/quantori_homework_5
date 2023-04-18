@@ -23,6 +23,10 @@ const setTodayShown = () => {
     localStorage.setItem('TodayTaskLastShown', JSON.stringify(new Date()))
 }
 
+
+
+
+
 class App extends Component {
     constructor() {
         super();
@@ -39,15 +43,23 @@ class App extends Component {
         super.setState(state);
     }
 
-    ComponentDidCreate() {
-        load_items().then(items => {
-            this.setState({
-                    ...this.state,
-                    items: items,
-                    last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
-                }
-            )
-        })
+    async ComponentDidCreate() {
+        try{
+            await fetch('http://localhost:3004/items')
+        } catch (e){
+            console.error(e)
+            change_API_path()
+        }
+
+        await load_items()
+            .then(items => {
+                this.setState({
+                        ...this.state,
+                        items: items,
+                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
+                    }
+                )
+            })
     }
 
 
@@ -189,7 +201,7 @@ class App extends Component {
 
         const item_index = this.state.items.findIndex(item => item.id === id)
 
-        put_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked})
+        update_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked})
             .then(() =>
                 load_items().then(items => {
                     this.setState({
