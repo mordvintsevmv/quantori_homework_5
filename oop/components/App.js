@@ -117,11 +117,11 @@ class App extends Component {
 
         let children = [header, controls, in_work_list, finished_list]
 
-        if (!isTodayTasksShown()) {
+        if (!isTodayTasksShown() && !this.state.isModal) {
             const today_modal = new Modal().render({
                 closeModal: () => {
+                    setTodayShown();
                     this.closeModal();
-                    setTodayShown()
                 },
                 children: new TodayTasks().render({
                     closeModal: this.closeModal,
