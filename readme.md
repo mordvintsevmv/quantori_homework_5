@@ -45,7 +45,7 @@
 ### Developed:
 
 - [X] Weather Widget
-- [X] Fetching Data from
+- [X] Fetching Data from server
 
 **(HW6) OOP ToDo Branch:** <a href="https://quantori-hw6-feature-oop.netlify.app/" target="_blank">Open page</a>
 
@@ -70,11 +70,13 @@
 1. [Task](#Task)
 2. [Project Structure](#structure)
 3. [Technical Solutions](#solutions)
-   1. [Task Object](#solutions-taskobject)
-   1. [State and localStorage](#solutions-storage)
-   1. [Search Task](#solutions-search)
-   1. [Save state of children components (OOP)](#solutions-oop-state)
-   2. [Responsive Design](#solutions-responsive)
+   1. [(HW5) Task Object](#solutions-taskobject)
+   1. [(HW5) State and localStorage](#solutions-storage)
+   1. [(HW5) Search Task](#solutions-search)
+   1. [(HW5) Save state of children components (OOP)](#solutions-oop-state)
+   2. [(HW5) Responsive Design](#solutions-responsive)
+   2. [(HW6) Fetching Data from server](#solutions-fetching)
+   2. [(HW6) Initializing tasks and weather](#solutions-init)
 4. [Components](#components)
 5. [Contacts](#contacts)
 
@@ -490,6 +492,207 @@ it was decided to optimize an application for all devices:
 
 ![mobile-version](readme-ing/mobile-version.png)
 
+---
+
+### <a name='solutions-fetching'>Fetching Data from server</a>
+
+Since we need to use localhost as a server, 
+the application will not load tasks if the server is not running 
+or unavailable.
+
+For this reason, it will not be possible to deploy application and fetch tasks.
+
+To avoid this problem, it was decided to use a JSONbin server as an alternative if localhost is not responding.
+
+When the application starts, it checks whether there is a response from localhost. 
+If the server does not respond, the server functions are reassigned to work with JSONbin
+
+```javascript
+    try {
+        // Checking if localhost is available
+        await fetch('http://localhost:3004/items')
+    } catch (e) {
+        console.error(e)
+        // Switching to JSONbin if localhost is unavailable
+        change_API_path()
+    }
+```
+
+For example, a function to post an item to localhost:
+
+```javascript
+export let post_item = async (item) => {
+   return await localDB('items', {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(item)
+   })
+}
+```
+
+This is a function, but for interacting with JSONbin:
+
+```javascript
+export const change_API_path = () => {
+[...]
+   post_item = async (item) => {
+
+      const items = await load_items()
+
+      return await jsonbinAPI('643d4670ace6f33a220cf2db', {
+         method: 'PUT',
+         headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
+         },
+         body: JSON.stringify({items: [...items, item]})
+      })
+   }
+[...]
+```
+
+This approach made it possible not to rewrite the logic inside the component, 
+but only to reassign the functions of interaction with the server.
+
+---
+
+### <a name='solutions-init'>Initializing tasks and weather</a>
+
+The main objective is to fetch tasks and weather data only when the application is first rendered. 
+Different solutions were used in the functional and class approach, which will be described below.
+
+#### Functional
+
+Before calling the App component render function, several asynchronous functions are executed:
+
+1. Checking localhost availability:
+
+```javascript
+    try {
+        await fetch('http://localhost:3004/items')
+    } catch (e) {
+        change_API_path()
+    }
+```
+
+2. Fetching tasks:
+
+```javascript
+    await load_items().then((items) => {
+        state = {
+            ...state,
+            items: items,
+            last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0)
+        }
+    })
+```
+
+3. Fetching weather data (full function is presented in the file functional/functional.js):
+
+```javascript
+    await InitialWeather().then((weather) => {
+        state = {
+            ...state,
+            weather: weather
+        }
+    })
+```
+
+And only after resolving all the functions the application will be rendered:
+
+```javascript
+InitialLoad().then(() => renderApp())
+```
+
+---
+
+#### OOP
+
+A function was created for the Component class, which is called only when an object is created (only one time):
+
+```javascript
+class Component {
+    constructor() {
+        this.state = {};
+        this.props = {};
+        this.element = document.createElement('div');
+        this.ComponentDidCreate()
+    }
+
+
+    ComponentDidCreate() {
+    }
+
+```
+
+Since in the OOP approach we create an App object once, and then rerender it, we can fetch tasks in the ComponentDidCreate function:
+
+```javascript
+    async ComponentDidCreate()
+{
+    try {
+        await fetch('http://localhost:3004/items')
+    } catch (e) {
+        change_API_path()
+    }
+
+    // Loading items from server
+    await load_items()
+        .then(items => {
+            this.setState({
+                    ...this.state,
+                    items: items,
+                    last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
+                }
+            )
+        })
+}
+```
+
+It was decided to store weather data in the WeatherWidget component itself, because it has its own state, and to fetch data on Component creating:
+
+```javascript
+class WeatherWidget extends Component {
+    constructor() {
+        super();
+        this.state = {city: '', temp_c: '', weather_icon: '', weather_text: ''}
+    }
+
+    ComponentDidCreate() {
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                getWeather(position.coords.latitude + ',' + position.coords.longitude).then(response => {
+                    this.setState({
+                        city: response.location.name,
+                        temp_c: response.current.temp_c + "°",
+                        [...]
+
+                }
+```
+
+To avoid creating a Header object (and its child WeatherWidget) on every App rerender, 
+which will lead to constant fetching of weather data, it was decided to create the component in the App constructor and then just render it.
+
+```javascript
+class App extends Component {
+    constructor() {
+        this.header = new Header()
+    }
+    
+    render(props){
+       // Header component
+       const header = this.header.render({
+          title: 'To Do List'
+       })
+    }
+
+}
+```
+
+This approach made it possible to avoid unnecessary calls to the server and fetch data efficiently.
 
 ---
 
