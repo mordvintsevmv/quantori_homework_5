@@ -9,38 +9,7 @@ let post_item
 let delete_item
 let put_item
 
-if (window.location.host.includes('localhost')){
-    load_items = async () => {
-        return await localDB('items')
-    }
-
-    post_item = async (item) => {
-        return await localDB('items', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item)
-        })
-    }
-
-    delete_item = async (id) => {
-        return await localDB('items/' + id, {
-            method: 'DELETE'
-        })
-    }
-
-    put_item = async (id, item) => {
-        return await localDB('items/' + id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item)
-        })
-    }
-} else{
-
+if (window.location.hostname.includes('netlify.app')){
     const warning_text = document.createElement('p')
     warning_text.innerText = "Using JSONbin API to store tasks. \n It may take time to fetch data."
     warning_text.style.opacity = "0.3"
@@ -108,5 +77,38 @@ if (window.location.host.includes('localhost')){
             body: JSON.stringify({items:[...items]})
         })
     }
+
+} else{
+
+    load_items = async () => {
+        return await localDB('items')
+    }
+
+    post_item = async (item) => {
+        return await localDB('items', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(item)
+        })
+    }
+
+    delete_item = async (id) => {
+        return await localDB('items/' + id, {
+            method: 'DELETE'
+        })
+    }
+
+    put_item = async (id, item) => {
+        return await localDB('items/' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(item)
+        })
+    }
 }
+
 
