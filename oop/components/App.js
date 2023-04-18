@@ -42,12 +42,15 @@ class App extends Component {
 
     async ComponentDidCreate() {
         try {
+            // Checking if localhost is available
             await fetch('http://localhost:3004/items')
         } catch (e) {
             console.error(e)
+            // Switching to JSONbin server if localhost is unavailable
             change_API_path()
         }
 
+        // Loading items from server
         await load_items()
             .then(items => {
                 this.setState({
@@ -57,6 +60,26 @@ class App extends Component {
                     }
                 )
             })
+
+        // Displaying TodayTask Modal if it is a first time for today
+        if (!isTodayTasksShown() && !this.state.isModal) {
+            const today_modal = new Modal().render({
+                closeModal: () => {
+                    setTodayShown();
+                    this.closeModal();
+                },
+                children: new TodayTasks().render({
+                    closeModal: this.closeModal,
+                    setTodayShown: setTodayShown,
+                    items: this.state.items
+                })
+            })
+
+            today_modal.classList.add('app-wrapper__modal')
+
+            this.element.append(today_modal)
+        }
+
     }
 
 
@@ -114,23 +137,7 @@ class App extends Component {
 
         let children = [header, controls, in_work_list, finished_list]
 
-        if (!isTodayTasksShown() && !this.state.isModal) {
-            const today_modal = new Modal().render({
-                closeModal: () => {
-                    setTodayShown();
-                    this.closeModal();
-                },
-                children: new TodayTasks().render({
-                    closeModal: this.closeModal,
-                    setTodayShown: setTodayShown,
-                    items: this.state.items
-                })
-            })
 
-            today_modal.classList.add('app-wrapper__modal')
-
-            children.push(today_modal)
-        }
 
         // Modal Component
         if (this.state.isModal) {
