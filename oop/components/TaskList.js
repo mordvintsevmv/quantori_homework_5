@@ -24,13 +24,13 @@ class TaskList extends Component {
         const list_items = props.items.map((item) => {
             const li = document.createElement('li')
             li.append(new TaskItem().render({
-                id: item.id,
-                isChecked: item.isChecked,
-                title: item.title,
-                tag: item.tag,
-                date: item.date,
-                deleteItem: props.deleteItem,
-                checkItem: props.checkItem
+                    id: item.id,
+                    isChecked: item.isChecked,
+                    title: item.title,
+                    tag: item.tag,
+                    date: item.date,
+                    deleteItem: props.deleteItem,
+                    checkItem: props.checkItem
                 }
             ))
             return li

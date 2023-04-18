@@ -11,7 +11,7 @@ class Component {
         this.update();
     }
 
-    ComponentDidCreate(){
+    ComponentDidCreate() {
     }
 
     /**
@@ -71,7 +71,7 @@ class Component {
                 }
             }
 
-            // If the number of components is the same,
+                // If the number of components is the same,
             // then it is necessary to compare them with each other
             else {
                 for (let i = 0; i < props.children.length; i++) {

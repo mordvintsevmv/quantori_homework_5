@@ -24,9 +24,6 @@ const setTodayShown = () => {
 }
 
 
-
-
-
 class App extends Component {
     constructor() {
         super();
@@ -44,9 +41,9 @@ class App extends Component {
     }
 
     async ComponentDidCreate() {
-        try{
+        try {
             await fetch('http://localhost:3004/items')
-        } catch (e){
+        } catch (e) {
             console.error(e)
             change_API_path()
         }
@@ -157,57 +154,57 @@ class App extends Component {
         });
     }
 
-    addItem = () => {
+    addItem = async () => {
 
         const title = document.getElementById('add-task-input').value
         const tag = document.querySelector('input[name="tag"]:checked').value;
         const date = new Date(document.getElementById('date-input').value);
 
-        post_item({
+        await post_item({
             id: this.state.last_id + 1,
             isChecked: false,
             title: title,
             tag: tag,
             date: date
         })
-            .then(() =>
-                load_items().then(items => {
-                this.setState({
-                        ...this.state,
-                        items: items,
-                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
-                        isModal: false
-                    }
-                )
-            }))
+            .then(async () =>
+                await load_items().then(items => {
+                    this.setState({
+                            ...this.state,
+                            items: items,
+                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
+                            isModal: false
+                        }
+                    )
+                }))
             .catch(error => console.error(error))
     }
 
 
-    deleteItem = (id) => {
-        delete_item(id).then(() => {
-            load_items().then(items => {
+    deleteItem = async (id) => {
+        await delete_item(id).then(async () => {
+            await load_items().then(items => {
                 this.setState({
                         ...this.state,
                         items: items,
-                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                        last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
                     }
                 )
             })
         })
     }
 
-    checkItem = (id) => {
+    checkItem = async (id) => {
 
         const item_index = this.state.items.findIndex(item => item.id === id)
 
-        update_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked})
-            .then(() =>
-                load_items().then(items => {
+        await update_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked})
+            .then(async () =>
+                await load_items().then(items => {
                     this.setState({
                             ...this.state,
                             items: items,
-                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, [][0]?.id || 0),
+                            last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
                         }
                     )
                 }))

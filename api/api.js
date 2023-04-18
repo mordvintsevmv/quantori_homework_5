@@ -1,10 +1,9 @@
 const dataFetch = (baseURL) => {
     return async (path, options = {}) => {
-        try{
+        try {
             const response = await fetch(`${baseURL}/${path}`, options)
             return response.json()
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error)
         }
     }

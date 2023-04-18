@@ -4,6 +4,7 @@ const localDB = dataFetch('http://localhost:3004')
 // JSON bin server
 const jsonbinAPI = dataFetch('https://api.jsonbin.io/v3/b')
 
+// Functions for localhost server
 let load_items = async () => {
     return await localDB('items')
 }
@@ -34,6 +35,7 @@ let update_item = async (id, item) => {
     })
 }
 
+// If Localhost server is unavailable, then the functions are replaced to fetch data from JSONbin
 const change_API_path = () => {
     const warning_text = document.createElement('p')
     warning_text.innerText = "Using JSONbin API to store tasks. \n It may take time to fetch data."
@@ -50,7 +52,7 @@ const change_API_path = () => {
         const response = await jsonbinAPI('643d4670ace6f33a220cf2db', {
             method: 'GET',
             headers: {
-                'X-Master-Key' : '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
+                'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             }
         })
 
@@ -65,9 +67,9 @@ const change_API_path = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Master-Key' : '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
+                'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             },
-            body: JSON.stringify({items:[...items, item]})
+            body: JSON.stringify({items: [...items, item]})
         })
     }
 
@@ -81,9 +83,9 @@ const change_API_path = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Master-Key' : '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
+                'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             },
-            body: JSON.stringify({items:[...items]})
+            body: JSON.stringify({items: [...items]})
         })
     }
 
@@ -97,9 +99,9 @@ const change_API_path = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Master-Key' : '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
+                'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             },
-            body: JSON.stringify({items:[...items]})
+            body: JSON.stringify({items: [...items]})
         })
     }
 }

@@ -1,4 +1,4 @@
-.today-tasks{
+.today-tasks {
     position: relative;
 
     width: 524px;
@@ -8,7 +8,7 @@
     padding: 24px 30px;
 }
 
-.today-tasks__title{
+.today-tasks__title {
     text-align: center;
 
     font-style: normal;
@@ -19,11 +19,11 @@
     margin-bottom: 15px;
 }
 
-.today-tasks__text{
+.today-tasks__text {
     margin-bottom: 9px;
 }
 
-.today-tasks__list{
+.today-tasks__list {
     margin-left: 24px;
 
     max-height: 285px;
@@ -31,12 +31,12 @@
     margin-bottom: 72px;
 }
 
-.today-tasks__task{
+.today-tasks__task {
     margin-bottom: 9px;
     width: 364px;
 }
 
-.today-tasks__ok-button{
+.today-tasks__ok-button {
     position: absolute;
     bottom: 24px;
 
@@ -49,11 +49,11 @@
         padding: 24px 30px;
     }
 
-    .today-tasks__ok-button{
+    .today-tasks__ok-button {
         width: calc(500px - 60px);
     }
 
-    .today-tasks__task{
+    .today-tasks__task {
         width: 340px;
     }
 }
@@ -65,11 +65,11 @@
         padding: 24px 16px;
     }
 
-    .today-tasks__ok-button{
+    .today-tasks__ok-button {
         width: calc(400px - 32px);
     }
 
-    .today-tasks__task{
+    .today-tasks__task {
         width: 300px;
     }
 }
@@ -81,11 +81,11 @@
         padding: 24px 16px;
     }
 
-    .today-tasks__ok-button{
+    .today-tasks__ok-button {
         width: calc(100% - 32px);
     }
 
-    .today-tasks__task{
+    .today-tasks__task {
         margin-bottom: 15px;
         width: calc(100% - 64px);
     }

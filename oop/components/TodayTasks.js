@@ -15,7 +15,6 @@ class TodayTasks extends Component {
      */
     render(props) {
 
-        // Creating text for date
         const today = new Date();
 
         // Title
@@ -29,23 +28,26 @@ class TodayTasks extends Component {
 
         const today_ul = document.createElement('ul')
 
-        let today_list = props.items.filter(task => {
-            const parsed_date = new Date(Date.parse(task.date))
+        const today_list = props.items
+            // Filtering Today Tasks
+            .filter(task => {
+                const parsed_date = new Date(Date.parse(task.date))
 
-            if (parsed_date.getFullYear() === today.getFullYear()
-                && parsed_date.getMonth() === today.getMonth()
-                && parsed_date.getDate() === today.getDate()
-            ) {
-                return true
-            }
-        })
+                if (parsed_date.getFullYear() === today.getFullYear()
+                    && parsed_date.getMonth() === today.getMonth()
+                    && parsed_date.getDate() === today.getDate()
+                ) {
+                    return true
+                }
+            })
+            // Creating li element for every today task
+            .map(task => {
+                const li = document.createElement('li')
+                li.innerText = task.title
+                li.classList.add('today-tasks__task')
+                return li
+            })
 
-        today_list = today_list.map(task => {
-            const li = document.createElement('li')
-            li.innerText = task.title
-            li.classList.add('today-tasks__task')
-            return li
-        })
 
         today_ul.append(...today_list)
         today_task_wrapper.append(today_ul)
@@ -55,13 +57,19 @@ class TodayTasks extends Component {
         const today_text = document.createElement('p')
         today_text.classList.add('today-tasks__text')
 
-        if (today_list.length === 0){
+        if (today_list.length === 0) {
             today_text.innerText = 'You have no tasks for today! '
-        } else{
+        } else {
             today_text.innerText = 'You have the next planned tasks for today: '
         }
 
-        const today_ok = new Button().render({text: 'Ok', onClick: () => {props.setTodayShown(); props.closeModal() }})
+        // OK Button
+        const today_ok = new Button().render({
+            text: 'Ok', onClick: () => {
+                props.setTodayShown();
+                props.closeModal()
+            }
+        })
         today_ok.classList.add('today-tasks__ok-button')
 
         return super.render({
