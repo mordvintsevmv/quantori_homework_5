@@ -2,6 +2,9 @@ import App from "./components/App.js";
 import {load_items} from "../api/itemsAPI.js";
 import {getWeather} from "../api/weatherAPI.js";
 
+/**
+ * Global app state.
+ */
 let state = {
     items: [],
     last_id: 0,
@@ -9,6 +12,9 @@ let state = {
     weather: {city: '', temp_c: '', weather_icon: '', weather_text: ''}
 }
 
+/**
+ * Fetching tasks from server
+ */
 load_items().then((items) => {
     state = {
         ...state,
@@ -18,6 +24,9 @@ load_items().then((items) => {
     renderApp()
 })
 
+/**
+ * Fetching weather data.
+ */
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -38,21 +47,33 @@ if (navigator.geolocation) {
         (error) => {
             console.error(error)
             getWeather("Tbilisi").then(response => {
-                state = {
-                    ...state,
-                    weather: {
-                        city: response.location.name,
-                        temp_c: response.current.temp_c + "°",
-                        weather_icon: response.current.condition.icon,
-                        weather_text: response.current.condition.text
+                    state = {
+                        ...state,
+                        weather: {
+                            city: response.location.name,
+                            temp_c: response.current.temp_c + "°",
+                            weather_icon: response.current.condition.icon,
+                            weather_text: response.current.condition.text
+                        }
                     }
-                }
-                renderApp()
+                    renderApp()
                 }
             )
         }
     )
-
+} else {
+    getWeather("Tbilisi").then(response => {
+        state = {
+            ...state,
+            weather: {
+                city: response.location.name,
+                temp_c: response.current.temp_c + "°",
+                weather_icon: response.current.condition.icon,
+                weather_text: response.current.condition.text
+            }
+        }
+        renderApp()
+    })
 }
 
 /**

@@ -9,7 +9,7 @@ const jsonbinAPI = dataFetch('https://api.jsonbin.io/v3/b')
 export let load_items
 export let post_item
 export let delete_item
-export let put_item
+export let update_item
 
 if (window.location.host.includes('localhost')){
     load_items = async () => {
@@ -32,7 +32,7 @@ if (window.location.host.includes('localhost')){
         })
     }
 
-    put_item = async (id, item) => {
+    update_item = async (id, item) => {
         return await localDB('items/' + id, {
             method: 'PUT',
             headers: {
@@ -95,7 +95,7 @@ if (window.location.host.includes('localhost')){
         })
     }
 
-    put_item = async (id, item) => {
+    update_item = async (id, item) => {
 
         let items = await load_items()
 

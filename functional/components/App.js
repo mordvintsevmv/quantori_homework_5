@@ -5,7 +5,7 @@ import Button from "./Button.js";
 import Modal from "./Modal.js";
 import {useState} from "../functional.js";
 import AddTask from "./AddTask.js";
-import {delete_item, load_items, post_item, put_item} from "../../api/itemsAPI.js";
+import {delete_item, load_items, post_item, update_item} from "../../api/itemsAPI.js";
 import {TodayTasks} from "./TodayTasks.js";
 
 const isTodayTasksShown = () => {
@@ -85,7 +85,7 @@ const App = () => {
 
         const item_index = state.items.findIndex(item => item.id === id)
 
-        await put_item(id, {...state.items[item_index], isChecked: !state.items[item_index].isChecked})
+        await update_item(id, {...state.items[item_index], isChecked: !state.items[item_index].isChecked})
             .then(() => {
                 load_items().then(items => {
                     setState({
@@ -158,13 +158,15 @@ const App = () => {
         app_wrapper.append(modal)
     }
 
-    if (!isTodayTasksShown()){
+    if (!isTodayTasksShown()) {
         const today_tasks = TodayTasks({closeModal: closeModal, setTodayShown: setTodayShown, items: state.items})
 
-        const today_modal = Modal({closeModal: () => {
-                closeModal();
-                setTodayShown()
-            }, children: today_tasks}
+        const today_modal = Modal({
+                closeModal: () => {
+                    closeModal();
+                    setTodayShown()
+                }, children: today_tasks
+            }
         )
 
         today_modal.classList.add('app-wrapper__modal')

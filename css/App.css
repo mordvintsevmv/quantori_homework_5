@@ -11,7 +11,7 @@
 }
 
 .app-wrapper__search {
-    width: 750px;
+    width: calc(100vw - 120px);
 }
 
 .app-wrapper__controls {
