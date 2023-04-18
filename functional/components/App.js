@@ -163,8 +163,8 @@ const App = () => {
 
         const today_modal = Modal({
                 closeModal: () => {
+                    setTodayShown();
                     closeModal();
-                    setTodayShown()
                 }, children: today_tasks
             }
         )
