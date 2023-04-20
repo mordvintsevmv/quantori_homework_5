@@ -1,4 +1,5 @@
 const path = require('path')
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 
@@ -6,8 +7,10 @@ module.exports = {
     entry: './oop/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: "bundle.js"
-    },
+        filename: "bundle.js",
+        assetModuleFilename: 'img/[name][ext]'
+
+},
     mode: "development",
     devServer: {
         static: path.resolve(__dirname, "./build"),
@@ -25,15 +28,18 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                loader: 'file-loader'
+                test: /\.(jpe?g|png|gif)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.svg/,
+                type: 'asset/inline',
             },
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            title: 'Webpack Config',
             template: './public/index.html',
         }),
         new CopyWebpackPlugin({
