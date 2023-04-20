@@ -1,4 +1,4 @@
-# Quantori Homework #5-6
+# Quantori Homework #5-7
 
 ---
 
@@ -56,6 +56,32 @@
 **(HW6) Functional ToDo Branch:** <a href="https://quantori-hw6-feature-functional.netlify.app/" target="_blank">Open page</a>
 
 **Description:** *ToDo List using Functional Components.*
+
+---
+
+### Homework 7
+
+### TypeScript
+
+### Developed:
+
+- [X] Webpack configuration
+
+**(HW7) OOP ToDo Branch:** <a href="https://quantori-hw7-feature-oop.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Class Components.*
+
+**⚠App deployed from "build" folder⚠**
+
+---
+
+**⚠IN PROFRESS⚠**
+
+**(HW7) Functional ToDo Branch:** <a href="https://quantori-hw7-feature-functional.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Functional Components.*
+
+**⚠App deployed from "build" folder⚠**
 
 ---
 
