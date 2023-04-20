@@ -1,3 +1,6 @@
+import TaskTag from "./TaskTag.js";
+import {Component} from "../base_classes.js";
+
 const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
@@ -117,3 +120,5 @@ class TaskItem extends Component {
         });
     }
 }
+
+export default TaskItem

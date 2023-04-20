@@ -1,3 +1,5 @@
+import {Component} from "../base_classes.js";
+
 class TaskTag extends Component {
     constructor() {
         super();
@@ -38,3 +40,5 @@ class TaskTag extends Component {
         });
     }
 }
+
+export default TaskTag

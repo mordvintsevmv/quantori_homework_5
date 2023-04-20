@@ -1,3 +1,6 @@
+import {Component} from "../base_classes.js";
+import Button from "./Button.js";
+
 class TodayTasks extends Component {
     constructor() {
         super();
@@ -81,3 +84,5 @@ class TodayTasks extends Component {
         });
     }
 }
+
+export default TodayTasks

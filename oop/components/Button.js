@@ -1,3 +1,5 @@
+import {Component} from "../base_classes.js";
+
 class Button extends Component {
     constructor() {
         super();
@@ -21,3 +23,5 @@ class Button extends Component {
         });
     }
 }
+
+export default Button

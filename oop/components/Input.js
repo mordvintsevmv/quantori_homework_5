@@ -1,3 +1,5 @@
+import {Component} from "../base_classes.js";
+
 class Input extends Component {
     constructor() {
         super();
@@ -31,3 +33,5 @@ class Input extends Component {
         });
     }
 }
+
+export default Input

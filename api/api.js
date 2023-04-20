@@ -1,4 +1,4 @@
-const dataFetch = (baseURL) => {
+export const dataFetch = (baseURL) => {
     return async (path, options = {}) => {
         try {
             const response = await fetch(`${baseURL}/${path}`, options)

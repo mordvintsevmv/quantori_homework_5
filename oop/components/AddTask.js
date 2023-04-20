@@ -1,3 +1,9 @@
+import {Component} from "../base_classes.js";
+import Input from "./Input.js";
+import CustomCheckInput from "./CustomCheckInput.js";
+import TaskTag from "./TaskTag.js";
+import Button from "./Button.js";
+
 class AddTask extends Component {
     constructor() {
         super();
@@ -113,3 +119,5 @@ class AddTask extends Component {
         });
     }
 }
+
+export default AddTask

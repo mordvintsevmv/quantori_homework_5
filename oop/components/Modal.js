@@ -1,3 +1,5 @@
+import {Component} from "../base_classes.js";
+
 class Modal extends Component {
     constructor() {
         super();
@@ -27,3 +29,5 @@ class Modal extends Component {
         });
     }
 }
+
+export default Modal

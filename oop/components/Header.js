@@ -1,3 +1,6 @@
+import WeatherWidget from "./WeatherWidget.js";
+import {Component} from "../base_classes.js";
+
 class Header extends Component {
     constructor() {
         super();
@@ -25,3 +28,5 @@ class Header extends Component {
         });
     }
 }
+
+export default Header

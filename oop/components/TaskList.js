@@ -1,3 +1,6 @@
+import TaskItem from "./TaskItem.js";
+import {Component} from "../base_classes.js";
+
 class TaskList extends Component {
     constructor() {
         super();
@@ -52,3 +55,5 @@ class TaskList extends Component {
         });
     }
 }
+
+export default TaskList

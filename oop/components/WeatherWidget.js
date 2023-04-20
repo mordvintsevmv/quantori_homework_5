@@ -1,3 +1,6 @@
+import {Component} from "../base_classes.js";
+import {getWeather} from "../../api/weatherAPI.js";
+
 class WeatherWidget extends Component {
     constructor() {
         super();
@@ -76,5 +79,6 @@ class WeatherWidget extends Component {
     }
 }
 
+export default WeatherWidget
 
 

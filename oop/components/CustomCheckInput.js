@@ -1,3 +1,5 @@
+import {Component} from "../base_classes.js";
+
 class CustomCheckInput extends Component {
     constructor() {
         super();
@@ -36,3 +38,5 @@ class CustomCheckInput extends Component {
         });
     }
 }
+
+export default CustomCheckInput
