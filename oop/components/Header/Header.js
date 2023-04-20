@@ -1,6 +1,6 @@
-import WeatherWidget from "./WeatherWidget.js";
-import {Component} from "../base_classes.js";
-
+import WeatherWidget from "../WeatherWidget/WeatherWidget.js";
+import {Component} from "../../base_classes.js";
+import "./Header.css"
 class Header extends Component {
     constructor() {
         super();

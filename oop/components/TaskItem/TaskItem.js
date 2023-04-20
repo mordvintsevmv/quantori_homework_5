@@ -1,5 +1,11 @@
-import TaskTag from "./TaskTag.js";
-import {Component} from "../base_classes.js";
+import TaskTag from "../TaskTag/TaskTag.js";
+import {Component} from "../../base_classes.js";
+
+import checkbox_unchecked from "../../img/checkbox-unchecked.svg"
+import checkbox_disabled from "../../img/checkbox-disabled.svg"
+import trash from "../../img/delete-new-value.svg"
+
+import "./TaskItem.css"
 
 const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -56,11 +62,11 @@ class TaskItem extends Component {
 
         const checkbox_img = document.createElement('img')
         if (props.isChecked) {
-            checkbox_img.src = 'img/checkbox-disabled.svg'
+            checkbox_img.src = checkbox_disabled
             checkbox_img.alt = 'Checkbox - uncheck'
             checkbox_img.classList.add('task-item__checkbox-img--checked')
         } else {
-            checkbox_img.src = 'img/checkbox-unchecked.svg'
+            checkbox_img.src = checkbox_unchecked
             checkbox_img.alt = 'Checkbox - check'
             checkbox_img.classList.add('task-item__checkbox-img--unchecked')
         }
@@ -96,7 +102,7 @@ class TaskItem extends Component {
         delete_button.onclick = () => props.deleteItem(props.id);
 
         const delete_button_img = document.createElement('img')
-        delete_button_img.src = 'img/delete-new-value.svg'
+        delete_button_img.src = trash
         delete_button_img.alt = 'delete'
 
 

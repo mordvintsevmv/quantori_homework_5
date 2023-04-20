@@ -1,5 +1,6 @@
-import {Component} from "../base_classes.js";
+import {Component} from "../../base_classes.js";
 import {getWeather} from "../../api/weatherAPI.js";
+import "./WeatherWidget.css"
 
 class WeatherWidget extends Component {
     constructor() {

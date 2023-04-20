@@ -1,12 +1,13 @@
-import AddTask from "./AddTask.js";
-import Modal from "./Modal.js";
-import TaskList from "./TaskList.js";
-import {Component} from "../base_classes.js";
-import Header from "./Header.js";
-import TodayTasks from "./TodayTasks.js";
-import Input from "./Input.js";
-import Button from "./Button.js";
+import AddTask from "../AddTask/AddTask.js";
+import Modal from "../Modal/Modal.js";
+import TaskList from "../TaskList/TaskList.js";
+import {Component} from "../../base_classes.js";
+import Header from "../Header/Header.js";
+import TodayTasks from "../TodayTasks/TodayTasks.js";
+import Input from "../Input/Input.js";
+import Button from "../Button/Button.js";
 import {change_API_path, delete_item, load_items, post_item, update_item} from "../../api/itemsAPI.js";
+import "./App.css"
 
 const isTodayTasksShown = () => {
     const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))

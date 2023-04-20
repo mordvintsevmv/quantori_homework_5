@@ -1,5 +1,5 @@
-import {Component} from "../base_classes.js";
-
+import {Component} from "../../base_classes.js";
+import "./CustomCheckInput.css"
 class CustomCheckInput extends Component {
     constructor() {
         super();

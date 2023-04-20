@@ -1,5 +1,5 @@
-import {Component} from "../base_classes.js";
-
+import {Component} from "../../base_classes.js";
+import "./Input.css"
 class Input extends Component {
     constructor() {
         super();

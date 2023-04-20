@@ -1,5 +1,6 @@
-import {Component} from "../base_classes.js";
-import Button from "./Button.js";
+import {Component} from "../../base_classes.js";
+import Button from "../Button/Button.js";
+import "./TodayTasks.css"
 
 class TodayTasks extends Component {
     constructor() {

@@ -23,7 +23,7 @@
     cursor: pointer;
     will-change: transform;
 
-    background: url("../img/checkbox-unchecked.svg");
+    background: url("../../img/checkbox-unchecked.svg");
 }
 
 .task-item__checkbox:has(.task-item__checkbox-img--checked):hover {
@@ -44,7 +44,7 @@
 
 .task-item__checkbox:has(.task-item__checkbox-img--unchecked):active {
     filter: invert(0);
-    content: url('../img/checkbox-checked.svg');
+    content: url('../../img/checkbox-checked.svg');
     will-change: transform;
 }
 

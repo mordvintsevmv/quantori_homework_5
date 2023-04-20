@@ -1,5 +1,6 @@
-import TaskItem from "./TaskItem.js";
-import {Component} from "../base_classes.js";
+import TaskItem from "../TaskItem/TaskItem.js";
+import {Component} from "../../base_classes.js";
+import "./TaskList.css"
 
 class TaskList extends Component {
     constructor() {
