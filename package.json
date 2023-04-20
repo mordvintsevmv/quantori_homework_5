@@ -1,0 +1,26 @@
+{
+  "name": "quantori_homework",
+  "version": "1.0.0",
+  "description": "ToDo List with pure JS.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server & json-server --watch db.json --port 3004",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.1",
+    "sass-loader": "^13.2.2",
+    "style-loader": "^3.3.2",
+    "webpack": "^5.80.0",
+    "webpack-dev-server": "^4.13.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.0.1"
+  }
+}
