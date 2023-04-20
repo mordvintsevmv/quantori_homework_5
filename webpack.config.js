@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = {
     entry: './oop/index.js',
@@ -33,6 +34,13 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             title: 'Webpack Config',
-            template: './index.html',})
+            template: './index.html',
+        }),
+        new CopyWebpackPlugin({
+                patterns: [
+                    {from: 'favicon', to: 'favicon'},
+                ]
+            }
+        ),
     ]
 }
