@@ -7,7 +7,7 @@ import TodayTasks from "../TodayTasks/TodayTasks.js";
 import Input from "../Input/Input.js";
 import Button from "../Button/Button.js";
 import {change_API_path, delete_item, load_items, post_item, update_item} from "../../api/itemsAPI.js";
-import "./App.css"
+import "./App.scss"
 
 const isTodayTasksShown = () => {
     const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))

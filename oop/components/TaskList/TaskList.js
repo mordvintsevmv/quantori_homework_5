@@ -1,6 +1,6 @@
 import TaskItem from "../TaskItem/TaskItem.js";
 import {Component} from "../../base_classes.js";
-import "./TaskList.css"
+import "./TaskList.scss"
 
 class TaskList extends Component {
     constructor() {

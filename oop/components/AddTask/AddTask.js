@@ -3,7 +3,7 @@ import Input from "../Input/Input.js";
 import CustomCheckInput from "../CustomCheckInput/CustomCheckInput.js";
 import TaskTag from "../TaskTag/TaskTag.js";
 import Button from "../Button/Button.js";
-import "./AddTask.css"
+import "./AddTask.scss"
 
 class AddTask extends Component {
     constructor() {

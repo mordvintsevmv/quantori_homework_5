@@ -1,5 +1,5 @@
 import {Component} from "../../base_classes.js";
-import "./Modal.css"
+import "./Modal.scss"
 
 class Modal extends Component {
     constructor() {

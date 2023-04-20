@@ -1,5 +1,5 @@
 import {Component} from "../../base_classes.js";
-import "./TaskTag.css"
+import "./TaskTag.scss"
 
 class TaskTag extends Component {
     constructor() {

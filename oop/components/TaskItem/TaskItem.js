@@ -5,7 +5,7 @@ import checkbox_unchecked from "../../img/checkbox-unchecked.svg"
 import checkbox_disabled from "../../img/checkbox-disabled.svg"
 import trash from "../../img/delete-new-value.svg"
 
-import "./TaskItem.css"
+import "./TaskItem.scss"
 
 const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
