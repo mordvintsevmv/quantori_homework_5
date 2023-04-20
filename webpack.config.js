@@ -34,12 +34,17 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             title: 'Webpack Config',
-            template: './index.html',
+            template: './public/index.html',
         }),
         new CopyWebpackPlugin({
                 patterns: [
-                    {from: 'favicon', to: 'favicon'},
-                ]
+                    {
+                        from: 'public',
+                        globOptions: {
+                            ignore: ['**/index.html'],
+                        },
+                    },
+                ],
             }
         ),
     ]
