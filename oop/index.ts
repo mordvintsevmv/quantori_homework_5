@@ -1,4 +1,4 @@
-import App from "./components/App/App.js";
+import App from "./components/App/App";
 import "./css/main.css"
 import "./css/null.css"
 

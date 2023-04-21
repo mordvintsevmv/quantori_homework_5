@@ -1,4 +1,5 @@
-import {dataFetch} from "./api.js";
+import {dataFetch} from "./api";
+import {Item} from "../types/item";
 
 // Localhost server
 const localDB = dataFetch('http://localhost:3004')
@@ -11,7 +12,7 @@ export let load_items = async () => {
     return await localDB('items')
 }
 
-export let post_item = async (item) => {
+export let post_item = async (item: Item) => {
     return await localDB('items', {
         method: 'POST',
         headers: {
@@ -21,13 +22,13 @@ export let post_item = async (item) => {
     })
 }
 
-export let delete_item = async (id) => {
+export let delete_item = async (id: number) => {
     return await localDB('items/' + id, {
         method: 'DELETE'
     })
 }
 
-export let update_item = async (id, item) => {
+export let update_item = async (id: number, item: Item) => {
     return await localDB('items/' + id, {
         method: 'PUT',
         headers: {
@@ -79,7 +80,7 @@ export const change_API_path = () => {
 
         let items = await load_items()
 
-        items = items.filter(item => item.id !== id)
+        items = items.filter((item: Item) => item.id !== id)
 
         return await jsonbinAPI('643d4670ace6f33a220cf2db', {
             method: 'PUT',
@@ -95,7 +96,7 @@ export const change_API_path = () => {
 
         let items = await load_items()
 
-        items = items.map(task => task.id === id ? item : task)
+        items = items.map((task: Item) => task.id === id ? item : task)
 
         return await jsonbinAPI('643d4670ace6f33a220cf2db', {
             method: 'PUT',
@@ -107,5 +108,3 @@ export const change_API_path = () => {
         })
     }
 }
-
-

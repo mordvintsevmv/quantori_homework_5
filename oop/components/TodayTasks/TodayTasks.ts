@@ -1,6 +1,13 @@
-import {Component} from "../../base_classes.js";
-import Button from "../Button/Button.js";
+import {Component, ComponentProps} from "../../base_classes";
+import Button from "../Button/Button";
 import "./TodayTasks.scss"
+import {Item} from "../../types/item";
+
+interface TodayTasksProps extends ComponentProps {
+    setTodayShown: () => void,
+    closeModal: () => void,
+    items: Item[]
+}
 
 class TodayTasks extends Component {
     constructor() {
@@ -8,16 +15,7 @@ class TodayTasks extends Component {
         this.element = document.createElement('div');
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.setTodayShown {function}
-     * @param props.closeModal {function}
-     * @param props.onClick {function}
-     * @param props.items {Object[]}
-     * @returns {HTMLElement}
-     */
-    render(props) {
+    render(props: TodayTasksProps) {
 
         const today = new Date();
 
@@ -70,7 +68,8 @@ class TodayTasks extends Component {
 
         // OK Button
         const today_ok = new Button().render({
-            text: 'Ok', onClick: () => {
+            text: 'Ok',
+            onClick: () => {
                 props.setTodayShown();
                 props.closeModal()
             }
@@ -80,7 +79,6 @@ class TodayTasks extends Component {
         return super.render({
             onClick: props.onClick,
             children: [today_title, today_text, today_task_wrapper, today_ok],
-            style: this.state.style,
             className: ['today-tasks']
         });
     }

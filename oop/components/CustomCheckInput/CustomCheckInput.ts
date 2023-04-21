@@ -1,23 +1,23 @@
-import {Component} from "../../base_classes.js";
+import {Component, ComponentProps} from "../../base_classes";
 import "./CustomCheckInput.scss"
+
+interface CustomCheckInputProps extends ComponentProps{
+    type: string,
+    name: string,
+    value: string,
+    outline: string,
+    isDefault: boolean,
+    input_div: HTMLElement
+}
+
 class CustomCheckInput extends Component {
     constructor() {
         super();
         this.element = document.createElement('label');
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.type {string}
-     * @param props.name {string}
-     * @param props.value {string}
-     * @param props.outline {string}
-     * @param props.isDefault {boolean}
-     * @param props.children {HTMLElement}
-     * @returns {HTMLLabelElement} - Label with Radio or Checkbox Element
-     * */
-    render(props) {
+
+    render(props: CustomCheckInputProps) {
 
         const input = document.createElement('input')
         input.name = props.name
@@ -26,14 +26,13 @@ class CustomCheckInput extends Component {
         input.defaultChecked = props.isDefault
         input.classList.add('custom-check-input__input')
 
-        const div = props.children
+        const div = props.input_div
         div.classList.add('custom-check-input__children')
 
         this.element.style.borderColor = props.outline
 
         return super.render({
             children: [input, div],
-            style: this.state.style,
             className: ['custom-check-input']
         });
     }

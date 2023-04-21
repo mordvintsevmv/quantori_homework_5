@@ -1,6 +1,19 @@
-import {Component} from "../../base_classes.js";
+import {Component, ComponentProps} from "../../base_classes";
 import "./Input.scss"
+
+interface InputProps extends ComponentProps{
+    placeholder: string,
+}
+
+interface InputState {
+    value: string
+}
 class Input extends Component {
+
+    state: InputState
+    element: HTMLInputElement
+    props: InputProps;
+
     constructor() {
         super();
         this.state = {value: ''}
@@ -8,28 +21,20 @@ class Input extends Component {
         this.element.placeholder = this.props.placeholder
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.placeholder {string}
-     * @param props.id {string}
-     * @returns {HTMLInputElement} - Input element
-     * */
-    render(props) {
+    render(props: InputProps) {
 
         this.element.placeholder = props.placeholder || this.props.placeholder
         this.element.value = this.state.value
 
         this.element.oninput = (event) => {
             event.preventDefault()
-            this.setState({value: event.target.value})
+            const input = event.target as HTMLInputElement
+            this.setState({value: input.value})
         }
 
         return super.render({
-            style: this.state.style,
             className: ['text-input'],
             id: props.id,
-            placeholder: props.placeholder
         });
     }
 }

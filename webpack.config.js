@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = {
-    entry: './oop/index.js',
+    entry: './oop/index.ts',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: "bundle.js",
@@ -19,7 +19,7 @@ module.exports = {
         open: true,
     },
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js', 'svg']
     },
     module: {
         rules: [
@@ -38,6 +38,11 @@ module.exports = {
             {
                 test: /\.svg/,
                 type: 'asset/inline',
+            },
+            {
+                test: /\.ts/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
         ]
     },

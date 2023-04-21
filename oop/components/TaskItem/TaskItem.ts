@@ -1,35 +1,27 @@
-import TaskTag from "../TaskTag/TaskTag.js";
-import {Component} from "../../base_classes.js";
-
-import checkbox_unchecked from "../../img/checkbox-unchecked.svg"
-import checkbox_disabled from "../../img/checkbox-disabled.svg"
-import trash from "../../img/delete-new-value.svg"
+import TaskTag from "../TaskTag/TaskTag";
+import {Component, ComponentProps} from "../../base_classes";
 
 import "./TaskItem.scss"
+import {Item} from "../../types/item";
 
 const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+interface TaskItemProps extends ComponentProps {
+    item: Item,
+    deleteItem: (id: number) => void,
+    checkItem: (id: number) => void
+}
 
 class TaskItem extends Component {
     constructor() {
         super();
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.id {number}
-     * @param props.isChecked {boolean}
-     * @param props.title {string}
-     * @param props.tag {string}
-     * @param props.date {string | Date}
-     * @param props.deleteItem {function}
-     * @param props.checkItem {function}
-     * @returns {HTMLDivElement} - HTML code for TaskItem element     */
-    render(props) {
+    render(props: TaskItemProps) {
 
         // Parsing date (for situations when there is string instead of Date)
-        const parsed_date = new Date(Date.parse(props.date))
+        const parsed_date = new Date(Date.parse(props.item.date))
 
         // Creating text for date
         const today = new Date();
@@ -61,18 +53,18 @@ class TaskItem extends Component {
         checkbox_button.classList.add('task-item__checkbox')
 
         const checkbox_img = document.createElement('img')
-        if (props.isChecked) {
-            checkbox_img.src = checkbox_disabled
+        if (props.item.isChecked) {
+            checkbox_img.src = "../../img/checkbox-disabled.svg"
             checkbox_img.alt = 'Checkbox - uncheck'
             checkbox_img.classList.add('task-item__checkbox-img--checked')
         } else {
-            checkbox_img.src = checkbox_unchecked
+            checkbox_img.src = "../../img/checkbox-unchecked.svg"
             checkbox_img.alt = 'Checkbox - check'
             checkbox_img.classList.add('task-item__checkbox-img--unchecked')
         }
 
         checkbox_button.append(checkbox_img)
-        checkbox_button.onclick = () => props.checkItem(props.id)
+        checkbox_button.onclick = () => props.checkItem(props.item.id)
 
         // Info wrapper (Title, tag and date)
         const task_item_info = document.createElement('div')
@@ -81,14 +73,14 @@ class TaskItem extends Component {
         // Title
         const task_item_title = document.createElement('h3')
         task_item_title.classList.add("task-item__title")
-        task_item_title.innerText = props.title
+        task_item_title.innerText = props.item.title
 
         // Bottom wrapper (Tag and date)
         const task_item_bottom = document.createElement('div')
         task_item_bottom.classList.add("task-item__bottom")
 
         // Tag
-        const task_item_tag = new TaskTag().render({name: props.tag, isColored: !props.isChecked})
+        const task_item_tag = new TaskTag().render({name: props.item.tag, isColored: !props.item.isChecked})
         task_item_tag.classList.add("task-item__tag")
 
         // Date Text
@@ -99,10 +91,10 @@ class TaskItem extends Component {
         // Delete Button
         const delete_button = document.createElement('button')
         delete_button.classList.add("task-item__delete")
-        delete_button.onclick = () => props.deleteItem(props.id);
+        delete_button.onclick = () => props.deleteItem(props.item.id);
 
         const delete_button_img = document.createElement('img')
-        delete_button_img.src = trash
+        delete_button_img.src = "../../img/delete-new-value.svg"
         delete_button_img.alt = 'delete'
 
 
@@ -113,7 +105,7 @@ class TaskItem extends Component {
 
         let children = []
 
-        if (props.isChecked) {
+        if (props.item.isChecked) {
             children.push(checkbox_button, task_item_info)
         } else {
             children.push(checkbox_button, task_item_info, delete_button)
@@ -121,7 +113,6 @@ class TaskItem extends Component {
 
         return super.render({
             children: children,
-            style: this.state.style,
             className: ['task-item']
         });
     }

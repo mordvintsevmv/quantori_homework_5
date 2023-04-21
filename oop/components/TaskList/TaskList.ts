@@ -1,23 +1,21 @@
-import TaskItem from "../TaskItem/TaskItem.js";
-import {Component} from "../../base_classes.js";
+import TaskItem from "../TaskItem/TaskItem";
+import {Component, ComponentProps} from "../../base_classes";
 import "./TaskList.scss"
+import {Item} from "../../types/item";
+
+interface TaskListProps extends ComponentProps{
+    title: string,
+    items: Item[],
+    deleteItem: (id: number)=>void,
+    checkItem: (id: number)=>void,
+}
 
 class TaskList extends Component {
     constructor() {
         super();
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.title {string}
-     * @param props.items {Object[]}
-     * @param props.deleteItem {function}
-     * @param props.checkItem {function}
-     * @param props.id {string}
-     * @returns {HTMLElement} - List element
-     * */
-    render(props) {
+    render(props: TaskListProps) {
 
         // Title
         const list_title = document.createElement('h2')
@@ -28,11 +26,7 @@ class TaskList extends Component {
         const list_items = props.items.map((item) => {
             const li = document.createElement('li')
             li.append(new TaskItem().render({
-                    id: item.id,
-                    isChecked: item.isChecked,
-                    title: item.title,
-                    tag: item.tag,
-                    date: item.date,
+                    item: item,
                     deleteItem: props.deleteItem,
                     checkItem: props.checkItem
                 }

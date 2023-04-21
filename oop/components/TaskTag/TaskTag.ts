@@ -1,24 +1,22 @@
-import {Component} from "../../base_classes.js";
+import {Component, ComponentProps} from "../../base_classes";
 import "./TaskTag.scss"
+
+interface TaskTagProps extends ComponentProps{
+    name: string,
+    isColored?: boolean
+}
 
 class TaskTag extends Component {
     constructor() {
         super();
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.name {string}
-     * @param props.isColored {boolean}
-     * @returns {HTMLDivElement} - HTML code for TaskTag element
-     * */
-    render({name, isColored = true}) {
+    render(props: TaskTagProps) {
 
         let tag_color = ''
 
-        if (isColored) {
-            switch (name) {
+        if (props?.isColored) {
+            switch (props.name) {
                 case 'home':
                     tag_color = ("task-tag--green")
                     break;
@@ -35,9 +33,10 @@ class TaskTag extends Component {
             }
         }
 
+        this.element.innerText = props.name
+
         return super.render({
-            children: [name],
-            className: isColored ? ['task-tag', tag_color] : ['task-tag']
+            className: props.isColored ? ['task-tag', tag_color] : ['task-tag']
         });
     }
 }

@@ -1,5 +1,10 @@
-import {Component} from "../../base_classes.js";
+import {Component, ComponentProps} from "../../base_classes";
 import "./Button.scss"
+
+interface ButtonProps extends ComponentProps{
+    text: string,
+    isTransparent?: boolean,
+}
 
 class Button extends Component {
     constructor() {
@@ -7,19 +12,11 @@ class Button extends Component {
         this.element = document.createElement('button');
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.text {string}
-     * @param props.isTransparent {boolean}
-     * @param props.onClick {function}
-     * @returns {HTMLElement}
-     */
-    render(props) {
+    render(props: ButtonProps) {
+        this.element.innerText = props.text
+
         return super.render({
             onClick: props.onClick,
-            children: [props.text],
-            style: this.state.style,
             className: props.isTransparent ? ['button', 'button--isTransparent'] : ['button']
         });
     }

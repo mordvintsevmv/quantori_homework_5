@@ -1,29 +1,29 @@
-import WeatherWidget from "../WeatherWidget/WeatherWidget.js";
-import {Component} from "../../base_classes.js";
+import WeatherWidget from "../WeatherWidget/WeatherWidget";
+import {Component, ComponentProps} from "../../base_classes";
 import "./Header.scss"
+
+interface HeaderProps extends ComponentProps{
+    title: string
+}
 class Header extends Component {
+
+    widget: WeatherWidget;
+
     constructor() {
         super();
         this.widget = new WeatherWidget()
     }
 
-    /**
-     * @override
-     * @param props
-     * @param props.title {string}
-     * @returns {HTMLDivElement} - Header element
-     * */
-    render(props) {
+    render(props: HeaderProps) {
 
         const title = document.createElement('h1')
         title.classList.add('header__title')
         title.innerText = props.title
 
-        const weather_widget = this.widget.render({})
+        const weather_widget = this.widget.render()
 
         return super.render({
             children: [title, weather_widget],
-            style: this.state.style,
             className: ['header']
         });
     }

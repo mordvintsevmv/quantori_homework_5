@@ -1,4 +1,16 @@
+export interface ComponentProps {
+    onClick?: (e: MouseEvent) => void,
+    className?: string[],
+    id?: string,
+    children?: HTMLElement[]
+}
+
 export class Component {
+
+    state: Object
+    props: ComponentProps
+    element: HTMLElement
+
     constructor() {
         this.state = {};
         this.props = {};
@@ -6,27 +18,25 @@ export class Component {
         this.ComponentDidCreate()
     }
 
-    setState(state) {
+    setState(state: Object): void {
         this.state = {...this.state, ...state};
-        this.update();
+        this.ComponentDidUpdate();
     }
 
-    ComponentDidCreate() {
+    ComponentDidCreate(): void {
     }
 
-    /**
-     *
-     * @param props
-     * @returns {HTMLElement}
-     */
-    render(props) {
+    ComponentDidUpdate(): void {
+        this.render(this.props);
+    }
+
+    render(props: ComponentProps): HTMLElement {
         this.props = {...props};
 
-        const component = this.element;
-        component.onclick = props.onClick;
+        const component: HTMLElement = this.element;
 
-        if (props.style) {
-            component.style = props.style;
+        if (props.onClick) {
+            component.onclick = props.onClick;
         }
 
         if (props.className) {
@@ -84,18 +94,9 @@ export class Component {
 
         // First render of App - empty component
         if (component.innerHTML === '') {
-            if (props.children && Array.isArray(props.children)) {
-                component.append(...props.children)
-            } else if (props.children) {
-                component.append(props.children)
-            }
+            component.append(...props.children)
         }
 
-
         return component;
-    }
-
-    update() {
-        this.render(this.props);
     }
 }

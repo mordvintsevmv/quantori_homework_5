@@ -1,8 +1,18 @@
-import {Component} from "../../base_classes.js";
-import {getWeather} from "../../api/weatherAPI.js";
+import {Component} from "../../base_classes";
+import {getWeather} from "../../api/weatherAPI";
 import "./WeatherWidget.scss"
 
+interface WeatherWidgetState {
+    city: string
+    temp_c: string
+    weather_icon: string
+    weather_text: string
+}
+
 class WeatherWidget extends Component {
+
+    state: WeatherWidgetState;
+
     constructor() {
         super();
         this.state = {city: '', temp_c: '', weather_icon: '', weather_text: ''}
@@ -12,7 +22,7 @@ class WeatherWidget extends Component {
     ComponentDidCreate() {
 
         navigator.geolocation.getCurrentPosition(
-            (position) => {
+            (position): void => {
                 getWeather(position.coords.latitude + ',' + position.coords.longitude).then(response => {
                         this.setState({
                             city: response.location.name,
@@ -37,16 +47,7 @@ class WeatherWidget extends Component {
         )
     }
 
-
-    /**
-     * @override
-     * @param props
-     * @param props.text {string}
-     * @param props.isTransparent {boolean}
-     * @param props.onClick {function}
-     * @returns {HTMLElement}
-     */
-    render(props) {
+    render() {
 
         // Weather Icon
         const weather_icon = document.createElement('img')
@@ -72,9 +73,7 @@ class WeatherWidget extends Component {
         }
 
         return super.render({
-            onClick: props.onClick,
             children: [weather_icon, weather_temp, weather_location],
-            style: this.state.style,
             className: ['weather-widget']
         });
     }
