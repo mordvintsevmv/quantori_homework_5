@@ -10,6 +10,9 @@ interface TodayTasksProps extends ComponentProps {
 }
 
 class TodayTasks extends Component {
+
+    element: HTMLDivElement
+
     constructor() {
         super();
         this.element = document.createElement('div');
@@ -17,36 +20,38 @@ class TodayTasks extends Component {
 
     render(props: TodayTasksProps) {
 
-        const today = new Date();
+        const today: Date = new Date();
 
         // Title
-        const today_title = document.createElement('h2')
+        const today_title: HTMLHeadingElement = document.createElement('h2')
         today_title.innerText = 'Good Morning'
         today_title.classList.add('today-tasks__title')
 
         // Task for today
-        const today_task_wrapper = document.createElement('div')
+        const today_task_wrapper: HTMLDivElement = document.createElement('div')
         today_task_wrapper.classList.add('today-tasks__list')
 
-        const today_ul = document.createElement('ul')
+        const today_ul: HTMLUListElement = document.createElement('ul')
 
-        const today_list = props.items
+        const today_list: HTMLLIElement[] = props.items
+
             // Filtering Today Tasks
-            .filter(task => {
-                const parsed_date = new Date(Date.parse(task.date))
+            .filter((item: Item) => {
+                const parsed_date: Date = new Date(Date.parse(item.date))
 
                 if (parsed_date.getFullYear() === today.getFullYear()
                     && parsed_date.getMonth() === today.getMonth()
                     && parsed_date.getDate() === today.getDate()
-                    && !task.isChecked
+                    && !item.isChecked
                 ) {
                     return true
                 }
             })
+
             // Creating li element for every today task
-            .map(task => {
-                const li = document.createElement('li')
-                li.innerText = task.title
+            .map((item: Item) => {
+                const li: HTMLLIElement = document.createElement('li')
+                li.innerText = item.title
                 li.classList.add('today-tasks__task')
                 return li
             })
@@ -57,7 +62,7 @@ class TodayTasks extends Component {
 
 
         // Text
-        const today_text = document.createElement('p')
+        const today_text: HTMLParagraphElement = document.createElement('p')
         today_text.classList.add('today-tasks__text')
 
         if (today_list.length === 0) {
@@ -67,7 +72,7 @@ class TodayTasks extends Component {
         }
 
         // OK Button
-        const today_ok = new Button().render({
+        const today_ok: HTMLButtonElement = new Button().render({
             text: 'Ok',
             onClick: () => {
                 props.setTodayShown();
@@ -80,7 +85,7 @@ class TodayTasks extends Component {
             onClick: props.onClick,
             children: [today_title, today_text, today_task_wrapper, today_ok],
             className: ['today-tasks']
-        });
+        }) as HTMLDivElement;
     }
 }
 

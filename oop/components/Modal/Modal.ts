@@ -1,22 +1,26 @@
 import {Component, ComponentProps} from "../../base_classes";
 import "./Modal.scss"
 
-interface ModalProps extends ComponentProps{
-    closeModal: ()=>void,
+interface ModalProps extends ComponentProps {
+    closeModal: () => void,
     modal_children: HTMLElement
 }
 
 
 class Modal extends Component {
+
+    element: HTMLDivElement
+
     constructor() {
         super();
+        this.element = document.createElement("div")
     }
 
-    render(props: ModalProps) {
+    render(props: ModalProps): HTMLDivElement {
 
-        const modal = document.createElement('div')
+        const modal: HTMLDivElement = document.createElement('div')
         modal.classList.add('modal')
-        modal.onclick = (event) => {
+        modal.onclick = (event: MouseEvent): void => {
             event.stopPropagation()
         }
         modal.append(props.modal_children)
@@ -25,7 +29,7 @@ class Modal extends Component {
             onClick: props.closeModal,
             children: [modal],
             className: ['overlay']
-        });
+        }) as HTMLDivElement;
     }
 }
 

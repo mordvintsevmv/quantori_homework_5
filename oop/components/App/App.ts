@@ -10,11 +10,11 @@ import {change_API_path, delete_item, load_items, post_item, update_item} from "
 import "./App.scss"
 import {Item} from "../../types/item";
 
-const isTodayTasksShown = () => {
-    const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
-    const today = new Date()
+const isTodayTasksShown = (): boolean => {
+    const shown_date: string = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
+    const today: Date = new Date()
 
-    const parsed_date = new Date(Date.parse(shown_date))
+    const parsed_date: Date = new Date(Date.parse(shown_date))
 
     if (shown_date) {
 
@@ -31,7 +31,7 @@ const isTodayTasksShown = () => {
     }
 }
 
-const setTodayShown = () => {
+const setTodayShown = (): void => {
     localStorage.setItem('TodayTaskLastShown', JSON.stringify(new Date()))
 }
 
@@ -46,6 +46,7 @@ class App extends Component {
 
     header: Header
     state: AppState;
+    element: HTMLDivElement
 
     constructor() {
         super();
@@ -56,13 +57,10 @@ class App extends Component {
             search_input: ''
         }
         this.header = new Header()
+        this.element = document.createElement("div")
     }
 
-    setState(state: AppState) {
-        super.setState(state);
-    }
-
-    async ComponentDidCreate() {
+    async ComponentDidCreate(): Promise<void> {
         try {
             // Checking if localhost is available
             await fetch('http://localhost:3004/items')
@@ -74,7 +72,7 @@ class App extends Component {
 
         // Loading items from server
         await load_items()
-            .then(items => {
+            .then((items: Item[]): void => {
                 this.setState({
                         ...this.state,
                         items: items,
@@ -85,8 +83,8 @@ class App extends Component {
 
         // Displaying TodayTask Modal if it is a first time for today
         if (!isTodayTasksShown() && !this.state.isModal) {
-            const today_modal = new Modal().render({
-                closeModal: () => {
+            const today_modal: HTMLDivElement = new Modal().render({
+                closeModal: (): void => {
                     setTodayShown();
                     this.closeModal();
                 },
@@ -105,42 +103,42 @@ class App extends Component {
     }
 
 
-    render() {
+    render(): HTMLDivElement {
 
         // Header component
-        const header = this.header.render({
+        const header: HTMLDivElement = this.header.render({
             title: 'To Do List'
         })
         header.classList.add('app-wrapper__header')
 
         // Search Input Component
-        const input = new Input().render({
+        const input: HTMLInputElement = new Input().render({
             placeholder: 'Search Task',
             id: 'search-input'
         })
         input.classList.add('app-wrapper__search')
-        input.onkeyup = (event: KeyboardEvent) => {
-            const target = event.target as HTMLInputElement
+        input.onkeyup = (event: KeyboardEvent): void => {
+            const target: HTMLInputElement = event.target as HTMLInputElement
             this.setState({...this.state, search_input: target.value})
         }
 
         // New Item Button Component
-        const add_button = new Button().render({
+        const add_button: HTMLButtonElement = new Button().render({
             text: '+ New Task',
             onClick: this.openModal
         })
         add_button.classList.add('app-wrapper__add-button')
 
         // Controls (Search and Button)
-        const controls = document.createElement('div')
+        const controls: HTMLDivElement = document.createElement('div')
         controls.classList.add('app-wrapper__controls')
         controls.append(input, add_button)
 
         // Item List Components
-        const in_work_items = this.state.items.filter(item => (item.isChecked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(this.state.search_input.toLowerCase().replace(/\s+/g, '') || '')))
-        const finished_items = this.state.items.filter(item => item.isChecked === true)
+        const in_work_items: Item[] = this.state.items.filter(item => (item.isChecked === false) && (item.title.toLowerCase().replace(/\s+/g, '').includes(this.state.search_input.toLowerCase().replace(/\s+/g, '') || '')))
+        const finished_items: Item[] = this.state.items.filter(item => item.isChecked === true)
 
-        const in_work_list = new TaskList().render({
+        const in_work_list: HTMLDivElement = new TaskList().render({
             items: in_work_items,
             title: 'All Tasks',
             deleteItem: this.deleteItem,
@@ -149,7 +147,7 @@ class App extends Component {
         })
         in_work_list.classList.add('app-wrapper__list')
 
-        const finished_list = new TaskList().render({
+        const finished_list: HTMLDivElement = new TaskList().render({
             items: finished_items,
             title: 'Completed Tasks',
             deleteItem: this.deleteItem,
@@ -158,12 +156,12 @@ class App extends Component {
         finished_list.classList.add('app-wrapper__list')
 
 
-        let children = [header, controls, in_work_list, finished_list]
+        let children: HTMLDivElement[] = [header, controls, in_work_list, finished_list]
 
 
         // Modal Component
         if (this.state.isModal) {
-            const add_modal = new Modal().render({
+            const add_modal: HTMLDivElement = new Modal().render({
                 closeModal: this.closeModal,
                 modal_children: new AddTask().render({
                     closeModal: this.closeModal,
@@ -180,14 +178,14 @@ class App extends Component {
         return super.render({
             children: children,
             className: ['app-wrapper']
-        });
+        }) as HTMLDivElement;
     }
 
-    addItem = async () => {
+    addItem = async (): Promise<void> => {
 
-        const title = document.getElementById('add-task-input') as HTMLInputElement;
-        const tag = document.querySelector('input[name="tag"]:checked') as HTMLInputElement;
-        const date = document.getElementById('date-input') as HTMLInputElement
+        const title: HTMLInputElement = document.getElementById('add-task-input') as HTMLInputElement;
+        const tag: HTMLInputElement = document.querySelector('input[name="tag"]:checked') as HTMLInputElement;
+        const date: HTMLInputElement = document.getElementById('date-input') as HTMLInputElement
 
         await post_item({
             id: this.state.last_id + 1,
@@ -196,12 +194,12 @@ class App extends Component {
             tag: tag.value,
             date: new Date(date.value).toString()
         })
-            .then(async () =>
-                await load_items().then(items => {
+            .then(async (): Promise<void> =>
+                await load_items().then((items: Item[]): void => {
                     this.setState({
                             ...this.state,
                             items: items,
-                            last_id: items.reduce((max: number, item: Item) => max > item.id ? max : item.id, items[0]?.id || 0),
+                            last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                             isModal: false
                         }
                     )
@@ -210,13 +208,13 @@ class App extends Component {
     }
 
 
-    deleteItem = async (id: number) => {
-        await delete_item(id).then(async () => {
-            await load_items().then(items => {
+    deleteItem = async (id: number): Promise<void> => {
+        await delete_item(id).then(async (): Promise<void> => {
+            await load_items().then((items: Item[]): void => {
                 this.setState({
                         ...this.state,
                         items: items,
-                        last_id: items.reduce((max: number, item: Item) => max > item.id ? max : item.id, items[0]?.id || 0),
+                        last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                     }
                 )
             })
@@ -225,29 +223,27 @@ class App extends Component {
 
     checkItem = async (id: number) => {
 
-        const item_index = this.state.items.findIndex(item => item.id === id)
+        const item_index: number = this.state.items.findIndex(item => item.id === id)
 
         await update_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked})
-            .then(async () =>
-                await load_items().then(items => {
+            .then(async (): Promise<void> =>
+                await load_items().then((items: Item[]) => {
                     this.setState({
                             ...this.state,
                             items: items,
-                            last_id: items.reduce((max: number, item: Item) => max > item.id ? max : item.id, items[0]?.id || 0),
+                            last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                         }
                     )
                 }))
     }
 
-    openModal = () => {
+    openModal = (): void => {
         this.setState({...this.state, isModal: true})
     }
 
-    closeModal = () => {
+    closeModal = (): void => {
         this.setState({...this.state, isModal: false})
     }
-
-
 }
 
 export default App

@@ -1,6 +1,7 @@
 import {Component} from "../../base_classes";
 import {getWeather} from "../../api/weatherAPI";
 import "./WeatherWidget.scss"
+import {WeatherResponse} from "../../types/WeatherResponse";
 
 interface WeatherWidgetState {
     city: string
@@ -12,6 +13,7 @@ interface WeatherWidgetState {
 class WeatherWidget extends Component {
 
     state: WeatherWidgetState;
+    element: HTMLDivElement
 
     constructor() {
         super();
@@ -19,11 +21,11 @@ class WeatherWidget extends Component {
         this.element = document.createElement('div');
     }
 
-    ComponentDidCreate() {
+    ComponentDidCreate(): void {
 
         navigator.geolocation.getCurrentPosition(
-            (position): void => {
-                getWeather(position.coords.latitude + ',' + position.coords.longitude).then(response => {
+            (position: GeolocationPosition): void => {
+                getWeather(position.coords.latitude + ',' + position.coords.longitude).then((response: WeatherResponse): void => {
                         this.setState({
                             city: response.location.name,
                             temp_c: response.current.temp_c + "°",
@@ -33,8 +35,8 @@ class WeatherWidget extends Component {
                     }
                 )
             },
-            () => {
-                getWeather("Tbilisi").then(response => {
+            (): void => {
+                getWeather("Tbilisi").then((response: WeatherResponse): void => {
                         this.setState({
                             city: response.location.name,
                             temp_c: response.current.temp_c + "°",
@@ -50,18 +52,18 @@ class WeatherWidget extends Component {
     render() {
 
         // Weather Icon
-        const weather_icon = document.createElement('img')
+        const weather_icon: HTMLImageElement = document.createElement('img')
         weather_icon.classList.add('weather-widget__icon')
         weather_icon.src = this.state.weather_icon
         weather_icon.alt = this.state.weather_text
 
         // Temperature (C)
-        const weather_temp = document.createElement('div')
+        const weather_temp: HTMLDivElement = document.createElement('div')
         weather_temp.classList.add('weather-widget__temp')
         weather_temp.innerText = this.state.temp_c
 
         // City
-        const weather_location = document.createElement('div')
+        const weather_location: HTMLDivElement = document.createElement('div')
         weather_location.classList.add('weather-widget__location')
         weather_location.innerText = this.state.city
 
@@ -75,7 +77,7 @@ class WeatherWidget extends Component {
         return super.render({
             children: [weather_icon, weather_temp, weather_location],
             className: ['weather-widget']
-        });
+        }) as HTMLDivElement;
     }
 }
 

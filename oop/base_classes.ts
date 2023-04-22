@@ -86,6 +86,8 @@ export class Component {
             else {
                 for (let i = 0; i < props.children.length; i++) {
                     if (!component.children[i].isEqualNode(props.children[i])) {
+                        console.log("OLD:", component.children[i])
+                        console.log("NEW:", props.children[i])
                         component.children[i].replaceWith(props.children[i])
                     }
                 }

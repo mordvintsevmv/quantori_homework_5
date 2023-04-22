@@ -6,36 +6,40 @@ interface InputProps extends ComponentProps{
 }
 
 interface InputState {
-    value: string
+    value: string,
+    placeholder: string
 }
 class Input extends Component {
 
     state: InputState
-    element: HTMLInputElement
     props: InputProps;
+    element: HTMLInputElement
 
     constructor() {
         super();
-        this.state = {value: ''}
+        this.state = {value: '', placeholder: ''}
         this.element = document.createElement('input');
-        this.element.placeholder = this.props.placeholder
     }
 
-    render(props: InputProps) {
+    render(props: InputProps): HTMLInputElement {
 
-        this.element.placeholder = props.placeholder || this.props.placeholder
+        if (this.state.placeholder === '' && props.placeholder){
+            this.setState({...this.state, placeholder: props.placeholder})
+        }
+
+        this.element.placeholder = this.state.placeholder
         this.element.value = this.state.value
 
-        this.element.oninput = (event) => {
+        this.element.oninput = (event: KeyboardEvent): void => {
             event.preventDefault()
-            const input = event.target as HTMLInputElement
-            this.setState({value: input.value})
+            const input: HTMLInputElement = event.target as HTMLInputElement
+            this.setState({...this.state, value: input.value})
         }
 
         return super.render({
             className: ['text-input'],
             id: props.id,
-        });
+        }) as HTMLInputElement;
     }
 }
 
