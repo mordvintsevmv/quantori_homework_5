@@ -1,5 +1,6 @@
 import {dataFetch} from "./api";
 import {Item} from "../types/item";
+import {JSONbinResponse} from "../types/JSONbinResponse";
 
 // Localhost server
 const localDB = dataFetch('http://localhost:3004')
@@ -8,12 +9,12 @@ const localDB = dataFetch('http://localhost:3004')
 const jsonbinAPI = dataFetch('https://api.jsonbin.io/v3/b')
 
 // Functions for localhost server
-export let load_items = async () => {
-    return await localDB('items')
+export let load_items = async (): Promise<Item[]> => {
+    return await localDB<Item[]>('items');
 }
 
-export let post_item = async (item: Item) => {
-    return await localDB('items', {
+export let post_item = async (item: Item): Promise<Item> => {
+    return await localDB<Item>('items', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -22,14 +23,15 @@ export let post_item = async (item: Item) => {
     })
 }
 
-export let delete_item = async (id: number) => {
-    return await localDB('items/' + id, {
+export let delete_item = async (id: number): Promise<{}> => {
+
+    return await localDB<{}>('items/' + id, {
         method: 'DELETE'
     })
 }
 
-export let update_item = async (id: number, item: Item) => {
-    return await localDB('items/' + id, {
+export let update_item = async (id: number, item: Item): Promise<Item> => {
+    return await localDB<Item>('items/' + id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -39,8 +41,8 @@ export let update_item = async (id: number, item: Item) => {
 }
 
 // If Localhost server is unavailable, then the functions are replaced to fetch data from JSONbin
-export const change_API_path = () => {
-    const warning_text = document.createElement('p')
+export const change_API_path = (): void => {
+    const warning_text: HTMLParagraphElement = document.createElement('p')
     warning_text.innerText = "Using JSONbin API to store tasks. \n It may take time to fetch data."
     warning_text.style.opacity = "0.3"
     warning_text.style.fontSize = "12px";
@@ -51,60 +53,61 @@ export const change_API_path = () => {
 
     document.body.append(warning_text)
 
-    load_items = async () => {
-        const response = await jsonbinAPI('643d4670ace6f33a220cf2db', {
+    load_items = async (): Promise<Item[]> => {
+        return await jsonbinAPI<JSONbinResponse>('643d4670ace6f33a220cf2db', {
             method: 'GET',
             headers: {
                 'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             }
-        })
-
-        return response.record.items
+        }).then((response: JSONbinResponse) => response.record.items)
     }
 
-    post_item = async (item) => {
+    post_item = async (item: Item): Promise<Item> => {
 
-        const items = await load_items()
+        const items: Item[] = await load_items()
 
-        return await jsonbinAPI('643d4670ace6f33a220cf2db', {
+        return await jsonbinAPI<JSONbinResponse>('643d4670ace6f33a220cf2db', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             },
             body: JSON.stringify({items: [...items, item]})
-        })
+        }).then(() => item)
     }
 
-    delete_item = async (id) => {
+    delete_item = async (id: number): Promise<{}> => {
 
-        let items = await load_items()
+        let items: Item[] = await load_items()
 
-        items = items.filter((item: Item) => item.id !== id)
+        items = items.filter((item: Item): boolean => item.id !== id)
 
-        return await jsonbinAPI('643d4670ace6f33a220cf2db', {
+        return await jsonbinAPI<JSONbinResponse>('643d4670ace6f33a220cf2db', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             },
             body: JSON.stringify({items: [...items]})
-        })
+        }).then(() => ({}))
     }
 
-    update_item = async (id, item) => {
+    update_item = async (id: number, item: Item): Promise<Item> => {
 
-        let items = await load_items()
+        let items: Item[] = await load_items()
 
-        items = items.map((task: Item) => task.id === id ? item : task)
+        items = items.map((task: Item): Item => task.id === id ? item : task)
 
-        return await jsonbinAPI('643d4670ace6f33a220cf2db', {
+        return await jsonbinAPI<JSONbinResponse>('643d4670ace6f33a220cf2db', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
             },
             body: JSON.stringify({items: [...items]})
+        }).then((response: JSONbinResponse) => {
+            const index: number = response.record.items.findIndex((item: Item): boolean => item.id === id)
+            return response.record.items[index]
         })
     }
 }
