@@ -1,9 +1,9 @@
-export interface WeatherResponse{
+export interface WeatherResponse {
     "location": Weather_location,
     "current": Weather_current
 }
 
-interface Weather_location{
+interface Weather_location {
     "name": string,
     "region": string,
     "country": string,
@@ -14,7 +14,7 @@ interface Weather_location{
     "localtime": string
 }
 
-interface Weather_current{
+interface Weather_current {
     "last_updated_epoch": number,
     "last_updated": string,
     "temp_c": number,
@@ -41,13 +41,13 @@ interface Weather_current{
     "air_quality": Weather_current_air
 }
 
-interface Weather_current_condition{
+interface Weather_current_condition {
     "text": string,
     "icon": string,
     "code": number
 }
 
-interface Weather_current_air{
+interface Weather_current_air {
     "co": number,
     "no2": number,
     "o3": number,

@@ -5,66 +5,75 @@ import CustomCheckInput from "../CustomCheckInput/CustomCheckInput";
 
 import "./AddTask.css"
 
-const AddTask = ({closeModal, addTask}) => {
+interface AddTaskProps {
+    closeModal: () => void,
+    addTask: () => void
+}
+
+const AddTask = ({closeModal, addTask}: AddTaskProps): HTMLDivElement => {
 
     // Wrapper
-    const add_task = document.createElement('div')
+    const add_task: HTMLDivElement = document.createElement('div')
     add_task.classList.add('add-task')
 
     // Title
-    const add_task_title = document.createElement('h3')
+    const add_task_title: HTMLHeadingElement = document.createElement('h3')
     add_task_title.classList.add('add-task__title')
     add_task_title.innerText = 'Add New Task'
 
     // Input
-    const add_task_input = Input({placeholder: 'Task Title'})
+    const add_task_input: HTMLInputElement = Input({placeholder: 'Task Title'})
     add_task_input.classList.add('add-task__input')
     add_task_input.id = 'add-task-input'
-    add_task_input.onkeyup = (event) => {
-        if (event.target?.value && event.target?.value !== '') {
-            document.getElementById('add-task-button').disabled = false
+    add_task_input.onkeyup = (event: KeyboardEvent): void => {
+
+        const task_button: HTMLButtonElement = document.getElementById('add-task-button') as HTMLButtonElement
+        const task_input: HTMLInputElement = event.target as HTMLInputElement
+
+        if (task_input.value && task_input.value !== '') {
+            task_button.disabled = false
         } else {
-            document.getElementById('add-task-button').disabled = true
+            task_button.disabled = true
         }
     }
 
     // Options Wrapper (Tag and Date)
-    const options = document.createElement('div')
+    const options: HTMLDivElement = document.createElement('div')
     options.classList.add('add-task__options')
 
     // Tag Options
-    const tag_form = document.createElement('form')
+    const tag_form: HTMLFormElement = document.createElement('form')
     tag_form.classList.add('add-task__tag-list')
 
     // Radio - Home Tag
-    const home_label = CustomCheckInput({
+    const home_label: HTMLLabelElement = CustomCheckInput({
         name: 'tag',
         value: 'home',
-        children: TaskTag({name: 'home'}),
+        input_element: TaskTag({name: 'home'}),
         outline: '#639462'
     })
 
     // Radio - Health Tag
-    const health_label = CustomCheckInput({
+    const health_label: HTMLLabelElement = CustomCheckInput({
         name: 'tag',
         value: 'health',
-        children: TaskTag({name: 'health'}),
+        input_element: TaskTag({name: 'health'}),
         outline: '#0053CF'
     })
 
     // Radio - Work Tag
-    const work_label = CustomCheckInput({
+    const work_label: HTMLLabelElement = CustomCheckInput({
         name: 'tag',
         value: 'work',
-        children: TaskTag({name: 'work'}),
+        input_element: TaskTag({name: 'work'}),
         outline: '#9747FF'
     })
 
     // Radio - Other Tag
-    const other_label = CustomCheckInput({
+    const other_label: HTMLLabelElement = CustomCheckInput({
         name: 'tag',
         value: 'other',
-        children: TaskTag({name: 'other'}),
+        input_element: TaskTag({name: 'other'}),
         isDefault: true,
         outline: '#EA8C00'
     })
@@ -73,7 +82,7 @@ const AddTask = ({closeModal, addTask}) => {
     tag_form.append(health_label, work_label, home_label, other_label)
 
     // Date Input
-    const date_input = document.createElement('input')
+    const date_input: HTMLInputElement = document.createElement('input')
     date_input.type = 'date'
     date_input.classList.add('add-task__date')
     date_input.id = 'date-input'
@@ -82,17 +91,17 @@ const AddTask = ({closeModal, addTask}) => {
     options.append(tag_form, date_input)
 
     // Add Button
-    const add_button = Button({text: 'Add Task', onClick: addTask})
+    const add_button: HTMLButtonElement = Button({text: 'Add Task', onClick: addTask})
     add_button.classList.add('add-task__add-button')
     add_button.id = 'add-task-button'
     add_button.disabled = true
 
     // Cancel Button
-    const cancel_button = Button({text: 'Cancel', isTransparent: true, onClick: closeModal})
+    const cancel_button: HTMLButtonElement = Button({text: 'Cancel', isTransparent: true, onClick: closeModal})
     cancel_button.classList.add('add-task__cancel-button')
 
     // Button Wrapper
-    const button_wrapper = document.createElement('div')
+    const button_wrapper: HTMLDivElement = document.createElement('div')
     button_wrapper.classList.add('add-task__buttons')
 
     button_wrapper.append(cancel_button, add_button)

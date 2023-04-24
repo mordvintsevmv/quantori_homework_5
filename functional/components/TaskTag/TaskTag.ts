@@ -1,7 +1,13 @@
 import "./TaskTag.css"
 
-const TaskTag = ({name, isColored = true}) => {
-    const tag_div = document.createElement('div')
+interface TaskTagProps {
+    name: string,
+    isColored?: boolean
+}
+
+const TaskTag = ({name, isColored = true}: TaskTagProps): HTMLDivElement => {
+
+    const tag_div: HTMLDivElement = document.createElement('div')
     tag_div.classList.add('task-tag')
 
     if (isColored) {

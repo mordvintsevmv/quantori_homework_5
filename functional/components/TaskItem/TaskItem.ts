@@ -5,19 +5,26 @@ import checkbox_disabled_icon from "../../img/checkbox-disabled.svg"
 import trash_icon from "../../img/delete-new-value.svg"
 
 import "./TaskItem.css"
+import {Item} from "../../types/Item";
 
-const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+const month_array: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+const day_array: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
+interface TaskItemProps {
+    item: Item,
+    deleteItem: (id: number) => void,
+    checkItem: (id: number) => void
+}
+
+const TaskItem = ({item, deleteItem, checkItem}: TaskItemProps): HTMLDivElement => {
 
     // Parsing date (for situations when there is string instead of Date)
-    const parsed_date = new Date(Date.parse(date))
+    const parsed_date: Date = new Date(Date.parse(item.date))
 
     // Creating text for date
-    const today = new Date();
+    const today: Date = new Date();
 
-    let day_text;
+    let day_text: string;
 
     if (parsed_date.getFullYear() === today.getFullYear()
         && parsed_date.getMonth() === today.getMonth()
@@ -39,15 +46,15 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
     }
 
     // Item wrapper
-    const task_item = document.createElement('div')
+    const task_item: HTMLDivElement = document.createElement('div')
     task_item.classList.add('task-item')
 
     // Checkbox Button
-    const checkbox_button = document.createElement('button')
+    const checkbox_button: HTMLButtonElement = document.createElement('button')
     checkbox_button.classList.add('task-item__checkbox')
 
-    const checkbox_img = document.createElement('img')
-    if (isChecked) {
+    const checkbox_img: HTMLImageElement = document.createElement('img')
+    if (item.isChecked) {
         checkbox_img.src = checkbox_disabled_icon
         checkbox_img.alt = 'Checkbox - uncheck'
         checkbox_img.classList.add('task-item__checkbox-img--checked')
@@ -58,36 +65,36 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
     }
 
     checkbox_button.append(checkbox_img)
-    checkbox_button.onclick = () => checkItem(id)
+    checkbox_button.onclick = (): void => checkItem(item.id)
 
     // Info wrapper (Title, tag and date)
-    const task_item_info = document.createElement('div')
+    const task_item_info: HTMLDivElement = document.createElement('div')
     task_item_info.classList.add("task-item__info")
 
     // Title
-    const task_item_title = document.createElement('h3')
+    const task_item_title: HTMLHeadingElement = document.createElement('h3')
     task_item_title.classList.add("task-item__title")
-    task_item_title.innerText = title
+    task_item_title.innerText = item.title
 
     // Bottom wrapper (Tag and date)
-    const task_item_bottom = document.createElement('div')
+    const task_item_bottom: HTMLDivElement = document.createElement('div')
     task_item_bottom.classList.add("task-item__bottom")
 
     // Tag
-    const task_item_tag = TaskTag({name: tag, isColored: !isChecked})
+    const task_item_tag: HTMLDivElement = TaskTag({name: item.tag, isColored: !item.isChecked})
     task_item_tag.classList.add("task-item__tag")
 
     // Date Text
-    const task_item_date = document.createElement('div')
+    const task_item_date: HTMLDivElement = document.createElement('div')
     task_item_date.classList.add("task-item__date")
     task_item_date.innerText = day_text
 
     // Delete Button
-    const delete_button = document.createElement('button')
+    const delete_button: HTMLButtonElement = document.createElement('button')
     delete_button.classList.add("task-item__delete")
-    delete_button.onclick = () => deleteItem(id);
+    delete_button.onclick = (): void => deleteItem(item.id);
 
-    const delete_button_img = document.createElement('img')
+    const delete_button_img: HTMLImageElement = document.createElement('img')
     delete_button_img.src = trash_icon
     delete_button_img.alt = 'delete'
 
@@ -97,7 +104,7 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
     task_item_bottom.append(task_item_tag, task_item_date)
     task_item_info.append(task_item_title, task_item_bottom)
 
-    if (isChecked) {
+    if (item.isChecked) {
         task_item.append(checkbox_button, task_item_info)
     } else {
         task_item.append(checkbox_button, task_item_info, delete_button)
