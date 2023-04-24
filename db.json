@@ -16,7 +16,7 @@
     },
     {
       "id": 3,
-      "isChecked": true,
+      "isChecked": false,
       "title": "Watch \"Manhattan\" by Woody Allen ",
       "tag": "other",
       "date": "2023-02-24T20:00:00.000Z"
@@ -29,13 +29,6 @@
       "date": "2023-04-11T13:53:34.574Z"
     },
     {
-      "id": 5,
-      "isChecked": true,
-      "title": "Complete Homework #4",
-      "tag": "work",
-      "date": "2023-04-01T20:00:00.000Z"
-    },
-    {
       "id": 7,
       "isChecked": true,
       "title": "Complete Homework #5",
@@ -43,18 +36,18 @@
       "date": "2023-04-12T00:00:00.000Z"
     },
     {
-      "id": 8,
-      "isChecked": true,
-      "title": "Complete Homework #6",
-      "tag": "work",
-      "date": "2023-04-19T00:00:00.000Z"
-    },
-    {
       "id": 9,
-      "isChecked": false,
+      "isChecked": true,
       "title": "Complete Homework #7",
       "tag": "work",
       "date": "2023-04-26T00:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "isChecked": false,
+      "title": "Teting",
+      "tag": "work",
+      "date": "Fri Apr 28 2023 04:00:00 GMT+0400 (Армения, стандартное время)"
     }
   ]
 }
