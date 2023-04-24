@@ -2,7 +2,7 @@
   "name": "quantori_homework",
   "version": "1.0.0",
   "description": "ToDo List with pure JS.",
-  "main": "index.js",
+  "main": "functional/index.ts",
   "scripts": {
     "start": "webpack-dev-server & json-server --watch db.json --port 3004",
     "dev_server": "webpack-dev-server",
