@@ -10,6 +10,7 @@ import {change_API_path, delete_item, load_items, post_item, update_item} from "
 import "./App.scss"
 import {Item} from "../../types/item";
 
+
 const isTodayTasksShown = (): boolean => {
     const shown_date: string = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
     const today: Date = new Date()
@@ -76,7 +77,7 @@ class App extends Component {
                 this.setState({
                         ...this.state,
                         items: items,
-                        last_id: items.reduce((max: number, item: Item) => max > item.id ? max : item.id, items[0]?.id || 0),
+                        last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                     }
                 )
             })
@@ -194,47 +195,53 @@ class App extends Component {
             tag: tag.value,
             date: new Date(date.value).toString()
         })
-            .then(async (): Promise<void> =>
-                await load_items().then((items: Item[]): void => {
-                    this.setState({
-                            ...this.state,
-                            items: items,
-                            last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
-                            isModal: false
-                        }
-                    )
-                }))
+            .then(async (): Promise<void> => {
+                await load_items()
+                    .then((items: Item[]): void => {
+                        this.setState({
+                                ...this.state,
+                                items: items,
+                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
+                                isModal: false
+                            }
+                        )
+                    })
+            })
             .catch(error => console.error(error))
     }
 
 
     deleteItem = async (id: number): Promise<void> => {
-        await delete_item(id).then(async (): Promise<void> => {
-            await load_items().then((items: Item[]): void => {
-                this.setState({
-                        ...this.state,
-                        items: items,
-                        last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
-                    }
-                )
+        await delete_item(id)
+            .then(async (): Promise<void> => {
+                await load_items()
+                    .then((items: Item[]): void => {
+                        this.setState({
+                                ...this.state,
+                                items: items,
+                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
+                            }
+                        )
+                    })
             })
-        })
     }
 
-    checkItem = async (id: number) => {
+    checkItem = async (id: number): Promise<void> => {
 
-        const item_index: number = this.state.items.findIndex(item => item.id === id)
+        const item_index: number = this.state.items.findIndex((item: Item): boolean => item.id === id)
 
         await update_item(id, {...this.state.items[item_index], isChecked: !this.state.items[item_index].isChecked})
-            .then(async (): Promise<void> =>
-                await load_items().then((items: Item[]) => {
-                    this.setState({
-                            ...this.state,
-                            items: items,
-                            last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
-                        }
-                    )
-                }))
+            .then(async (): Promise<void> => {
+                await load_items()
+                    .then((items: Item[]): void => {
+                        this.setState({
+                                ...this.state,
+                                items: items,
+                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
+                            }
+                        )
+                    })
+            })
     }
 
     openModal = (): void => {

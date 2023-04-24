@@ -25,31 +25,33 @@ class WeatherWidget extends Component {
 
         navigator.geolocation.getCurrentPosition(
             (position: GeolocationPosition): void => {
-                getWeather(position.coords.latitude + ',' + position.coords.longitude).then((response: WeatherResponse): void => {
-                        this.setState({
-                            city: response.location.name,
-                            temp_c: response.current.temp_c + "°",
-                            weather_icon: response.current.condition.icon,
-                            weather_text: response.current.condition.text
-                        })
-                    }
-                )
+                getWeather(position.coords.latitude + ',' + position.coords.longitude)
+                    .then((response: WeatherResponse): void => {
+                            this.setState({
+                                city: response.location.name,
+                                temp_c: response.current.temp_c + "°",
+                                weather_icon: response.current.condition.icon,
+                                weather_text: response.current.condition.text
+                            })
+                        }
+                    )
             },
             (): void => {
-                getWeather("Tbilisi").then((response: WeatherResponse): void => {
-                        this.setState({
-                            city: response.location.name,
-                            temp_c: response.current.temp_c + "°",
-                            weather_icon: response.current.condition.icon,
-                            weather_text: response.current.condition.text
-                        })
-                    }
-                )
+                getWeather("Tbilisi")
+                    .then((response: WeatherResponse): void => {
+                            this.setState({
+                                city: response.location.name,
+                                temp_c: response.current.temp_c + "°",
+                                weather_icon: response.current.condition.icon,
+                                weather_text: response.current.condition.text
+                            })
+                        }
+                    )
             }
         )
     }
 
-    render() {
+    render(): HTMLDivElement {
 
         // Weather Icon
         const weather_icon: HTMLImageElement = document.createElement('img')
