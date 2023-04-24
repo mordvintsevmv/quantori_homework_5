@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = {
-    entry: './functional/index.ts',
+    entry: './functional/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: "bundle.js",
