@@ -1,12 +1,14 @@
-import Header from "./Header.js";
-import TaskList from "./TaskList.js";
-import Input from "./Input.js";
-import Button from "./Button.js";
-import Modal from "./Modal.js";
-import {useState} from "../functional.js";
-import AddTask from "./AddTask.js";
-import {delete_item, load_items, post_item, update_item} from "../../api/itemsAPI.js";
-import {TodayTasks} from "./TodayTasks.js";
+import Header from "../Header/Header";
+import TaskList from "../TaskList/TaskList";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+import Modal from "../Modal/Modal";
+import {useState} from "../../functional";
+import AddTask from "../AddTask/AddTask";
+import {delete_item, load_items, post_item, update_item} from "../../api/itemsAPI";
+import {TodayTasks} from "../TodayTasks/TodayTasks";
+
+import "./App.css"
 
 const isTodayTasksShown = () => {
     const shown_date = JSON.parse(localStorage.getItem('TodayTaskLastShown'))
@@ -33,10 +35,6 @@ const setTodayShown = () => {
     localStorage.setItem('TodayTaskLastShown', JSON.stringify(new Date()))
 }
 
-/**
- * App container
- * @returns {HTMLDivElement} - The app container
- */
 const App = () => {
 
 

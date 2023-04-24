@@ -1,10 +1,5 @@
-/**
- * Button component
- * @param text {string}
- * @param isTransparent {boolean}
- * @param onClick {function}
- * @returns {HTMLButtonElement} - Button element
- */
+import "./Button.css"
+
 const Button = ({text, isTransparent = false, onClick}) => {
 
     const button = document.createElement("button");

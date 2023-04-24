@@ -1,4 +1,6 @@
-import Button from "./Button.js";
+import Button from "../Button/Button";
+
+import "./TodayTasks.css"
 
 export const TodayTasks = ({closeModal, setTodayShown, items}) => {
 

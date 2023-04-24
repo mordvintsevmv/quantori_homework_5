@@ -1,13 +1,5 @@
-/**
- * Custom Input component for radio and checkbox
- * @param type {string}
- * @param name {string}
- * @param value {string}
- * @param outline {string}
- * @param isDefault {boolean}
- * @param children {HTMLElement}
- * @returns {HTMLLabelElement} - Label with Radio or Checkbox Element
- */
+import "./CustomCheckInput.css"
+
 const CustomCheckInput = ({type = 'radio', name, value, outline, isDefault = false, children}) => {
 
     const label = document.createElement('label')

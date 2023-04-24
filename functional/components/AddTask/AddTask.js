@@ -1,14 +1,10 @@
-import Input from "./Input.js";
-import Button from "./Button.js";
-import TaskTag from "./TaskTag.js";
-import CustomCheckInput from "./CustomCheckInput.js";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+import TaskTag from "../TaskTag/TaskTag";
+import CustomCheckInput from "../CustomCheckInput/CustomCheckInput";
 
-/**
- * Add Task component
- * @param closeModal {function}
- * @param addTask {function}
- * @returns {HTMLDivElement} - Add Task element
- */
+import "./AddTask.css"
+
 const AddTask = ({closeModal, addTask}) => {
 
     // Wrapper

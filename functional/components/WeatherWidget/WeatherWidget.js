@@ -1,4 +1,6 @@
-import {useState} from "../functional.js";
+import {useState} from "../../functional";
+
+import "./WeatherWidget.css"
 
 export const WeatherWidget = () => {
 

@@ -12,7 +12,7 @@
       "isChecked": false,
       "title": "Buy new eyeglasses",
       "tag": "health",
-      "date": "2023-04-12T20:00:00.000Z"
+      "date": "2023-07-12T20:00:00.000Z"
     },
     {
       "id": 3,
@@ -44,10 +44,17 @@
     },
     {
       "id": 8,
-      "isChecked": false,
+      "isChecked": true,
       "title": "Complete Homework #6",
       "tag": "work",
       "date": "2023-04-19T00:00:00.000Z"
+    },
+    {
+      "id": 9,
+      "isChecked": false,
+      "title": "Complete Homework #7",
+      "tag": "work",
+      "date": "2023-04-26T00:00:00.000Z"
     }
   ]
 }

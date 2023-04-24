@@ -1,8 +1,5 @@
-/**
- * Text Input component
- * @param placeholder {string}
- * @returns {HTMLInputElement} - Input element
- */
+import "./Input.css"
+
 const Input = ({placeholder = "Sample Text"}) => {
 
     // Search input

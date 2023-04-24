@@ -1,15 +1,11 @@
-/**
- * Modal component
- * @param closeModal {function}
- * @param children {HTMLElement}
- * @returns {HTMLDivElement} - Modal element
- */
+import "./Modal.css"
+
 const Modal = ({closeModal, children}) => {
 
     // Overlay
     const overlay = document.createElement('div')
     overlay.classList.add('overlay')
-    overlay.onclick = (event) => {
+    overlay.onclick = () => {
         closeModal()
     }
 

@@ -1,6 +1,6 @@
-import App from "./components/App.js";
-import {change_API_path, load_items} from "../api/itemsAPI.js";
-import {getWeather} from "../api/weatherAPI.js";
+import App from "./components/App/App";
+import {change_API_path, load_items} from "./api/itemsAPI";
+import {getWeather} from "./api/weatherAPI";
 
 /**
  * Global app state.
@@ -42,7 +42,7 @@ const InitialWeather = async () => {
 /**
  * Initial fetching tasks and weather from server
  */
-const InitialLoad = async () => {
+export const InitialLoad = async () => {
 
     try {
         // Checking if localhost is available
@@ -92,12 +92,11 @@ export const useState = (initialValue = undefined) => {
  * Render the app.
  * On change whole app is re-rendered.
  */
-function renderApp() {
+export const renderApp = () => {
     const appContainer = document.getElementById("root");
     appContainer.innerHTML = '';
     appContainer.append(App());
 }
 
-// Fetching tasks and weather, then rendering App
-InitialLoad().then(() => renderApp())
+
 

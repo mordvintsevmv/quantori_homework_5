@@ -1,13 +1,7 @@
-import TaskItem from "./TaskItem.js";
+import TaskItem from "../TaskItem/TaskItem";
 
-/**
- * Functional component for the Task List
- * @param title {string}
- * @param items {Object[]}
- * @param deleteItem {function}
- * @param checkItem {function}
- * @returns {HTMLElement} - List element
- */
+import "./TaskList.css"
+
 const TaskList = ({title, items, deleteItem, checkItem}) => {
 
     // Wrapper

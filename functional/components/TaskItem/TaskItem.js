@@ -1,19 +1,14 @@
-import TaskTag from "./TaskTag.js";
+import TaskTag from "../TaskTag/TaskTag";
+
+import checkbox_unchecked_icon from '../../img/checkbox-unchecked.svg'
+import checkbox_disabled_icon from "../../img/checkbox-disabled.svg"
+import trash_icon from "../../img/delete-new-value.svg"
+
+import "./TaskItem.css"
 
 const month_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const day_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-/**
- * Task Item component
- * @param id {number}
- * @param isChecked {boolean}
- * @param title {string}
- * @param tag {string}
- * @param date {string | Date}
- * @param deleteItem {function}
- * @param checkItem {function}
- * @returns {HTMLDivElement} - HTML code for TaskItem element
- */
 const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
 
     // Parsing date (for situations when there is string instead of Date)
@@ -53,11 +48,11 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
 
     const checkbox_img = document.createElement('img')
     if (isChecked) {
-        checkbox_img.src = 'img/checkbox-disabled.svg'
+        checkbox_img.src = checkbox_disabled_icon
         checkbox_img.alt = 'Checkbox - uncheck'
         checkbox_img.classList.add('task-item__checkbox-img--checked')
     } else {
-        checkbox_img.src = 'img/checkbox-unchecked.svg'
+        checkbox_img.src = checkbox_unchecked_icon
         checkbox_img.alt = 'Checkbox - check'
         checkbox_img.classList.add('task-item__checkbox-img--unchecked')
     }
@@ -93,7 +88,7 @@ const TaskItem = ({id, isChecked, title, tag, date}, deleteItem, checkItem) => {
     delete_button.onclick = () => deleteItem(id);
 
     const delete_button_img = document.createElement('img')
-    delete_button_img.src = 'img/delete-new-value.svg'
+    delete_button_img.src = trash_icon
     delete_button_img.alt = 'delete'
 
 

@@ -1,9 +1,8 @@
-import {WeatherWidget} from "./WeatherWidget.js";
+import {WeatherWidget} from "../WeatherWidget/WeatherWidget";
 
-/**
- * Header component
- * @returns {HTMLDivElement} - Header element
- */
+import "./Header.css"
+
+
 const Header = ({title}) => {
 
     // Header wrapper

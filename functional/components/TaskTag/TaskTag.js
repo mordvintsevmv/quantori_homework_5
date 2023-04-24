@@ -1,9 +1,5 @@
-/**
- * Task Tag component
- * @param name {string}
- * @param isColored {boolean}
- * @returns {HTMLDivElement} - HTML code for TaskTag element
- */
+import "./TaskTag.css"
+
 const TaskTag = ({name, isColored = true}) => {
     const tag_div = document.createElement('div')
     tag_div.classList.add('task-tag')
