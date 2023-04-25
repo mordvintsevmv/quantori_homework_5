@@ -1,5 +1,5 @@
 import {dataFetch} from "./api";
-import {Item} from "../types/item";
+import {Item} from "../types/Item";
 import {JSONbinResponse} from "../types/JSONbinResponse";
 
 // Localhost server

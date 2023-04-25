@@ -8,7 +8,7 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import {change_API_path, delete_item, load_items, post_item, update_item} from "../../api/itemsAPI";
 import "./App.scss"
-import {Item} from "../../types/item";
+import {Item} from "../../types/Item";
 
 
 const isTodayTasksShown = (): boolean => {

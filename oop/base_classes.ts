@@ -53,7 +53,7 @@ export class Component {
             // (for example, a modal window has opened),
             // then it is necessary to insert them without checking at the end.
             if (props.children.length > component.children.length) {
-                for (let i = 0; i < props.children.length; i++) {
+                for (let i: number = 0; i < props.children.length; i++) {
                     if (i < component.children.length) {
                         if (!component.children[i].isEqualNode(props.children[i])) {
                             component.children[i].replaceWith(props.children[i])
@@ -69,7 +69,7 @@ export class Component {
                 // (for example, the modal window has closed),
             // then it is necessary to remove the latter
             else if (props.children.length < component.children.length) {
-                for (let i = 0; i < component.children.length; i++) {
+                for (let i: number = 0; i < component.children.length; i++) {
                     if (i < props.children.length) {
                         if (!component.children[i].isEqualNode(props.children[i])) {
                             component.children[i].replaceWith(props.children[i])
@@ -84,7 +84,7 @@ export class Component {
                 // If the number of components is the same,
             // then it is necessary to compare them with each other
             else {
-                for (let i = 0; i < props.children.length; i++) {
+                for (let i: number = 0; i < props.children.length; i++) {
                     if (!component.children[i].isEqualNode(props.children[i])) {
                         component.children[i].replaceWith(props.children[i])
                     }

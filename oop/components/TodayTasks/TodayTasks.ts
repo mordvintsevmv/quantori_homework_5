@@ -1,7 +1,7 @@
 import {Component, ComponentProps} from "../../base_classes";
 import Button from "../Button/Button";
 import "./TodayTasks.scss"
-import {Item} from "../../types/item";
+import {Item} from "../../types/Item";
 
 interface TodayTasksProps extends ComponentProps {
     setTodayShown: () => void,
@@ -18,7 +18,7 @@ class TodayTasks extends Component {
         this.element = document.createElement('div');
     }
 
-    render(props: TodayTasksProps) {
+    render(props: TodayTasksProps): HTMLDivElement {
 
         const today: Date = new Date();
 
@@ -36,7 +36,7 @@ class TodayTasks extends Component {
         const today_list: HTMLLIElement[] = props.items
 
             // Filtering Today Tasks
-            .filter((item: Item) => {
+            .filter((item: Item): boolean => {
                 const parsed_date: Date = new Date(Date.parse(item.date))
 
                 if (parsed_date.getFullYear() === today.getFullYear()
@@ -49,7 +49,7 @@ class TodayTasks extends Component {
             })
 
             // Creating li element for every today task
-            .map((item: Item) => {
+            .map((item: Item): HTMLLIElement => {
                 const li: HTMLLIElement = document.createElement('li')
                 li.innerText = item.title
                 li.classList.add('today-tasks__task')
@@ -74,7 +74,7 @@ class TodayTasks extends Component {
         // OK Button
         const today_ok: HTMLButtonElement = new Button().render({
             text: 'Ok',
-            onClick: () => {
+            onClick: (): void => {
                 props.setTodayShown();
                 props.closeModal()
             }

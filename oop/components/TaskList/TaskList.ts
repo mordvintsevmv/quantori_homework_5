@@ -1,7 +1,7 @@
 import TaskItem from "../TaskItem/TaskItem";
 import {Component, ComponentProps} from "../../base_classes";
 import "./TaskList.scss"
-import {Item} from "../../types/item";
+import {Item} from "../../types/Item";
 
 interface TaskListProps extends ComponentProps {
     title: string,
@@ -19,7 +19,7 @@ class TaskList extends Component {
         this.element = document.createElement('div');
     }
 
-    render(props: TaskListProps) {
+    render(props: TaskListProps): HTMLDivElement {
 
         // Title
         const list_title: HTMLHeadingElement = document.createElement('h2')

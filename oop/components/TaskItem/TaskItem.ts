@@ -2,7 +2,7 @@ import TaskTag from "../TaskTag/TaskTag";
 import {Component, ComponentProps} from "../../base_classes";
 
 import "./TaskItem.scss"
-import {Item} from "../../types/item";
+import {Item} from "../../types/Item";
 
 import checkbox_unchecked_icon from '../../img/checkbox-unchecked.svg'
 import checkbox_disabled_icon from "../../img/checkbox-disabled.svg"
