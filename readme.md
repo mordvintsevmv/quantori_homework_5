@@ -212,15 +212,10 @@ which is defined when the application is first launched:
 ```javascript
 let state = {
     items: task_items,
-    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
     isModal: false
 }
 ```
 *functional.js*
-
-
-The **last_id** parameter is calculated by the maximum id of existing objects, 
-so that Items do not have the same id.
 
 The **isModal** parameter is used to determine whether the modal window is currently open.
 
@@ -274,7 +269,6 @@ class App extends Component {
         super();
         this.state = {
             items: task_items,
-            last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
             isModal: false,
             search_input: ''
         }
@@ -349,7 +343,6 @@ Since the App changes its state (and renders) every time the key is pressed, the
 ```javascript
 let state = {
     items: task_items,
-    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
     isModal: false,
     add_task_input: '',
     add_task_focus: false,

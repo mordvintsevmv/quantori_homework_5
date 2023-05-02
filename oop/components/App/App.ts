@@ -38,7 +38,6 @@ const setTodayShown = (): void => {
 
 interface AppState {
     items: Item[],
-    last_id: number,
     isModal: boolean,
     search_input: string
 }
@@ -53,7 +52,6 @@ class App extends Component {
         super();
         this.state = {
             items: [],
-            last_id: 0,
             isModal: false,
             search_input: ''
         }
@@ -64,10 +62,10 @@ class App extends Component {
     async ComponentDidCreate(): Promise<void> {
         try {
             // Checking if localhost is available
-            await fetch('http://localhost:3004/items')
+            await fetch('http://localhost:3004/items_simple')
         } catch (e) {
             console.error(e)
-            // Switching to JSONbin server if localhost is unavailable
+            // Switching to remote server if localhost is unavailable
             change_API_path()
         }
 
@@ -77,7 +75,6 @@ class App extends Component {
                 this.setState({
                         ...this.state,
                         items: items,
-                        last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                     }
                 )
             })
@@ -189,7 +186,7 @@ class App extends Component {
         const date: HTMLInputElement = document.getElementById('date-input') as HTMLInputElement
 
         await post_item({
-            id: this.state.last_id + 1,
+            id: crypto.randomUUID(),
             isChecked: false,
             title: title.value,
             tag: tag.value,
@@ -201,7 +198,6 @@ class App extends Component {
                         this.setState({
                                 ...this.state,
                                 items: items,
-                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                                 isModal: false
                             }
                         )
@@ -211,7 +207,7 @@ class App extends Component {
     }
 
 
-    deleteItem = async (id: number): Promise<void> => {
+    deleteItem = async (id: string): Promise<void> => {
         await delete_item(id)
             .then(async (): Promise<void> => {
                 await load_items()
@@ -219,14 +215,13 @@ class App extends Component {
                         this.setState({
                                 ...this.state,
                                 items: items,
-                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                             }
                         )
                     })
             })
     }
 
-    checkItem = async (id: number): Promise<void> => {
+    checkItem = async (id: string): Promise<void> => {
 
         const item_index: number = this.state.items.findIndex((item: Item): boolean => item.id === id)
 
@@ -237,7 +232,6 @@ class App extends Component {
                         this.setState({
                                 ...this.state,
                                 items: items,
-                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                             }
                         )
                     })

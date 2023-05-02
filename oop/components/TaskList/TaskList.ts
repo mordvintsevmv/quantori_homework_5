@@ -6,8 +6,8 @@ import {Item} from "../../types/Item";
 interface TaskListProps extends ComponentProps {
     title: string,
     items: Item[],
-    deleteItem: (id: number) => void,
-    checkItem: (id: number) => void,
+    deleteItem: (id: string) => void,
+    checkItem: (id: string) => void,
 }
 
 class TaskList extends Component {

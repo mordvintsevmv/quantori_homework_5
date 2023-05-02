@@ -1,5 +1,5 @@
 export interface Item {
-    id: number,
+    id: string,
     isChecked: boolean,
     title: string,
     tag: string,

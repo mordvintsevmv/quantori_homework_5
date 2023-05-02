@@ -13,8 +13,8 @@ const day_array: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursd
 
 interface TaskItemProps extends ComponentProps {
     item: Item,
-    deleteItem: (id: number) => void,
-    checkItem: (id: number) => void
+    deleteItem: (id: string) => void,
+    checkItem: (id: string) => void
 }
 
 class TaskItem extends Component {
