@@ -2,7 +2,6 @@ import {Item} from "./Item";
 
 export interface State {
     items: Item[],
-    last_id: number,
     isModal: boolean,
     weather: WeatherState
 }

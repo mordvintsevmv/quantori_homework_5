@@ -48,7 +48,7 @@ const App = (): HTMLDivElement => {
         const date: HTMLInputElement = document.getElementById('date-input') as HTMLInputElement
 
         await post_item({
-            id: state.last_id + 1,
+            id: crypto.randomUUID(),
             isChecked: false,
             title: title.value,
             tag: tag.value,
@@ -60,7 +60,6 @@ const App = (): HTMLDivElement => {
                         setState({
                                 ...state,
                                 items: items,
-                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                                 isModal: false
                             }
                         )
@@ -70,7 +69,7 @@ const App = (): HTMLDivElement => {
     }
 
 
-    const deleteItem = async (id: number): Promise<void> => {
+    const deleteItem = async (id: string): Promise<void> => {
         await delete_item(id)
             .then(async (): Promise<void> => {
                 await load_items()
@@ -78,14 +77,13 @@ const App = (): HTMLDivElement => {
                         setState({
                                 ...state,
                                 items: items,
-                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                             }
                         )
                     })
             })
     }
 
-    const checkItem = async (id: number): Promise<void> => {
+    const checkItem = async (id: string): Promise<void> => {
 
         const item_index: number = state.items.findIndex((item: Item): boolean => item.id === id)
 
@@ -96,7 +94,6 @@ const App = (): HTMLDivElement => {
                         setState({
                                 ...state,
                                 items: items,
-                                last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0),
                             }
                         )
                     })

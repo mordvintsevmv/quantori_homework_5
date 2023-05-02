@@ -8,7 +8,6 @@ import {Item} from "./types/Item";
 // Global app state.
 let state: State = {
     items: [],
-    last_id: 0,
     isModal: false,
     weather: {city: '', temp_c: '', weather_icon: '', weather_text: ''}
 }
@@ -56,7 +55,6 @@ export const InitialLoad = async (): Promise<void> => {
         state = {
             ...state,
             items: items,
-            last_id: items.reduce((max: number, item: Item): number => max > item.id ? max : item.id, items[0]?.id || 0)
         }
     })
 

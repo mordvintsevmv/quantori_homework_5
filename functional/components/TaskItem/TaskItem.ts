@@ -12,8 +12,8 @@ const day_array: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursd
 
 interface TaskItemProps {
     item: Item,
-    deleteItem: (id: number) => void,
-    checkItem: (id: number) => void
+    deleteItem: (id: string) => void,
+    checkItem: (id: string) => void
 }
 
 const TaskItem = ({item, deleteItem, checkItem}: TaskItemProps): HTMLDivElement => {

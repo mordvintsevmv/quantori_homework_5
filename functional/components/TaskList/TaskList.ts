@@ -6,8 +6,8 @@ import {Item} from "../../types/Item";
 interface TaskListProps {
     title: string,
     items: Item[],
-    deleteItem: (id: number) => void,
-    checkItem: (id: number) => void,
+    deleteItem: (id: string) => void,
+    checkItem: (id: string) => void,
 }
 
 const TaskList = ({title, items, deleteItem, checkItem}: TaskListProps): HTMLDivElement => {
