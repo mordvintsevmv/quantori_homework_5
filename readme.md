@@ -1,8 +1,18 @@
-# Quantori Homework #5
+# Quantori Homework #5-7
+
+---
+
+### Homework 5
 
 ### Git, DOM, OOP
 
----
+### Developed:
+
+- [X] ToDo List with Functional Components
+- [X] ToDo List with Class Components
+- [X] Responsive design for all versions
+- [X] Saving Task Items to the localStorage
+- [X] Class Components saves state of children components
 
 **Main Branch:** <a href="https://mordvintsevmv.github.io/quantori_homework_5" target="_blank">Open page</a>
 
@@ -28,13 +38,51 @@
 
 ---
 
+### Homework 6
+
+### Promises, Event Loop
+
 ### Developed:
 
-- [X] ToDo List with Functional Components
-- [X] ToDo List with Class Components
-- [X] Responsive design for all versions
-- [X] Saving Task Items to the localStorage
-- [X] Class Components saves state of children components
+- [X] Weather Widget
+- [X] Fetching Data from server
+
+**(HW6) OOP ToDo Branch:** <a href="https://quantori-hw6-feature-oop.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Class Components.*
+
+---
+
+**(HW6) Functional ToDo Branch:** <a href="https://quantori-hw6-feature-functional.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Functional Components.*
+
+---
+
+### Homework 7
+
+### TypeScript
+
+### Developed:
+
+- [X] Webpack configuration
+- [X] Using TypeScript syntax
+
+**(HW7) OOP ToDo Branch:** <a href="https://quantori-hw7-feature-oop.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Class Components.*
+
+**App deployed from "build" folder**
+
+---
+
+**(HW7) Functional ToDo Branch:** <a href="https://quantori-hw7-feature-functional.netlify.app/" target="_blank">Open page</a>
+
+**Description:** *ToDo List using Functional Components.*
+
+**App deployed from "build" folder**
+
+---
 
 **The application was tested on a variety of devices (iOS, MacOS, Windows, Android) and browsers (Safari, Chrome, Firefox) manually.**
 
@@ -47,11 +95,14 @@
 1. [Task](#Task)
 2. [Project Structure](#structure)
 3. [Technical Solutions](#solutions)
-   1. [Task Object](#solutions-taskobject)
-   1. [State and localStorage](#solutions-storage)
-   1. [Search Task](#solutions-search)
-   1. [Save state of children components (OOP)](#solutions-oop-state)
-   2. [Responsive Design](#solutions-responsive)
+   1. [(HW5) Task Object](#solutions-taskobject)
+   1. [(HW5) State and localStorage](#solutions-storage)
+   1. [(HW5) Search Task](#solutions-search)
+   1. [(HW5) Save state of children components (OOP)](#solutions-oop-state)
+   2. [(HW5) Responsive Design](#solutions-responsive)
+   2. [(HW6) Fetching Data from server](#solutions-fetching)
+   2. [(HW6) Initializing tasks and weather](#solutions-init)
+   2. [(HW7) Typing API functions](#solutions-typing)
 4. [Components](#components)
 5. [Contacts](#contacts)
 
@@ -59,84 +110,27 @@
 
 ## <a name="Task">Task</a>
 
-## Basic requirements
+**HomeWork 5:**
 
-### Implementation
+- [X] Develop the main functionality of the application:
+  - Adding tasks;
+  - Marking task as finished;
+  - Deleting Task;
+  - Searching for a task;
+  - Storing tasks in the localStorage;
+  - All other possible extensions.
 
-Use either boilerplate from functional.js or components.js files.
+**HomeWork 6:**
 
-You can update base classes as needed, but you must not use any frameworks or libraries, just plain JS.
+- [X] Create Weather Widget (Tbilisi weather as default);
+- [X] Store tasks in the localhost DB.
 
-### General layout
+**HomeWork 7:**
 
-- App should have a header
-- App should have a search field
-- Next to the search field there should be a button to add a new task
-- In the content section, there should be a list of all unfinished tasks
-- Under the list of unfinished tasks, there should be a list of all finished tasks
-
-### Scenario 1: Adding a new task
-
-When the user clicks on the "Add task" button, a modal window should appear.
-The modal window should have the following fields:
-- Title
-- Input field for the task title
-- Cancel button
-- Add button
-
-When the user clicks on the "Add" button, the modal window should close and the task should be added to the list of unfinished tasks.
-
-When the user clicks on the "Cancel" button, the modal window should close. No changes should be made to the task list.
-
-### Scenario 2: Marking a task as finished
-
-When the user sees an unfinished task in the list, they should be able to mark it as finished by clicking on the checkbox next to the task title.
-
-When the user clicks on the checkbox, the task should be moved to the list of finished tasks.
-
-### Scenario 3: Deleting a task
-
-When the user sees a task in the list, they should be able to delete it by clicking on the "Delete" button next to the task title.
-
-When the user clicks on the "Delete" button, the task should be removed from the list.
-
-### Scenario 4: Searching for a task
-
-When the user types a search query into the search field, the list of unfinished tasks should be filtered by the search query.
-
-Tasks are updated in real time as the user types the search query.
-
-
-These are basic requirements and are worth 1 point. If they are not met, the homework will be rejected.
-
-## UI improvements - 2 points
-
-Make the app look like the mockups.
-
-Please use only vanilla CSS. No CSS frameworks are allowed.
-
-# Possible extensions
-
-## Local storage - 2 points
-
-Make app persistent.
-
-Store the tasks in the local storage. When the user reloads the page, the tasks should be loaded from the local storage.
-
-## Implement logic using both OOP and FP - 2 points
-
-There are 2 examples on how to approach the app logic: functional and object-oriented.
-
-If you implement logic using both approaches, you will get 2 points.
-
-## Don't lose children's state on parent's rerender - 2 points
-
-Current implementation of the class-based components lose state for their children.
-
-I.e. if you have an input inside a list, and list rerenders, text in input will be lost.
-
-Make a solution that will preserve state of children components.
-
+- [X] Add Webpack to the project;
+- [X] Split the project into components;
+- [X] Move the project to typescript.
+   
 ---
 
 ## <a name="structure">Project Structure</a>
@@ -176,13 +170,6 @@ quantori_homework_5
 
 ## <a name="solutions">Technical Solutions</a>
 
-All the tasks were completed:
-- [X] All the necessary functionality has been implemented;
-- [X] The layout is made according to the Figma mockup
-- [X] All Tasks stored in localStorage and loaded on page rendering
-- [X] Both Functional and OOP Component were created
-- [X] Class Components saves state of children components
-
 ---
 
 ### <a name="solutions-taskobject">Task Object</a>
@@ -212,10 +199,15 @@ which is defined when the application is first launched:
 ```javascript
 let state = {
     items: task_items,
+    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
     isModal: false
 }
 ```
 *functional.js*
+
+
+The **last_id** parameter is calculated by the maximum id of existing objects, 
+so that Items do not have the same id.
 
 The **isModal** parameter is used to determine whether the modal window is currently open.
 
@@ -269,6 +261,7 @@ class App extends Component {
         super();
         this.state = {
             items: task_items,
+            last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
             isModal: false,
             search_input: ''
         }
@@ -343,6 +336,7 @@ Since the App changes its state (and renders) every time the key is pressed, the
 ```javascript
 let state = {
     items: task_items,
+    last_id: task_items.reduce((max, item) => max > item.id ? max : item.id, task_items[0].id),
     isModal: false,
     add_task_input: '',
     add_task_focus: false,
@@ -460,6 +454,280 @@ it was decided to optimize an application for all devices:
 
 ![mobile-version](readme-ing/mobile-version.png)
 
+---
+
+### <a name='solutions-fetching'>Fetching Data from server</a>
+
+Since we need to use localhost as a server, 
+the application will not load tasks if the server is not running 
+or unavailable.
+
+For this reason, it will not be possible to deploy application and fetch tasks.
+
+To avoid this problem, it was decided to use a JSONbin server as an alternative if localhost is not responding.
+
+When the application starts, it checks whether there is a response from localhost. 
+If the server does not respond, the server functions are reassigned to work with JSONbin
+
+```javascript
+    try {
+        // Checking if localhost is available
+        await fetch('http://localhost:3004/items')
+    } catch (e) {
+        console.error(e)
+        // Switching to JSONbin if localhost is unavailable
+        change_API_path()
+    }
+```
+
+For example, a function to post an item to localhost:
+
+```javascript
+export let post_item = async (item) => {
+   return await localDB('items', {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(item)
+   })
+}
+```
+
+This is a function, but for interacting with JSONbin:
+
+```javascript
+export const change_API_path = () => {
+[...]
+   post_item = async (item) => {
+
+      const items = await load_items()
+
+      return await jsonbinAPI('643d4670ace6f33a220cf2db', {
+         method: 'PUT',
+         headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
+         },
+         body: JSON.stringify({items: [...items, item]})
+      })
+   }
+[...]
+```
+
+This approach made it possible not to rewrite the logic inside the component, 
+but only to reassign the functions of interaction with the server.
+
+---
+
+### <a name='solutions-init'>Initializing tasks and weather</a>
+
+The main objective is to fetch tasks and weather data only when the application is first rendered. 
+Different solutions were used in the functional and class approach, which will be described below.
+
+#### Functional
+
+Before calling the App component render function, several asynchronous functions are executed:
+
+1. Checking localhost availability:
+
+```javascript
+    try {
+        await fetch('http://localhost:3004/items')
+    } catch (e) {
+        change_API_path()
+    }
+```
+
+2. Fetching tasks:
+
+```javascript
+    await load_items().then((items) => {
+        state = {
+            ...state,
+            items: items,
+            last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0)
+        }
+    })
+```
+
+3. Fetching weather data (full function is presented in the file functional/functional.js):
+
+```javascript
+    await InitialWeather().then((weather) => {
+        state = {
+            ...state,
+            weather: weather
+        }
+    })
+```
+
+And only after resolving all the functions the application will be rendered:
+
+```javascript
+InitialLoad().then(() => renderApp())
+```
+
+---
+
+#### OOP
+
+A function was created for the Component class, which is called only when an object is created (only one time):
+
+```javascript
+class Component {
+    constructor() {
+        this.state = {};
+        this.props = {};
+        this.element = document.createElement('div');
+        this.ComponentDidCreate()
+    }
+
+
+    ComponentDidCreate() {
+    }
+
+```
+
+Since in the OOP approach we create an App object once, and then rerender it, we can fetch tasks in the ComponentDidCreate function:
+
+```javascript
+    async ComponentDidCreate()
+{
+    try {
+        await fetch('http://localhost:3004/items')
+    } catch (e) {
+        change_API_path()
+    }
+
+    // Loading items from server
+    await load_items()
+        .then(items => {
+            this.setState({
+                    ...this.state,
+                    items: items,
+                    last_id: items.reduce((max, item) => max > item.id ? max : item.id, items[0]?.id || 0),
+                }
+            )
+        })
+}
+```
+
+It was decided to store weather data in the WeatherWidget component itself, because it has its own state, and to fetch data on Component creating:
+
+```javascript
+class WeatherWidget extends Component {
+    constructor() {
+        super();
+        this.state = {city: '', temp_c: '', weather_icon: '', weather_text: ''}
+    }
+
+    ComponentDidCreate() {
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                getWeather(position.coords.latitude + ',' + position.coords.longitude).then(response => {
+                    this.setState({
+                        city: response.location.name,
+                        temp_c: response.current.temp_c + "°",
+                        [...]
+
+                }
+```
+
+To avoid creating a Header object (and its child WeatherWidget) on every App rerender, 
+which will lead to constant fetching of weather data, it was decided to create the component in the App constructor and then just render it.
+
+```javascript
+class App extends Component {
+    constructor() {
+        this.header = new Header()
+    }
+    
+    render(props){
+       // Header component
+       const header = this.header.render({
+          title: 'To Do List'
+       })
+    }
+
+}
+```
+
+This approach made it possible to avoid unnecessary calls to the server and fetch data efficiently.
+
+---
+
+### <a name='solutions-typing'>Typing API functions</a>
+
+To make the data fetching functions "flexible", it was decided to use generic type:
+
+```javascript
+export const dataFetch = (baseURL: string): <TResponse> (path: string, options?: RequestInit) => Promise <TResponse> =>
+{
+    return async <TResponse> (path: string, options: RequestInit = {}): Promise <TResponse> =>
+    {
+        [...]
+        return await response.json() as TResponse;
+        [...]
+    }
+}
+```
+*api.ts*
+
+This allowed specifying the type of data to be returned when fetching data from the server:
+
+```javascript
+export let load_items = async (): Promise<Item[]> => {
+    return await localDB<Item[]>('items');
+}
+```
+*ItemsAPI.ts*
+
+It was also useful while switching API path (if local server is unavailable).
+
+**Difference in JSONbin API and local server:**
+
+- **Local Server:** for any modification of an object (changing, deleting or creating) on the local server, only this object is returned.
+- **JSONbin Server:** the entire array of objects is returned for each request
+
+But functions for the local server and the JSONbin server should return the same values.
+Therefore, it was necessary to convert the JSON bin server responses to the type that the local server returns.
+
+For example, creating item with localDB API:
+
+```javascript
+export let post_item = async (item: Item): Promise<Item> => {
+    return await localDB<Item>('items', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(item)
+    })
+}
+```
+*ItemsAPI.ts*
+
+In order for JSONbin to also return new object when creating an item, it is necessary to change the promise (with then):
+```javascript
+    post_item = async (item: Item): Promise<Item> => {
+
+    const items: Item[] = await load_items()
+
+    return await jsonbinAPI<JSONbinResponse>('643d4670ace6f33a220cf2db', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': '$2b$10$KaHvykHsLNyRLB/SubZcF.j3TnmR./yJ5VVyqOcikmTeBJ6BTBeEK'
+        },
+        body: JSON.stringify({items: [...items, item]})
+    }).then(() => item)
+}
+```
+*ItemsAPI.ts*
+
+This made it possible to keep the same type of return values so that there would be no problems with types during further development.
 
 ---
 
