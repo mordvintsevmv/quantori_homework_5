@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./build/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "moduleResolution": "node"
+  },
+  "include": ["oop", "custom.d.ts"],
+  "path": {
+    "crypto": "node_modules/crypto-browserify"
+  }
+}
